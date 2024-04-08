@@ -10,41 +10,39 @@
 | created_at  | datetime  | not null                  |
 | updated-at  | datetime  | not null                  |
 
-## `fauxtweets`
+## `products`
 
 | column name | data type | details               |
 |-------------|-----------|-----------------------|
 | id          | integer   | not null, primary key |
-| content     | string    | not null              |
-| userId      | integer   | not null, foreign key |
+| description | string    | not null              |
+| vendorId    | integer   | not null, foreign key |
 | created_at  | datetime  | not null              |
 | updated-at  | datetime  | not null              |
 
-* `userId` references `users` table
+* `vendorId` references `users` table
 
-## `fauxcomments`
+## `reviews`
 
 | column name   | data type | details               |
 |---------------|-----------|-----------------------|
 | id            | integer   | not null, primary key |
 | content       | string    | not null              |
 | userId        | integer   | not null, foreign key |
-| fauxCommentId | integer   | not null, foreign key |
+| productId     | integer   | not null, foreign key |
 | created_at    | datetime  | not null              |
 | updated-at    | datetime  | not null              |
 
 * `userId` references `users` table
-* `fauxCommentId` references `fauxcomments` table
+* `productId` references `products` table
 
-## `fauxlikes`
+## `product_images`
 
 | column name   | data type | details                        |
 |---------------|-----------|--------------------------------|
 | id            | integer   | not null, primary key          |
-| userId        | integer   | not null, indexed, foreign key |
-| fauxTweetId   | integer   | indexed, foreign key           |
-| fauxCommentId | integer   | indexed, foreign key           |
+| productId     | integer   | indexed, foreign key           |
+| url           | string    | not null                       |
+| preview       | boolean   | not null                       |
 
-* `userId` references `users` table
-* `fauxTweetId` references `fauxtweets` table
-* `fauxCommentId` references `fauxcomments` table
+* `productId` references `products` table
