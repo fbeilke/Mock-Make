@@ -1,74 +1,107 @@
-# User Stories
+# User Stories for Mock Make
 
-## Users
+## Account Management
 
 ### Sign Up
 
-* As an unregistered and unauthorized user, I want to be able to sign up for the website via a sign-up form.
-  * When I'm on the `/signup` page:
-    * I would like to be able to enter my email, username, and preferred password on a clearly laid out form.
-    * I would like the website to log me in upon successful completion of the sign-up form.
-      * So that I can seamlessly access the site's functionality
-  * When I enter invalid data on the sign-up form:
-    * I would like the website to inform me of the validations I failed to pass, and repopulate the form with my valid entries (except my password).
-    * So that I can try again without needing to refill forms I entered valid data into.
+- **As a new visitor**, I want to sign up for an account so I can create, purchase, and review products.
+  - **Acceptance Criteria**:
+    - Can enter a unique username and email.
+    - Receives feedback on successful account creation or errors.
 
-### Log in
+### Log In
 
-* As a registered and unauthorized user, I want to be able to log in to the website via a log-in form.
-  * When I'm on the `/login` page:
-    * I would like to be able to enter my email and password on a clearly laid out form.
-    * I would like the website to log me in upon successful completion of the lob-up form.
-      * So that I can seamlessly access the site's functionality
-  * When I enter invalid data on the log-up form:
-    * I would like the website to inform me of the validations I failed to pass, and repopulate the form with my valid entries (except my password).
-      * So that I can try again without needing to refill forms I entered valid data into.
-
-### Demo User
-
-* As an unregistered and unauthorized user, I would like an easy to find and clear button on both the `/signup` and `/login` pages to allow me to visit the site as a guest without signing up or logging in.
-  * When I'm on either the `/signup` or `/login` pages:
-    * I can click on a Demo User button to log me in and allow me access as a normal user.
-      * So that I can test the site's features and functionality without needing to stop and enter credentials.
+- **As a returning user**, I want to log into my account to manage my activities and contributions on the site.
+  - **Acceptance Criteria**:
+    - Can enter my registered email and password.
+    - Receives feedback on successful login or errors.
 
 ### Log Out
 
-* As a logged in user, I want to log out via an easy to find log out button on the navigation bar.
-  * While on any page of the site:
-    * I can log out of my account and be redirected to a page displaying recent FauxTweets.
-      * So that I can easily log out to keep my information secure.
+- **As a logged-in user**, I want to securely log out to protect my account when I'm done using the site.
+  - **Acceptance Criteria**:
+    - Can click a log out button.
+    - Receives confirmation of successful logout.
 
-## FauxTweets
+### Demo User Access
 
-### Create FauxTweets
+- **As a prospective user**, I want to explore the site with a demo account before deciding to sign up.
+  - **Acceptance Criteria**:
+    - Can access the site's features using a demo account.
 
-* As a logged in user, I want to be able to post new FauxTweets.
-  * When I'm on the `/new-fauxtweet` page:
-    * I can write and submit a new FauxTweet.
-      * So that I can share my thoughts and memes with my friends.
+## Product Management
 
-### Viewing FauxTweets
+### View Products
 
-* As a logged in _or_ logged out user, I want to be able to view a selection of the most recent FauxTweets.
-  * When I'm on the `/fauxtweets` page:
-    * I can view the ten most recently posted FauxTweets.
-      * So that I can read and interact with the thoughts and memes of my friends.
+- **As any user**, I want to browse all available products so I can find items to purchase.
+  - **Acceptance Criteria**:
+    - Can view a list of all products without logging in.
 
-* As a logged in _or_ logged out user, I want to be able to view a specific FauxTweet and its associated FauxComments and FauxLikes.
-  * When I'm on the `/fauxtweets/:id` page:
-    * I can view the content of the FauxTweet, as well as the associated FauxComments and FauxLikes.
-      * So that I can read and interact with the thoughts and memes of my friends, and add my own thoughts and memes in the FauxComments.
+### Create, Update, and Delete Products
 
-### Updating FauxTweets
+- **As a seller**, I want to manage my product listings so that I can sell items on the platform.
+  - **Acceptance Criteria**:
+    - Can add new products with a description.
+    - Can edit and update my product listings.
+    - Can delete my product listings.
 
-* As a logged in user, I want to be able to edit my FauxTweets by clicking an Edit button associated with the FauxTweet anywhere that FauxTweet appears.
-  * When I'm on the `/fauxtweets`, `/fauxtweets/:id`, or `/users/:id/fauxtweets` pages:
-    * I can click "Edit" to make permanent changes to FauxTweets I have posted.
-      * So that I can fix any errors I make in my FauxTweets.
+## Reviews
 
-### Deleting FauxTweets
+### View and Create Reviews
 
-* As a logged in user, I want to be able to delete my FauxTweets by clicking a Delete button associated with the FauxTweet anywhere that FauxTweet appears.
-  * When I'm on the `/fauxtweets`, `/fauxtweets/:id`, or `/users/:id/fauxtweets` pages:
-    * I can click "Delete" to permanently delete a FauxTweet I have posted.
-      * So that when I realize I shouldn't have publicly said something, I can easily remove it.
+- **As a buyer**, I want to read and write reviews on products so that I can share my experiences with others.
+  - **Acceptance Criteria**:
+    - Can view all reviews for a product.
+    - Can write a review after purchase.
+
+### Update and Delete Reviews
+
+- **As a reviewer**, I want to edit or remove my review if my opinion changes or if I made an error.
+  - **Acceptance Criteria**:
+    - Can edit my reviews.
+    - Can delete my reviews.
+
+## Shopping Cart
+
+### Manage Cart
+
+- **As a buyer**, I want to add items to my cart, view them, and remove them as needed before purchasing.
+  - **Acceptance Criteria**:
+    - Can add products to my shopping cart.
+    - Can view all products in my cart.
+    - Can remove items from my cart.
+
+### Complete Purchase
+
+- **As a shopper**, I want to purchase items in my cart so that I can receive the products I want.
+  - **Acceptance Criteria**:
+    - Can review my cart contents.
+    - Can perform a transaction to complete the purchase.
+
+## Favorites
+
+### View and Manage Favorites
+
+- **As a user**, I want to favorite products and manage my favorites for future reference or purchase.
+  - **Acceptance Criteria**:
+    - Can mark products as favorites.
+    - Can view a list of all my favorite products.
+    - Can remove items from my favorites.
+
+## Search (Bonus)
+
+### Search for Products
+
+- **As a user**, I want to search for products by name or category to find specific items I'm interested in.
+  - **Acceptance Criteria**:
+    - Can enter search terms and view matching products.
+    - Can see search results relevant to the terms entered.
+
+## Order History and Reordering (Bonus)
+
+### View Past Orders and Reorder
+
+- **As a user**, I want to view my past orders and have the option to reorder items for convenience.
+  - **Acceptance Criteria**:
+    - Can access a history of my past orders.
+    - Can place a new order with items from a past order.
