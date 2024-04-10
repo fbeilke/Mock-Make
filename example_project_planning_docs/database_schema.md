@@ -1,6 +1,6 @@
 # **Database Schema**
 
-![db diagram](image.png)
+![db diagram](image-1.png)
 
 ## `users`
 
@@ -19,6 +19,18 @@
 |---------------|-----------|-----------------------|
 | user_id       | integer   | not null, primary key |
 | product_id    | integer   | not null, primary key |
+| quantity      | integer   | not null              |
+
+* `user_id` references `users` table
+* `product_id` references `products` table
+
+
+## `user_cart_products`
+| column name   | data type | details               |
+|---------------|-----------|-----------------------|
+| user_id       | integer   | not null, primary key |
+| product_id    | integer   | not null, primary key |
+| quantity      | integer   | not null              |
 
 * `user_id` references `users` table
 * `product_id` references `products` table
