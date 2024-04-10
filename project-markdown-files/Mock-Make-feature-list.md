@@ -17,7 +17,7 @@ Mock Make is a place to showcase and sell handmade items that don't really exist
 * Logged in user can delete their own product listing if they are the creator.
 
 
-## 3. Orders - (CRUD)
+## 3. Cart - (CRUD)
 
 * Logged in user can create a new order.
 * Logged in user can see the items in their order.
@@ -32,7 +32,14 @@ Mock Make is a place to showcase and sell handmade items that don't really exist
 * Logged in user can delete review that they created.
 
 
-## 5. Wish List - (CRD)
+## 5. Orders - (CRD)
+
+* Logged in user can see open and past orders.
+* Logged in user can submit current cart.
+* Logged in user can cancel open orders.
+
+
+## 6. Wish List - (CRD)
 
 * Logged in user can create a wish list of items.
 * Logged in user can read items on wish list.
