@@ -2,21 +2,11 @@
 
 ## Account Management
 
-- `/signup`
-  - Page where new users can create an account.
-  - Public access.
+- `Dropdown Menu`
+  - Provides options for login, logout, and sign-up within a dropdown menu interface.
+  - Login and sign-up are accessible to public users.
+  - Logout is accessible to authenticated users.
 
-- `/login`
-  - Page where returning users can log into their accounts.
-  - Public access.
-
-- `/logout`
-  - Functionality to log out the current user.
-  - Handled via a logout action, typically a button in the user interface.
-
-- `/demo`
-  - Access to the site's features using a demo account.
-  - Public access.
 
 ## Products Management
 
@@ -31,34 +21,27 @@
 - `/products/:productId`
   - Detailed view of a specific product.
   - Public access.
+  - Logged in users can add review with a popup modal.
 
 - `/products/:productId/edit`
   - Page for editing product details by the listing owner.
   - Protected route, requires user authentication and ownership verification.
 
+
 ## Order Management
+
+- `/cart`
+  - View and manage the shopping cart.
+  - Protected route, requires user authentication.
 
 - `/orders`
   - Page where logged-in users can view their orders.
-  - Protected route, requires user authentication.
-
-- `/orders/new`
-  - Interface for creating a new order.
   - Protected route, requires user authentication.
 
 - `/orders/:orderId`
   - View details of a specific order.
   - Protected route, requires user authentication.
 
-## Review Management
-
-- `/products/:productId/reviews`
-  - View reviews for a specific product.
-  - Public access.
-
-- `/products/:productId/reviews/new`
-  - Page to write a new review for a product.
-  - Protected route, requires user authentication.
 
 ## Wish List Management
 
@@ -67,11 +50,6 @@
   - Protected route, requires user authentication.
   - Users can view all items in their wish list and have the option to remove them.
 
-## Shopping Cart
-
-- `/cart`
-  - View and manage the shopping cart.
-  - Protected route, requires user authentication.
 
 ## Search (Bonus)
 
