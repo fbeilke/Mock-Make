@@ -48,6 +48,17 @@ This `backend_routes.md` file provides details about the server-side routes for 
   - Delete a product listing by ID.
   - Returns: Success message on deletion; error message on failure.
 
+## Orders
+
+- **POST `/api/orders`** (Protected)
+  - Create a new order for logged-in users.
+- **GET `/api/orders/<int:orderId>`** (Protected)
+  - View an order for the logged-in user.
+- **PUT `/api/orders/<int:orderId>`** (Protected)
+  - Update an existing order for the logged-in user.
+- **DELETE `/api/orders/<int:orderId>`** (Protected)
+  - Delete an existing order for the logged-in user.
+
 ## Reviews
 
 - **GET `/api/products/<int:id>/reviews`**
@@ -59,14 +70,19 @@ This `backend_routes.md` file provides details about the server-side routes for 
   - Input fields: `userId`, `content`.
   - Returns: New review object on success; error message on failure.
 
-- **PUT `/api/reviews/<int:id>`** (Protected)
-  - Update a specific review by review ID.
-  - Input fields: `userId`, `content`.
-  - Returns: Updated review object on success; error message on failure.
-
 - **DELETE `/api/reviews/<int:id>`** (Protected)
   - Delete a review by review ID.
   - Returns: Success message on deletion; error message on failure.
+
+## Wish List
+
+- **POST `/api/users/<int:userId>/wishlist`** (Protected)
+  - Add an item to the wish list for logged-in users.
+- **GET `/api/users/<int:userId>/wishlist`** (Protected)
+  - View the wish list for the logged-in user.
+- **DELETE `/api/users/<int:userId>/wishlist/<int:productId>`** (Protected)
+  - Remove an item from the wish list for the logged-in user.
+
 
 ## Product Images
 
