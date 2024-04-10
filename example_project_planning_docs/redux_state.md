@@ -72,12 +72,14 @@
    allReviews: [1],
 
    orders: {
-      id: 1
-      user_id: 1
-      status: "Complete"
-      product_orders: {
-         product_id:2
-         quantity: 1
+      1: {
+         id: 1
+         user_id: 1
+         status: "Complete"
+         product_orders: {
+            product_id:2
+            quantity: 1
+         }
       }
    },
 
