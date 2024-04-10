@@ -11,16 +11,17 @@
          vendor_name: null
          email: "demo@aa.io",
          user_wishes: {
-            product_id: 3
-            quantity: 1
+            3: {
+               product_id: 3
+               quantity: 1
+            }
          },
-         orders: {
-            id: 1
-            status: "Complete"
-         },
+         orders: [1]
          user_cart_products : {
-            product_id: 1
-            quantity: 1
+            1: {
+               product_id: 1
+               quantity: 1
+            }
          }
       },
       allUsers: [1],
