@@ -23,9 +23,9 @@
             quantity: 1
          }
       },
+      allUsers: [1],
    },
 
-   allUsers: [1],
 
    products: {
       1: {
@@ -54,9 +54,9 @@
             preview: true
          }
       },
+      allProducts: [1, 2],
    },
 
-   allProducts: [1, 2],
 
    reviews: {
       1: {
@@ -67,9 +67,9 @@
          rating: 5
          image: "URL"
       },
+      allReviews: [1],
    },
 
-   allReviews: [1],
 
    orders: {
       1: {
@@ -81,9 +81,9 @@
             quantity: 1
          }
       }
+      allOrders: [1],
    },
 
-   allOrders: [1],
 
    session: {
       user: {
