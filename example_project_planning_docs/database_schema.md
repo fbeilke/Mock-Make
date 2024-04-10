@@ -1,14 +1,17 @@
 # **Database Schema**
 
-![db diagram](image-1.png)
+![db diagram](image.png)
 
 ## `users`
 
 | column name     | data type | details                   |
 |-----------------|-----------|---------------------------|
 | id              | integer   | not null, primary key     |
-| username        | string    | not null                  |
+| username        | string    | not null, unique          |
+| vendor_name     | string    | unique                    |
 | email           | string    | not null, indexed, unique |
+| firstname       | string    | not null                  |
+| lastname        | string    | not null                  |
 | hashed_password | string    | not null                  |
 | created_at      | datetime  | not null                  |
 | updated-at      | datetime  | not null                  |
@@ -44,6 +47,7 @@
 | vendor_id   | integer   | not null, foreign key |
 | name        | string    | not null              |
 | description | string    | not null              |
+| category    | string    | not null              |
 | price       | numeric   | not null              |
 | created_at  | datetime  | not null              |
 | updated_at  | datetime  | not null              |
@@ -56,7 +60,7 @@
 |-------------|-----------|-----------------------|
 | product_id  | integer   | not null, primary key |
 | order_id    | integer   | not null, primary key |
-| quantity    | integer   | not null              |e
+| quantity    | integer   | not null              |
 
 * `order_id` references `orders` table
 * `product_id` references `products` table
@@ -84,6 +88,7 @@
 | product_id    | integer   | not null, foreign key |
 | content       | string    | not null              |
 | rating        | integer   | not null              |
+| image_url     | string    |                       |
 | created_at    | datetime  | not null              |
 | updated_at    | datetime  | not null              |
 
