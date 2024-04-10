@@ -78,8 +78,10 @@
          user_id: 1
          status: "Complete"
          product_orders: {
-            product_id:2
-            quantity: 1
+            2: {
+               product_id:2
+               quantity: 1
+            }
          }
       }
       allOrders: [1],
