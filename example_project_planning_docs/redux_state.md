@@ -6,91 +6,92 @@
       1: {
          id: 1,
          username: "Demo",
-         email: "demo@aa.io"
+         first_name: "John"
+         last_name: "Doe"
+         vendor_name: null
+         email: "demo@aa.io",
+         user_wishes: {
+            product_id: 3
+            quantity: 1
+         },
+         orders: {
+            id: 1
+            status: "Complete"
+         },
+         user_cart_products : {
+            product_id: 1
+            quantity: 1
+         }
       },
    },
-   todolists: {
+
+   allUsers: [1],
+
+   products: {
       1: {
          id: 1,
-         title: "Chores",
-         description: "",
-         todo_item_ids: [1, 2, 3, 4]
+         vendor_id: 1
+         name: "Demo Product 1"
+         description: "Demo description"
+         price: 1.99
+         category: "Home Goods"
+         product_images: {
+            id: 1
+            url: "demo1.url"
+            preview: true
+         }
       },
       2: {
          id: 2,
-         title: "Groceries",
-         description: "Things I've eaten and need more of",
-         todo_item_ids: [5, 6, 7, 8]
+         vendor_id: 1
+         name: "Demo Product 2"
+         description: "Demo description"
+         price: 15.55
+         category: "Art & Collectibles"
+         product_images: {
+            id: 2
+            url: "demo2.url"
+            preview: true
+         }
       },
    },
-   todos: {
+
+   allProducts: [1, 2],
+
+   reviews: {
       1: {
          id: 1,
-         title: "Kitchen counters",
-         description: "disinfect and rinse",
-         complete: false,
-         todolist_id: 1
-      },
-      2: {
-         id: 2,
-         title: "Clean toilet",
-         description: "disinfect and rinse",
-         complete: false,
-         todolist_id: 1
-      },
-      3: {
-         id: 3,
-         title: "Vacuum living room",
-         description: "",
-         complete: true,
-         todolist_id: 1
-      },
-      4: {
-         id: 4,
-         title: "Laundry",
-         description: "Wash, Dry, Fold AND put it away, please",
-         complete: false,
-         todolist_id: 1
-      },
-      5: {
-         id: 5,
-         title: "Bananas",
-         description: "organic, slightly green",
-         complete: false,
-         todolist_id: 2
-      },
-      6: {
-         id: 6,
-         title: "Eggs",
-         description: "",
-         complete: false,
-         todolist_id: 2
-      },
-      7: {
-         id: 7,
-         title: "Bread",
-         description: "",
-         complete: false,
-         todolist_id: 2
-      },
-      8: {
-         id: 8,
-         title: "Peanut Butter",
-         description: "it better be crunchy",
-         complete: false,
-         todolist_id: 2
+         user_id: 1
+         product_id: 1
+         content: "Review info"
+         rating: 5
+         image: "URL"
       },
    },
+
+   allReviews: [1],
+
+   orders: {
+      id: 1
+      user_id: 1
+      status: "Complete"
+      product_orders: {
+         product_id:2
+         quantity: 1
+      }
+   },
+
+   allOrders: [1],
+
    session: {
       user: {
          id: 1,
-         name: 'Demo'
+         username: "Demo",
+         first_name: "John"
+         last_name: "Doe"
+         vendor_name: null
+         email: "demo@aa.io",
       }
    },
-   errors: [
-         "Unauthorized",
-         "Incorrect username/password combination",
-         "Title cannot exceed 20 characters in length"
-      ]
 }
 ```
