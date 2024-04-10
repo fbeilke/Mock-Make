@@ -17,7 +17,7 @@
             }
          },
          orders: [1]
-         user_cart_products : {
+         user_cart_products: {
             1: {
                product_id: 1
                quantity: 1
