@@ -37,9 +37,11 @@
          price: 1.99
          category: "Home Goods"
          product_images: {
-            id: 1
-            url: "demo1.url"
-            preview: true
+            1: {
+               id: 1
+               url: "demo1.url"
+               preview: true
+            }
          }
       },
       2: {
@@ -50,9 +52,11 @@
          price: 15.55
          category: "Art & Collectibles"
          product_images: {
-            id: 2
-            url: "demo2.url"
-            preview: true
+            2: {
+               id: 2
+               url: "demo2.url"
+               preview: true
+            }
          }
       },
       allProducts: [1, 2],
