@@ -18,7 +18,10 @@ def password_matches(form, field):
     email = form.data['email']
     user = User.query.filter(User.email == email).first()
     if not user:
-        raise ValidationError('No such user exists.')
+        # This was unintuitive for user experience
+        # raise ValidationError('No such user exists.')
+        # Instead don't validate password when user doesn't exist
+        return
     if not user.check_password(password):
         raise ValidationError('Password was incorrect.')
 
