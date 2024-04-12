@@ -24,7 +24,7 @@
             }
          }
       },
-      allUsers: [1],
+      allUsersIds: [1],
    },
 
 
@@ -59,7 +59,7 @@
             }
          }
       },
-      allProducts: [1, 2],
+      allProductsIds: [1, 2],
    },
 
 
@@ -72,7 +72,7 @@
          rating: 5
          image: "URL"
       },
-      allReviews: [1],
+      allReviewsIds: [1],
    },
 
 
@@ -88,7 +88,7 @@
             }
          }
       }
-      allOrders: [1],
+      allOrdersIds: [1],
    },
 
 

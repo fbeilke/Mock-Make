@@ -39,6 +39,7 @@ def create_new_product():
     '''
     data = request.json
     form = ProductForm(**data)
+    form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         data["vendor_id"] = current_user["id"]
@@ -60,6 +61,7 @@ def update_product(id):
     '''
     data = request.json
     form = ProductForm(**data)
+    form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         product_to_update = Product.query.filter(Product.id == id).first()
