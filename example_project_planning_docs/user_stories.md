@@ -54,39 +54,41 @@
     - Can view all reviews for a product.
     - Can write a review after purchase.
 
-### Update and Delete Reviews
+### Delete Reviews
 
-- **As a reviewer**, I want to edit or remove my review if my opinion changes or if I made an error.
+- **As a reviewer**, I want to remove my review if I made an error.
   - **Acceptance Criteria**:
-    - Can edit my reviews.
     - Can delete my reviews.
 
-## Shopping Cart
 
-### Manage Cart
+## Cart Management
 
-- **As a buyer**, I want to add items to my cart, view them, and remove them as needed before purchasing.
+### View, Create, Update and Delete Items
+
+- **As a buyer**, I want to add items to my cart, view them, updating them and remove them as needed before purchasing.
   - **Acceptance Criteria**:
     - Can add products to my shopping cart.
     - Can view all products in my cart.
-    - Can remove items from my cart.
+    - Can change the quantity of items and remove items from my cart.
 
-### Complete Purchase
+## Order Management
 
-- **As a shopper**, I want to purchase items in my cart so that I can receive the products I want.
+### View, Create, Delete Orders
+
+- **As a buyer**, I want to convert my cart into an order to finalize my purchases, view my past and open orders, and have the ability to cancel any open orders if my needs change.
+
   - **Acceptance Criteria**:
-    - Can review my cart contents.
-    - Can perform a transaction to complete the purchase.
+    - Can submit the contents of my cart to create a new order.
+    - Can view details of all my past and open orders.
+    - Can cancel open orders if necessary before they are processed.
 
-## Favorites
+## Wish List:
 
-### View and Manage Favorites
+- **As a logged-in user**, I want to add items to my wish list, view this list, and remove items when desired.
 
-- **As a user**, I want to favorite products and manage my favorites for future reference or purchase.
-  - **Acceptance Criteria**:
-    - Can mark products as favorites.
-    - Can view a list of all my favorite products.
-    - Can remove items from my favorites.
+- **Acceptance Criteria**:
+  - Can create a wish list and add items to it.
+  - Can view and manage items in my wish list, including deleting them if I no longer wish to keep them noted.
 
 ## Search (Bonus)
 
@@ -96,12 +98,3 @@
   - **Acceptance Criteria**:
     - Can enter search terms and view matching products.
     - Can see search results relevant to the terms entered.
-
-## Order History and Reordering (Bonus)
-
-### View Past Orders and Reorder
-
-- **As a user**, I want to view my past orders and have the option to reorder items for convenience.
-  - **Acceptance Criteria**:
-    - Can access a history of my past orders.
-    - Can place a new order with items from a past order.
