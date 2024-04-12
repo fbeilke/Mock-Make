@@ -29,8 +29,8 @@ function SignupFormModal() {
       thunkSignup({
         email,
         username,
-        firstName,
-        lastName,
+        first_name: firstName,
+        last_name: lastName,
         password,
       })
     );
@@ -45,7 +45,7 @@ function SignupFormModal() {
   return (
     <div className="signup-modal">
       <h1>Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
+      {errors.server && <p className='error'>{errors.server}</p>}
       <form onSubmit={handleSubmit}>
         <label>
           Email
@@ -56,7 +56,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className='error'>{errors.email}</p>}
         <label>
           Username
           <input
@@ -66,7 +66,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p className='error'>{errors.username}</p>}
         <label>
           First Name
           <input
@@ -76,7 +76,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p className='error'>{errors.firstName}</p>}
+        {errors.first_name && <p className='error'>{errors.first_name}</p>}
         <label>
           Last Name
           <input
@@ -86,7 +86,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p className='error'>{errors.lastName}</p>}
+        {errors.last_name && <p className='error'>{errors.last_name}</p>}
         <label>
           Password
           <input
@@ -96,7 +96,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className='error'>{errors.password}</p>}
         <label>
           Confirm Password
           <input
@@ -106,7 +106,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {errors.confirmPassword && <p className='error'>{errors.confirmPassword}</p>}
         <button type="submit">Sign Up</button>
       </form>
     </div>
