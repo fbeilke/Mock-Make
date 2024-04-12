@@ -1,5 +1,7 @@
 
 
 export default function NewProductForm() {
-    return null;
+    return (
+        <h2>Hello from New Product Form</h2>
+    )
 }

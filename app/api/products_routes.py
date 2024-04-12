@@ -11,7 +11,7 @@ def get_all_products():
     Return list of all product dictionaries
     '''
     all_products = Product.query.all()
-    return [product.to_dict() for product in products]
+    return [product.to_dict() for product in all_products]
 
 
 ## Need to add this route to backend routes list

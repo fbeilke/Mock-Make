@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
         element: <AllProducts />
       },
       {
-        path: "/products/:category", // need to add to front end routes
+        path: "/products/category/:category", // need to add to front end routes
         element: <ProductsByCategory />
       },
       {
