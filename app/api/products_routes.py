@@ -1,9 +1,9 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, Product
-from app.forms import ProductForm
+from app.forms.product_form import ProductForm
 
-products_routes = Blueprint("products", __name__)
+products_routes = Blueprint("products_routes", __name__)
 
 @products_routes.route('/')
 def get_all_products():
@@ -15,7 +15,7 @@ def get_all_products():
 
 
 ## Need to add this route to backend routes list
-@products_routes.route('/<str:category>')
+@products_routes.route('/<string:category>')
 def get_products_by_category(category):
     '''
     Return a list of product dictionaries in specified category
