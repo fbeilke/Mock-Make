@@ -1,0 +1,24 @@
+from .db import db, add_prefix_for_prod
+from datetime import datetime
+
+class Product(db.Model):
+    __tablename__ = "products"
+
+    id = db.Column(db.Integer, primary_key=True)
+    vendor_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("user.id")),  nullable=False)
+    name = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.String, nullable=False)
+    category = db.Column(db.String(50), nullable=False)
+    price = db.Column(db.Numeric(6,2), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "vendor_id": self.vendor_id,
+            "name": self.name,
+            "description": self.description,
+            "category": self.category,
+            "price": self.price,
+        }
