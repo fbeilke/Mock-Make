@@ -79,3 +79,15 @@ button.demo:hover {
     background-color: #fff;
     color: #008fa3;
 }
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    
+    color: #757575;
+}
+
+.modal-close:hover {
+    color: #212121;
+}

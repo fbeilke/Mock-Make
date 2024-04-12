@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
+import { FaXmark } from 'react-icons/fa6';
 import "./SignupForm.css";
 
 function SignupFormModal() {
@@ -45,6 +46,7 @@ function SignupFormModal() {
   return (
     <div className="signup-modal">
       <h1>Sign Up</h1>
+      <FaXmark className="modal-close" onClick={closeModal} size={30}/>
       {errors.server && <p className='error'>{errors.server}</p>}
       <form onSubmit={handleSubmit}>
         <label>
