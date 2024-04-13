@@ -121,7 +121,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import { useNavigate } from 'react-router-dom';
-import './ProfileButton.css';
+import './Profilebutton.css';
 import { FaUserCircle } from 'react-icons/fa';
 import OpenModalButton from '../OpenModalButton';
 import { thunkLogout } from "../../redux/session";
