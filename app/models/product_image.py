@@ -11,6 +11,8 @@ class ProductImage(db.Model):
     url = db.Column(db.String(255), nullable=False)
     preview = db.Column(db.Boolean, nullable=False, default=False)
 
+    product = db.relationship("Product", back_populates="images")
+
     def to_dict(self):
         return {
             "id": self.id,
@@ -18,6 +20,6 @@ class ProductImage(db.Model):
             "url": self.url,
             "preview": self.preview
         }
-    
+
     def __repr__(self):
         return f"<ProductImage {self.id} -- product={self.product_id}>"
