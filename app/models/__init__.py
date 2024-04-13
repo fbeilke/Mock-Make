@@ -7,3 +7,4 @@ from .order import Order
 from .product_order import ProductOrder
 from .review import Review
 from .user_wish import UserWish
+from .cart_product import CartProduct
