@@ -13,7 +13,16 @@ class Product(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())
 
+    images = db.relationship("ProductImage", back_populates="product")
+
     def to_dict(self):
+        product_images = {}
+        for image in self.images:
+            product_images[image.id] = {
+                "id": image.id,
+                "url": image.url,
+                "preview": image.preview
+            }
         return {
             "id": self.id,
             "vendor_id": self.vendor_id,
@@ -21,4 +30,5 @@ class Product(db.Model):
             "description": self.description,
             "category": self.category,
             "price": self.price,
+            "product_images": product_images
         }

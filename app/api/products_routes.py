@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, Product
+from app.models import db, Product, ProductImage
 from app.forms.product_form import ProductForm
 
 products_routes = Blueprint("products_routes", __name__)
