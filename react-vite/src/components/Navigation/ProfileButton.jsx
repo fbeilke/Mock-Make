@@ -125,6 +125,7 @@ import './Profilebutton.css';
 import { FaUserCircle } from 'react-icons/fa';
 import OpenModalButton from '../OpenModalButton';
 import { thunkLogout } from "../../redux/session";
+import { NavLink } from 'react-router-dom';
 function ProfileButton() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
@@ -171,7 +172,7 @@ function ProfileButton() {
         <div className="profile-container">
             <button onClick={toggleMenu} className="profile-button">
                 <FaUserCircle /> {/* Using React Icons correctly */}
-                <span className='welcome-message'>{user ? `Hello, ${user.firstName}` : 'Sign In'}</span>
+
             </button>
             {showMenu && (
                 <ul className={ulClassName} ref={ulRef}>
@@ -180,6 +181,13 @@ function ProfileButton() {
                       <li>Hello, {user.firstName} {user.lastName}</li>
                       <li>{user.email}</li>
                       <hr/>
+                      <div>
+                        <NavLink to='/orders' className='pre-orders'>Orders</NavLink>
+                      </div>
+                      <div>
+                        <NavLink to='/wishlist' className='wishlists'>Wish List</NavLink>
+                      </div>
+
 
                       <li>
                         <button onClick={logout}>Log Out</button>

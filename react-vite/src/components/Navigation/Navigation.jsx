@@ -6,26 +6,53 @@ import { useState, useRef, useEffect } from "react";
 import { BiSearchAlt2 } from "react-icons/bi"
 import { BsCart } from "react-icons/bs";
 import logo from '../../../images/logo.png'
-
+import { FcHome } from "react-icons/fc";
+import { MdToys } from "react-icons/md";
+import { GiPaperBoat } from "react-icons/gi";
+import { GiCrafting } from "react-icons/gi";
+import { LiaGiftsSolid } from "react-icons/lia";
+// import { IoHeart } from "react-icons/io5";
 function Navigation(isLoaded) {
   const [showCategories, setShowCategories] = useState(false);
   const categoriesRef = useRef();
   const user = useSelector(state => state.session.user)
 
+  // const toggleCategories = (e) => {
+  //   e.stopPropagation();
+  //   setShowCategories(!showCategories);
+  // };
   const toggleCategories = (e) => {
-    e.stopPropagation();
-    setShowCategories(!showCategories);
+    e.stopPropagation(); // This stops the click from propagating to the document
+    setShowCategories(prevShowCategories => !prevShowCategories);
   };
+  // useEffect(() => {
+  //   if (!showCategories) return;
+  //   const closeCategoriesMenu = (e) => {
+  //     if (categoriesRef.current && !categoriesRef.current.contains(e.target)) {
+  //       setShowCategories(false);
+  //     }
+  //   };
+  //   document.addEventListener("click", closeCategoriesMenu);
+  //   return () => document.removeEventListener("click", closeCategoriesMenu);
+  // }, [showCategories]);
   useEffect(() => {
-    if (!showCategories) return;
+    // Function to close the dropdown if the clicked area is outside the dropdown
     const closeCategoriesMenu = (e) => {
       if (categoriesRef.current && !categoriesRef.current.contains(e.target)) {
         setShowCategories(false);
       }
     };
-    document.addEventListener("click", closeCategoriesMenu);
-    return () => document.removeEventListener("click", closeCategoriesMenu);
-  }, [showCategories]);
+
+    // Add click listener only when dropdown is shown
+    if (showCategories) {
+      document.addEventListener('click', closeCategoriesMenu);
+    }
+
+    // Cleanup function to remove the click listener
+    return () => {
+      document.removeEventListener('click', closeCategoriesMenu);
+    };
+  }, [showCategories])
 
   const currentUser = useSelector((state) => state.session.user);
 
@@ -85,26 +112,31 @@ return (
       <li className='dropdown'>
         <button onClick={toggleCategories} className='dropbtn'>Categories</button>
         {showCategories && (
-          <div className='dropdown-content' ref={categoriesRef}>
-            <NavLink to='/products/categories/HomeGoods'>Home Goods</NavLink>
-            <NavLink to='/products/categories/ToysGames'>Toys & Games</NavLink>
-            <NavLink to='/products/categories/ArtCollectibles'>Art & Collectibles</NavLink>
-            <NavLink to='/products/categories/CraftSuppliesTools'>Craft Supplies & Tools</NavLink>
-            <NavLink to='/products/categories/Gifts'>Gifts</NavLink>
+          <div className={`dropdown-content ${showCategories ? 'show' : ''}`} ref={categoriesRef}>
+          {/* ... links ... */}
+            <NavLink to='/products/categories/HomeGoods'><FcHome className='home-icons'/>Home Goods</NavLink>
+            <NavLink to='/products/categories/ToysGames'><MdToys className='toy-icons'/>Toys & Games</NavLink>
+            <NavLink to='/products/categories/ArtCollectibles'><GiPaperBoat className='art-icons'/>Art & Collectibles</NavLink>
+            <NavLink to='/products/categories/CraftSuppliesTools'><GiCrafting className='craft-icons'/>Craft Supplies & Tools</NavLink>
+            <NavLink to='/products/categories/Gifts'><LiaGiftsSolid className='gift-icons' />Gifts</NavLink>
           </div>
         )}
       </li>
       <li className='search-wrapper'>
-        <input type="text" placeholder="Search.." className='search-input'/>
-        <button className='search-button'><BiSearchAlt2 /></button>
+        <input type="text" placeholder="Search.." className='search-input' onClick={() => alert('Feature coming soon')}/>
+        <button className='search-button' onClick={() => alert('Feature coming soon')}><BiSearchAlt2 /></button>
       </li>
-      {user && (
+
+      {/* {user && (
         <li className='cart-item'>
           <NavLink to='/carts' className='cart-link'>
-            <BsCart className="cart-icon"/> Cart
+            <BsCart className="cart-icon"/>
           </NavLink>
+
         </li>
-      )}
+
+
+      )} */}
     </ul>
     <div className='ProfileLinkArea'>
           {isLoaded && (

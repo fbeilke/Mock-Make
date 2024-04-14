@@ -13,7 +13,7 @@ function Cart(){
     const [cartArr, setCartArr] = useState([]);
     const products = useSelector(state => state.products.products)
     const [isOpen, setIsOpen] = useState(true);
-    
+
     const closeCart = () => {
         setIsOpen(false);
     }
@@ -31,7 +31,7 @@ function Cart(){
     }, [cart])
 
     if(!sessionUser) return null; // Don't display the cart when no user is logged in
-    
+
     return (
         <div id="cart-container">
             { isOpen ? <FaAngleRight size={20} onClick={closeCart} />
