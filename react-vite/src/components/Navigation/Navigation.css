@@ -4,11 +4,14 @@
   position: relative;
   background: linear-gradient(to bottom right, #ffe259, #ffa751);
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   padding: 20px 50px;
   border-radius: 15px;
   text-align: center;
+  flex-direction: column; /* Stack items vertically */
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 .ProfileLinkArea, .profile-container {
   position: absolute;
@@ -30,12 +33,32 @@
   display: block;
   /* box-shadow: 0px 8px 15px rgba(0,0,0,0.1); */
   /* border-radius: 20px; */
-  position: relative;
+  position: absolute;
+  top: 1px; /* Adjust as needed */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%);
   /* left: 10px; */
   letter-spacing: 0.1em;
 
 }
-
+.dropdown-content{
+  display: none;
+  /* position: absolute; */
+  right: 0;
+  background: linear-gradient(to bottom right, #ffe259, #ffa751);
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+  /* top: 20px; */
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.2),
+    0 6px 6px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: 10%; /* Adjust if needed, to appear right below the button */
+  left: 150%; /* Start from the center */
+  transform: translateX(-50%);
+}
 
 .nav-list {
   list-style: none;
@@ -48,29 +71,40 @@
 
 .logo-item .logo-link img {
   height: 60px;
+  padding-right: 10px;
 }
 
 .search-wrapper {
+  width: 90%;
   position: relative;
-  margin-left: 20px;
+  display: flex;
+  top:4px;
+  justify-content: space-between;
 }
 
 .search-input {
-  border: 2px solid #222;
-  padding: 8px 40px 8px 10px;
-  border-radius: 20px;
-  outline: none;
-  font-size: 16px;
+  margin: 0 20px;
+  height: 30px;
+  align-self: center;
+  flex: 1;
+  border: 1px solid grey;
+  border-radius: 5px;
 }
 
 .search-button {
   position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
+  height: 100%;
+  right: 0;
+  background-color: transparent;
+  color: grey;
+  background-color: white;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  border-left: none;
+  border-right: 1px solid grey;
+  border-radius: 0 5px 5px 0;
+  padding: 5px;
+  margin: 0;
 }
 
 .user-info-container {
@@ -97,20 +131,27 @@
 .dropbtn {
   background-color: #f8f8f8;
   color: #333;
-  padding: 10px 20px;
+  padding: 0 10px;
   font-size: 16px;
   border: none;
   cursor: pointer;
   border-radius: 20px;
+  width: 100%;
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #ffffff;
-  min-width: 160px; /* minimum width */
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+    display: none;
+    position: absolute;
+    right: 0;
+    background: linear-gradient(to bottom right, #ffe259, #ffa751);
+    border-radius: 8px;
+    padding: 10px;
+    width: 180px;
+    margin-top: 60px;
+    box-shadow:
+      0 10px 20px rgba(0, 0, 0, 0.2),
+      0 6px 6px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .dropdown-content a {
@@ -120,19 +161,22 @@
   display: block;
   font-size: 14px;
 }
-
-.dropdown:hover .dropdown-content {
+.dropdown-content.show {
   display: block;
 }
+
+/* .dropdown:hover .dropdown-content {
+  display: block;
+} */
 
 .dropdown-content a:hover {
   background-color: #f1f1f1;
 }
 .profile-container {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  position: relative;
+  position: absolute;
+    top: -5px;
+    right: 10px;
+    z-index: 1000;
 }
 
 .profile-button {
