@@ -34,13 +34,46 @@
   /* box-shadow: 0px 8px 15px rgba(0,0,0,0.1); */
   /* border-radius: 20px; */
   position: absolute;
-  top: 1px; /* Adjust as needed */
+  top: 1px;
   left: 50%; /* Center horizontally */
   transform: translateX(-50%);
   /* left: 10px; */
   letter-spacing: 0.1em;
 
 }
+.cart-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+.cart-icon {
+  color: #333;
+  font-size: 24px;
+
+}
+
+.cart-link:hover {
+  background-color: #e0e0e0;
+}
+
+.cart-link:focus {
+  outline: none;
+}
+.cart-link:hover .cart-icon {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+
 .dropdown-content{
   display: none;
   /* position: absolute; */
@@ -55,8 +88,8 @@
     0 6px 6px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.5);
   position: absolute;
-  top: 10%; /* Adjust if needed, to appear right below the button */
-  left: 150%; /* Start from the center */
+  top: 10%;
+  left: 150%;
   transform: translateX(-50%);
 }
 
@@ -131,13 +164,18 @@
 .dropbtn {
   background-color: #f8f8f8;
   color: #333;
-  padding: 0 10px;
+  padding: 10px 15px;
   font-size: 16px;
   border: none;
   cursor: pointer;
   border-radius: 20px;
-  width: 100%;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
+.dropbtn:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.05);
+}
+
 
 .dropdown-content {
     display: none;
