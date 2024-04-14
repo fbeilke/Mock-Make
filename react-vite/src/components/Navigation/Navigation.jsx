@@ -127,7 +127,7 @@ return (
         <button className='search-button' onClick={() => alert('Feature coming soon')}><BiSearchAlt2 /></button>
       </li>
 
-      {/* {user && (
+      {user && (
         <li className='cart-item'>
           <NavLink to='/carts' className='cart-link'>
             <BsCart className="cart-icon"/>
@@ -136,7 +136,7 @@ return (
         </li>
 
 
-      )} */}
+      )}
     </ul>
     <div className='ProfileLinkArea'>
           {isLoaded && (
