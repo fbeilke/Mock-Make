@@ -11,7 +11,7 @@ def get_all_products():
     Return list of all product dictionaries
     '''
     all_products = Product.query.all()
-    return [product.to_dict() for product in all_products]
+    return {product.to_dict()["id"]: product.to_dict() for product in all_products}
 
 
 ## Need to add this route to backend routes list
@@ -21,7 +21,7 @@ def get_products_by_category(category):
     Return a list of product dictionaries in specified category
     '''
     products_by_category = Product.query.filter(Product.category == category).all()
-    return [product.to_dict() for product in products_by_category]
+    return {product.to_dict()["id"]: product.to_dict() for product in products_by_category}
 
 @products_routes.route('/<int:id>')
 def get_single_product(id):

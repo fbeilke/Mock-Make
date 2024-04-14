@@ -132,19 +132,24 @@ const initialState = { products: null };
 export default function productsReducer(state = initialState, action) {
     switch(action.type) {
         case ALL_PRODUCTS:
-            const normalProducts = {};
-            for(let product of action.products){
-                normalProducts[product.id] = product
-            }
-            return {...state, products: normalProducts, allProductsIds: Object.keys(normalProducts) }
+            return {...state, products: action.products, allProductsIds: Object.keys(action.products) }
         case PRODUCTS_BY_CATEGORY:
             return {...state, products: action.products, allProductsIds: Object.keys(action.products)}
-        case SINGLE_PRODUCT:
-            return {...state, products: action.product}
-        case NEW_PRODUCT:
-            return {...state, products: action.product}
-        case UPDATE_PRODUCT:
-            return {...state, products: action.product}
+        case SINGLE_PRODUCT:{
+            const newState = {...state}
+            newState.products[action.product.id] = action.product
+            return newState
+            }
+        case NEW_PRODUCT: {
+            const newState = {...state}
+            newState.products[action.product.id] = action.product
+            return newState
+            }
+        case UPDATE_PRODUCT: {
+            const newState = {...state}
+            newState.products[action.product.id] = action.product
+            return newState
+            }
         case DELETE_PRODUCT: {
             const newState = {...state}
             delete newState[action.productId]
