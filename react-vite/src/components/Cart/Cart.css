@@ -1,3 +1,43 @@
-.hidden {
-    visibility: hidden;
+#cart-container {
+    position: fixed;
+    overflow-y: scroll;
+
+    top:0;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+
+    height: 100vh;
+
+    z-index: 1000;
+}
+
+#cart-container > svg {
+    padding: 20px 0;
+    border-radius: 4px 0 0 4px;
+    background-color: rgb(181, 181, 181);
+}
+
+#cart-open {
+    background-color: #7d7d7d;
+}
+
+#cart {
+    height: 100%;
+    overflow-y: scroll;
+    background-color: white;
+
+    transition: width .25s
+}
+
+#cart.visible {
+    width: 200px;
+
+    padding: 20px;
+}
+
+#cart.hidden {
+    width:0;
 }

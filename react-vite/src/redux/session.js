@@ -1,6 +1,8 @@
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
 const SET_CART = 'session/setCart';
+const SET_CART_PRODUCT = 'session/setCartProduct';
+const DELETE_CART_PRODUCT = 'session/deleteCartProduct';
 const REMOVE_CART = 'session/removeCart';
 
 const setUser = (user) => ({
@@ -16,6 +18,16 @@ const setCart = (cart) => ({
   type: SET_CART,
   payload: cart
 });
+
+const setCartProduct = (product) => ({
+  type: SET_CART_PRODUCT,
+  payload: product
+});
+
+const deleteCartProduct = (productId) => ({
+  type: DELETE_CART_PRODUCT,
+  payload: productId
+})
 
 const removeCart = () => ({
   type: REMOVE_CART
@@ -89,6 +101,47 @@ export const getCartThunk = () => async (dispatch) => {
   }
 }
 
+export const addCartItemThunk = (product) => async dispatch => {
+  const response = await fetch('/api/cart/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(product)
+  });
+
+  if(response.ok) {
+    const data = await response.json();
+    dispatch(setCartProduct(data));
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
+}
+
+export const putCartItemThunk = (product) => async dispatch => {
+  const response = await fetch("/api/cart/", {
+    method: 'PUT',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(product)
+  });
+
+  if(response.ok) {
+    const data = await response.json();
+    dispatch(setCartProduct(data));
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
+}
+
+export const deleteCartItemThunk = (productId) => async dispatch => {
+  const response = await fetch(`/api/cart/${productId}`, { method: 'DELETE' });
+
+  if(response.ok) {
+    const data = await response.json();
+    dispatch(deleteCartProduct(data.productId));
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
+}
+
 const initialState = { user: null, cart: null };
 
 function sessionReducer(state = initialState, action) {
@@ -97,8 +150,21 @@ function sessionReducer(state = initialState, action) {
       return { ...state, user: action.payload };
     case REMOVE_USER:
       return { ...state, user: null };
-    case SET_CART:
-      return { ...state, cart: action.payload };
+    case SET_CART: {
+      const normalCart = {}
+      action.payload.forEach(product => normalCart[product.productId] = product)
+      return { ...state, cart: normalCart };
+    }
+    case SET_CART_PRODUCT: {
+      const newState = {user: {...state.user}, cart: {...state.cart}};
+      newState.cart[action.payload.productId] = action.payload;
+      return newState;
+    }
+    case DELETE_CART_PRODUCT: {
+      const newState = {user: {...state.user}, cart: {...state.cart}};
+      if (newState.cart[action.payload]) delete newState.cart[action.payload];
+      return newState;
+    }
     case REMOVE_CART:
       return { ...state, cart: null };
     default:
