@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
-import { createReviewThunk, updateReviewThunk } from "../../redux/review";
+import { createReviewThunk, updateReviewThunk } from "../../redux/reviews";
 import './ReviewForm.css';
 import { MdOutlineStar, MdOutlineStarBorder } from "react-icons/md";
 import { getSingleProduct } from "../../redux/products";
@@ -28,6 +28,7 @@ function ReviewForm({ review, buttonText }) {
         }
     }, [dispatch, productId, review]);
 
+    console.log('aaaaa')
     useEffect(() => {
         const newErrors = {};
         if (!currentUser) {
