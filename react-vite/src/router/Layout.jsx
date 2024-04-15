@@ -3,7 +3,10 @@ import { Outlet } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ModalProvider, Modal } from "../context/Modal";
 import { thunkAuthenticate } from "../redux/session";
+import Cart from "../components/Cart";
 import Navigation from "../components/Navigation/Navigation";
+import Footer from "../components/Footer";
+import { CartProvider } from "../context/CartProvider";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -15,9 +18,13 @@ export default function Layout() {
   return (
     <>
       <ModalProvider>
-        <Navigation />
-        {isLoaded && <Outlet />}
-        <Modal />
+        <CartProvider>
+          <Navigation />
+          <Cart />
+          {isLoaded && <Outlet />}
+          {isLoaded &&<Footer/>}
+          <Modal />
+        </CartProvider>
       </ModalProvider>
     </>
   );
