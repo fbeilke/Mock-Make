@@ -1,0 +1,28 @@
+.products-list {
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+
+.each-product-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.each-product {
+    padding: 15px;
+    border: 1px solid #f0efef;
+    background-color: #fdfdfd;
+    border-radius: 15px;
+}
+
+.each-product-link {
+    text-decoration: none;
+}
+
+.each-product-info {
+    color: black;
+}

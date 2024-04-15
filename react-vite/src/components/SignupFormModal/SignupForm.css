@@ -1,0 +1,72 @@
+#modal-content {
+    max-height: 100vh;
+    overflow-y: scroll;
+}
+
+.signup-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 40px 60px;
+}
+
+.signup-modal h1 {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.signup-modal label {
+    font-weight: 500;
+}
+
+.signup-modal input {
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 30px;
+
+    padding: 10px;
+
+    border-color: #d9d9d9;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    transition: border-color 0.3s;
+}
+
+.signup-modal input:hover {
+    border-color: #212121;
+}
+
+.signup-modal input:focus {
+    outline: none;
+    border-color: #212121;
+}
+
+.signup-modal label, .signup-modal input, .signup-modal button, .signup-modal p {
+    box-sizing: border-box;
+    width: 350px;
+}
+
+.signup-modal p.error {
+    color: red;
+    font-size: 14px;
+    margin-top: -25px;
+    margin-bottom: 25px;
+}
+
+.signup-modal button {
+    margin-top: 10px;
+    height: 50px;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.signup-modal button:disabled {
+    background-color: #d9d9d9;
+    color: #a6a6a6;
+}

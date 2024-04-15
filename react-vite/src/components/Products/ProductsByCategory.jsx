@@ -1,0 +1,44 @@
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { getProductsByCategory } from '../../redux/products';
+import { getAllUsersThunk } from '../../redux/users';
+import { useDispatch, useSelector } from 'react-redux';
+import ProductsList from './ProductsList'
+
+export default function ProductsByCategory() {
+    const { category } = useParams()
+    const dispatch = useDispatch();
+    const { products } = useSelector(state => state.products)
+    const { users } = useSelector(state => state.users)
+
+    function categoryTitle() {
+        switch(category) {
+            case "HomeGoods":
+                return "Home Goods"
+            case "ToysGames":
+                return "Toys & Games"
+            case "ArtCollectibles":
+                return "Art & Collectibles"
+            case "CraftSuppliesTools":
+                return "Craft Supplies & Tools"
+            case "Gifts":
+                return "Gifts"
+            default:
+                return null
+        }
+    }
+
+    const categoryName = categoryTitle()
+
+    useEffect(() => {
+        dispatch(getProductsByCategory(categoryName))
+        dispatch(getAllUsersThunk())
+    }, [dispatch, categoryName])
+
+    return (
+        <div className="products-page">
+            <h2>{categoryName} Products</h2>
+            <ProductsList products={products} users={users}/>
+        </div>
+    )
+}

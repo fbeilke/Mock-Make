@@ -2,6 +2,7 @@ import { useState } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { FaXmark } from 'react-icons/fa6';
 import "./LoginForm.css";
 
 function LoginFormModal() {
@@ -28,9 +29,15 @@ function LoginFormModal() {
     }
   };
 
+  const demoClick = () => {
+    return dispatch(thunkLogin({ email: 'demo@aa.io', password: 'password' }))
+      .then(closeModal);
+  };
+
   return (
-    <>
+    <div className="login-modal">
       <h1>Log In</h1>
+      <FaXmark className="modal-close" onClick={closeModal} size={30}/>
       <form onSubmit={handleSubmit}>
         <label>
           Email
@@ -41,7 +48,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className='error'>{errors.email}</p>}
         <label>
           Password
           <input
@@ -51,10 +58,11 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className='error'>{errors.password}</p>}
         <button type="submit">Log In</button>
       </form>
-    </>
+      <button className="demo" onClick={demoClick}>Log in as Demo User</button>
+    </div>
   );
 }
 
