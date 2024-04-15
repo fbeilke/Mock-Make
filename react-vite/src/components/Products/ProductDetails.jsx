@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleProduct } from '../../redux/products'
@@ -6,11 +6,12 @@ import { addCartItemThunk } from '../../redux/session';
 import "./ProductDetails.css"
 
 export default function ProductDetails() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { productId } = useParams();
     const { products } = useSelector(state => state.products)
     const { user } = useSelector(state => state.session)
-    const [displayImageURL, setDisplayImageURL] = useState()
+    const [displayImageURL, setDisplayImageURL] = useState(null)
 
 
     useEffect(() => {
@@ -44,7 +45,9 @@ export default function ProductDetails() {
                         ))}
                     </div>
                     <div>
+                        {!displayImageURL ? <img src={allProductImages.filter(image => image.preview)[0].url} alt={`${singleProduct.name}`} className="detail-display-image" /> :
                         <img src={displayImageURL} alt={`${singleProduct.name}`} className="detail-display-image" />
+                        }
                     </div>
                 </div>
                 <div className="product-reviews">
@@ -52,10 +55,10 @@ export default function ProductDetails() {
                 </div>
             </div>
             <div className="product-details-right-side">
-                {singleProduct.vendor_id !== user.id ? null :
+                {!user || singleProduct.vendor_id !== user.id ? null :
                     <div className="vendor-control-buttons">
-                            <button>Update Listing</button>
-                            <button>Delete Listing</button>
+                            <button onClick={() => navigate(`/products/${singleProduct.id}/edit`)}>Update Listing</button>
+                            <button onClick={() => alert("Coming Soon")}>Delete Listing</button>
                     </div>
                 }
                 <h2>${singleProduct.price}</h2>
@@ -63,16 +66,13 @@ export default function ProductDetails() {
                 <span>TODO: add product vendor name</span>
                 <span>·</span>
                 <span>TODO: add reviews stars</span>
-                {singleProduct.vendor_id === user.id ? null :
+                {user && singleProduct.vendor_id === user.id ? null :
                 <p>
                     <button onClick={() => addToCart(singleProduct)}>Add to cart</button>
                     <button>Add to wishlist</button>
                 </p>
                 }
                 <p>{singleProduct.description}</p>
-                <p>
-                    <button>Contact Seller</button>
-                </p>
             </div>
         </div>
     )
