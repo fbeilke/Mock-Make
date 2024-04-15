@@ -7,6 +7,7 @@ import ProductsByCategory from '../components/Products/ProductsByCategory';
 import NewProductForm from '../components/Products/NewProductForm';
 import ProductDetails from '../components/Products/ProductDetails';
 import EditProductForm from '../components/Products/EditProductForm';
+import LandingPage from '../components/LandingPage/LandingPage';
 // import ReviewForm from '../components/ReviewForm/ReviewForm';
 
 
@@ -16,7 +17,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <LandingPage />,
       },
       {
         path: "login",
