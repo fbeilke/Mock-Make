@@ -47,8 +47,8 @@ export default function ProductDetails() {
 
     const singleProduct = products[productId];
     const allProductImages = Object.values(singleProduct.product_images)
-    const reviewsArr = Object.values(reviews)
-    const usersArr = Object.values(users)
+    // const reviewsArr = Object.values(reviews)
+    // const usersArr = Object.values(users)
     // const usersDictionary = usersArr.reduce((acc, user) => {
     //     acc[user.id] = user;
     //     return acc;
@@ -72,21 +72,21 @@ export default function ProductDetails() {
     const handleDeleteReview = (reviewId) => {
         dispatch(deleteReviewThunk(reviewId));
     }
-    let seller
-    for(let user of usersArr){
-        if(user?.id == singleProduct?.user_id){
-            seller = user
-        }
-    }
+    // let seller
+    // for(let user of usersArr){
+    //     if(user?.id == singleProduct?.user_id){
+    //         seller = user
+    //     }
+    // }
 
-    let canReview = true
-    if(reviewsArr?.length){
-        for(let rev of reviewsArr){
-            if(rev?.user_id == user?.id || seller?.id == user?.id){
-                canReview = false
-            }
-        }
-    }
+    // let canReview = true
+    // if(reviewsArr?.length){
+    //     for(let rev of reviewsArr){
+    //         if(rev?.user_id == user?.id || seller?.id == user?.id){
+    //             canReview = false
+    //         }
+    //     }
+    // }
 
     function starsIcon(avgRating){
         let filledStar = Math.floor(avgRating) // round avg rating down
