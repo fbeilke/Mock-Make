@@ -1,8 +1,8 @@
 .products-list {
     margin: auto;
     display: grid;
-    grid-template-columns: 23% 23% 23% 23%;
-    gap: 1%
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
 }
 
 

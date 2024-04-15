@@ -4,7 +4,6 @@ import { getProductsByCategory } from '../../redux/products';
 import { getAllUsersThunk } from '../../redux/users';
 import { useDispatch, useSelector } from 'react-redux';
 import ProductsList from './ProductsList'
-import './ProductsByCategory.css'
 
 export default function ProductsByCategory() {
     const { category } = useParams()

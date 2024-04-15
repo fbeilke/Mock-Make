@@ -1,7 +1,21 @@
 import { NavLink } from "react-router-dom"
+import { useDispatch } from "react-redux";
+import { addCartItemThunk } from "../../redux/session"
+import "./ProductsList.css"
 
 
 export default function ProductsList({ products, users }) {
+    const dispatch = useDispatch()
+
+    if (!users || !products) return null;
+
+    const addToCart = (product) => {
+        const cartProduct = {
+            productId: product.id,
+            quantity: 1
+        }
+        dispatch(addCartItemThunk(cartProduct));
+    }
 
     return (
         <div className="products-list">
