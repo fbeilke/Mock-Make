@@ -1,6 +1,6 @@
 // import React from "react";
 // import { Link } from "react-router-dom";
-import "./footer.css";
+import "./Footer.css";
 import { RxGithubLogo } from "react-icons/rx";
 import { FaReact } from "react-icons/fa6";
 import { PiFileHtmlDuotone } from "react-icons/pi";

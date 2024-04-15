@@ -91,6 +91,7 @@ export const createNewProduct = (payload) => async(dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(newProduct(data))
+        return data
     } else {
         const errors = await response.json();
         return errors;
