@@ -7,6 +7,8 @@ import ProductsByCategory from '../components/Products/ProductsByCategory';
 import NewProductForm from '../components/Products/NewProductForm';
 import ProductDetails from '../components/Products/ProductDetails';
 import EditProductForm from '../components/Products/EditProductForm';
+import OrderList from '../components/OrderList';
+import Checkout from '../components/Checkout';
 import LandingPage from '../components/LandingPage/LandingPage';
 // import ReviewForm from '../components/ReviewForm/ReviewForm';
 
@@ -46,6 +48,14 @@ export const router = createBrowserRouter([
       {
         path: '/products/:productId/edit',
         element: <EditProductForm />
+      },
+      {
+        path: '/checkout',
+        element: <Checkout />
+      },
+      {
+        path: '/orders',
+        element: <OrderList />
       }
     ],
   },

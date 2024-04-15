@@ -1,0 +1,11 @@
+.order {
+    width: 400px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    background-color: rgb(230, 230, 230);
+}
+
+.order > h5 {
+    border-bottom: 2px solid black;
+    font-size: 20px;
+}
