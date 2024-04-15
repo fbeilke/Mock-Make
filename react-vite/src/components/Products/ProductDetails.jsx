@@ -49,6 +49,13 @@ export default function ProductDetails() {
     const allProductImages = Object.values(singleProduct.product_images)
     const reviewsArr = Object.values(reviews)
     const usersArr = Object.values(users)
+    // const usersDictionary = usersArr.reduce((acc, user) => {
+    //     acc[user.id] = user;
+    //     return acc;
+    //   }, {});
+
+
+    console.log('TEST >>', users)
 
     const addToCart = (product) => {
         const cartProduct = {
@@ -116,21 +123,21 @@ export default function ProductDetails() {
                 </div>
                 <div className="product-reviews">
                     <h2>Reviews</h2>
-                    {user && canReview && (
+                    {!user || singleProduct.vendor_id !== user.id ? null :
                     <button className='new-rev-btn'><NavLink to={`/products/${productId}/review/new`} className='new-rev-txt'>Write a customer review</NavLink></button>
-                )}
-                { seller?.id == user?.id && <p className="cannot-rev-txt">*You cannot review your own product</p>}
+                }
+                { singleProduct.vendor_id == user.id}  <p className="cannot-rev-txt">*You cannot review your own product</p>
 
                     {reviews.map(review => (
                         <div key={review.id} className="review">
                             <div className='review-info-container'>
-                            <p className='rev-txt rev-name'>{user[(review?.user_id)-1]?.first_name} <span className='review-date-txt'>wrote a review on {formatDateV2(review?.createdAt)}</span></p>
+                            <p className='rev-txt rev-name'>{users[review.userId]?.firstName} <span className='review-date-txt'>wrote a review on {formatDateV2(review?.createdAt)}</span></p>
                             <p className='star-rating-icons'>{starsIcon(review?.rating)}</p>
                             <p className='txt review-txt'>{review?.review}</p>
                         </div>
 
                             <div className="review-content">
-                                <span>{review.rating} stars</span>
+                                {/* <span>{review.rating} stars</span> */}
                                 <p>{review.content}</p>
                             </div>
                             {/* Check if the current user is the author of the review */}
@@ -145,7 +152,7 @@ export default function ProductDetails() {
                     {user && !reviews.some(r => r.user_id === user.id) && (
                         <form onSubmit={handleAddReview}>
                             {/* Your review form inputs */}
-                            <button type="submit">Submit Review</button>
+                            {/* <button type="submit">Submit Review</button> */}
                         </form>
                     )}
                 </div>

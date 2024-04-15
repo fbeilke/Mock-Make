@@ -5,7 +5,7 @@ import { ModalProvider, Modal } from "../context/Modal";
 import { thunkAuthenticate } from "../redux/session";
 import Cart from "../components/Cart";
 import Navigation from "../components/Navigation/Navigation";
-import Footer from "../components/Footer/Footer";
+import Footer from "../components/Footer";
 import { CartProvider } from "../context/CartProvider";
 
 export default function Layout() {
