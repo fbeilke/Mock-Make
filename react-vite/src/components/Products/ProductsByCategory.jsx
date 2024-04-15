@@ -26,13 +26,15 @@ export default function ProductsByCategory() {
         }
     }
 
+    const categoryName = categoryTitle()
+
     useEffect(() => {
-        dispatch(getProductsByCategory(categoryTitle()))
-    }, [dispatch, category])
+        dispatch(getProductsByCategory(categoryName))
+    }, [dispatch, categoryName])
 
     return (
         <div className="products-page">
-            <h2>{categoryTitle()} Products</h2>
+            <h2>{categoryName} Products</h2>
             <div className="products-list">
                 {!products ? null : Object.values(products).map(product => (
                     <div key={product.id} className="each-product">

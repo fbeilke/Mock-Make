@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllProducts } from '../../redux/products';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
+import { useCart } from '../../context/CartProvider';
 import CartItem from "../CartItem";
 import './Cart.css';
 
@@ -12,7 +13,7 @@ function Cart(){
     const cart = useSelector(state => state.session.cart);
     const [cartArr, setCartArr] = useState([]);
     const products = useSelector(state => state.products.products)
-    const [isOpen, setIsOpen] = useState(true);
+    const { isOpen, setIsOpen } = useCart();
 
     const closeCart = () => {
         setIsOpen(false);

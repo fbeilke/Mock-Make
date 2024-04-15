@@ -14,6 +14,7 @@ class Product(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())
 
     images = db.relationship("ProductImage", back_populates="product")
+    vendor = db.relationship("User", back_populates="products")
 
     def to_dict(self):
         product_images = {}

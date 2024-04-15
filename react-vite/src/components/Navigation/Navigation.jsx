@@ -12,16 +12,14 @@ import { GiPaperBoat } from "react-icons/gi";
 import { GiCrafting } from "react-icons/gi";
 import { LiaGiftsSolid } from "react-icons/lia";
 import Cart from "../Cart";
+import { useCart } from "../../context/CartProvider";
 // import { IoHeart } from "react-icons/io5";
 
 function Navigation(isLoaded) {
   const [showCategories, setShowCategories] = useState(false);
   const categoriesRef = useRef();
   const user = useSelector(state => state.session.user)
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const toggleCart = () => setIsCartOpen(prev => !prev);
-
-
+  const { isOpen, setIsOpen } = useCart();
 
   // const toggleCategories = (e) => {
   //   e.stopPropagation();
@@ -145,20 +143,19 @@ return (
         <button className='search-button' onClick={() => alert('Feature coming soon')}><BiSearchAlt2 /></button>
       </li>
       {user && (
-          <li className='cart-item'>
-            <button onClick={toggleCart} className='cart-link'>
-              <BsCart className="cart-icon"/>
-              {/* {isCartOpen ? "Cart is Open" : "Open Cart"} */}
-            </button>
-          </li>
-        )}
+        <li className='cart-item'>
+          <BsCart className="cart-icon" onClick={() => setIsOpen(!isOpen)}/>
+        </li>
+
+
+      )}
     </ul>
     <div className='ProfileLinkArea'>
           {isLoaded && (
             <ProfileButton user={currentUser} />
           )}
     </div>
-    {isCartOpen && <Cart setIsCartOpen={setIsCartOpen}/>}  {/* Conditionally rendering the Cart component based on isCartOpen */}
+    {isOpen && <Cart setIsOpen={setIsOpen}/>}  {/* Conditionally rendering the Cart component based on isCartOpen */}
   </div>
 );
 }
