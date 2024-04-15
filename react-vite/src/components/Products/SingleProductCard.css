@@ -1,0 +1,39 @@
+.single-product-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 400px;
+    width: 80%;
+    border: 1px solid lightgray;
+    border-radius: 25px;
+    margin: 50px;
+    text-decoration: none;
+    color: black;
+
+}
+
+.single-product-image-container{
+    width: 50%;
+}
+
+.single-product-image {
+    margin: 50px;
+    height: 300px;
+}
+
+.single-product-info {
+    width: 50%;
+}
+
+.single-product-name {
+    font-size: 25px;
+}
+
+.single-product-category {
+    font-weight: bold;
+}
+
+.single-product-price {
+    font-size: 25px;
+    font-weight: bold;
+}
