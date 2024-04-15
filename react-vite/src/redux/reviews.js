@@ -7,7 +7,7 @@ const GET_USER_REVIEWS = '/userReviews'
 // ACTION TYPES
 const getAllReviews = (reviews) => {
     return{
-        type:GET_ALL_REVIEWS,
+        type: GET_ALL_REVIEWS,
         reviews
     }
 }
@@ -47,7 +47,6 @@ export const reviewsByProduct = (productId) => async (dispatch) => {
     }
     const data = await response.json()
     dispatch(getAllReviews(data))
-    return data
 }
 
 // create new review
@@ -105,7 +104,7 @@ export const getUserReviewsThunk = () => async (dispatch) => {
 function reviewReducer(state = {}, action){
     switch(action.type){
         case GET_ALL_REVIEWS:{
-            return{...state, ...action.reviews}
+            return{...state, reviews: action.reviews}
         }
         case CREATE_NEW_REVIEW: {
             return{...state, ...action.newReview}
@@ -125,7 +124,5 @@ function reviewReducer(state = {}, action){
             return state
     }
 }
-
-
 
 export default reviewReducer

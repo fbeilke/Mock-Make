@@ -11,8 +11,10 @@ import { MdToys } from "react-icons/md";
 import { GiPaperBoat } from "react-icons/gi";
 import { GiCrafting } from "react-icons/gi";
 import { LiaGiftsSolid } from "react-icons/lia";
+import Cart from "../Cart";
 import { useCart } from "../../context/CartProvider";
 // import { IoHeart } from "react-icons/io5";
+
 function Navigation(isLoaded) {
   const [showCategories, setShowCategories] = useState(false);
   const categoriesRef = useRef();
@@ -57,6 +59,18 @@ function Navigation(isLoaded) {
   }, [showCategories])
 
   const currentUser = useSelector((state) => state.session.user);
+
+//   const openCart = () => {
+//     if (!isCartOpen) {
+//         setIsCartOpen(true);
+//     }
+// };
+// const closeCart = () => {
+
+//   if (isCartOpen) {
+//       setIsCartOpen(false);
+//   }
+// };
 
 
 //   return (
@@ -128,7 +142,6 @@ return (
         <input type="text" placeholder="Search.." className='search-input' onClick={() => alert('Feature coming soon')}/>
         <button className='search-button' onClick={() => alert('Feature coming soon')}><BiSearchAlt2 /></button>
       </li>
-
       {user && (
         <li className='cart-item'>
           <BsCart className="cart-icon" onClick={() => setIsOpen(!isOpen)}/>
@@ -142,6 +155,7 @@ return (
             <ProfileButton user={currentUser} />
           )}
     </div>
+    {isOpen && <Cart setIsOpen={setIsOpen}/>}  {/* Conditionally rendering the Cart component based on isCartOpen */}
   </div>
 );
 }

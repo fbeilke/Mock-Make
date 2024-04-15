@@ -12,20 +12,19 @@ const getAllUsers = (users) => {
 
 // get all users thunk
 export const getAllUsersThunk = () => async (dispatch) => {
-    const response = await fetch(`/api/users`)
+    const response = await fetch(`/api/users/`)
     if(!response.ok){
         throw new Error ('Failed to get all users.')
     }
     const data = await response.json()
     dispatch(getAllUsers(data))
-    return data
 }
 
 // REDUCER
 function userReducer(state={}, action){
     switch(action.type){
         case GET_ALL_USERS: {
-            return {...state, ...action.users}
+            return {...state, users: action.users}
         }
         default:
             return state
