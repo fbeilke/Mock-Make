@@ -76,6 +76,7 @@
 .logo-item .logo-link img {
   height: 60px;
   padding-right: 10px;
+  border-radius: 25%;
 }
 
 .search-wrapper {
