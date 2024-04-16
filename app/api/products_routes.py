@@ -38,16 +38,34 @@ def create_new_product():
     '''
     Return data in dictionary for a new product
     '''
-    data = request.json
-    form = ProductForm(**data)
+    form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        data["vendor_id"] = current_user["id"]
-        new_product = Product(**data)
+        new_product = Product(**{key: value for key,value in form.data.items() if key not in ['csrf_token', 'image']})
+        new_product.vendor_id = current_user.id
+
+        image = form.image.data
+        image.filename = unique_filename(image.filename)
+
+        upload = s3_upload_file(image)
+
+        # If the S3 upload fails:
+        if 'url' not in upload:
+            # AWS ERROR OBJECT {"errors": <aws_error>}
+            return upload, 400
+        
+        new_product_image = ProductImage(
+            url=upload['url'],
+            preview=True
+        )
+        
+        new_product.images.append(new_product_image)
+
         db.session.add(new_product)
         db.session.commit()
-        return new_product.to_dict()
+
+        return new_product.to_dict(), 201
     elif form.errors:
         return form.errors, 400
     else:

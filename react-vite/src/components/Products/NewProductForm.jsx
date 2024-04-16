@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewProduct } from '../../redux/products';
+import { formDataFromObject } from '../../utils/formDataUtils';
 import './NewProductForm.css'
 
 export default function NewProductForm() {
@@ -12,7 +13,10 @@ export default function NewProductForm() {
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
     const [price, setPrice] = useState(0);
-    const [validators, setValidators] = useState({})
+    const [validators, setValidators] = useState({});
+    const [file, setFile] = useState(null);
+    const [tempUrl, setTempUrl] = useState("");
+    const [imageLoading, setImageLoading] = useState(false);
 
     // NEED TO DO PICTURES
 
@@ -33,15 +37,19 @@ export default function NewProductForm() {
         setValidators(errors)
 
         if (Object.values(errors).length === 0) {
+            setImageLoading(true);
+            
             const payload = {
-                vendor_id: user.id,
                 name,
                 description,
                 category,
-                price
+                price,
+                image: file
             }
 
-            const data = await dispatch(createNewProduct(payload))
+            const formData = formDataFromObject(payload);
+
+            const data = await dispatch(createNewProduct(formData))
 
             if (data && !data.id) {
                 setValidators({error: data})
@@ -51,10 +59,36 @@ export default function NewProductForm() {
         }
     }
 
+    const handleFileChange = e => {
+        // If they did not choose a file
+        if(!e.target.files.length) {
+
+            // Release old file URL
+            if(tempUrl.length) {
+                setTempUrl("");
+                URL.revokeObjectURL(tempUrl);
+            }
+            return;
+        }
+
+        // File to be added
+        const newFile = e.target.files[0];
+        setFile(newFile);
+
+        // If there was previously a fileURL, release it
+        if(tempUrl.length) {
+            setTempUrl("");
+            URL.revokeObjectURL(tempUrl);
+        }
+
+        // Show the file in the temp image
+        setTempUrl(URL.createObjectURL(newFile));
+    }
+
     return (
         <div>
             <h2>Create a new product listing</h2>
-            <form className="create-product-form" onSubmit={handleSubmit}>
+            <form className="create-product-form" onSubmit={handleSubmit} encType='multipart/form-data'>
                 <div>
                     <p>Provide your product with a descriptive name.</p>
                     <input
@@ -100,6 +134,14 @@ export default function NewProductForm() {
                 <div>
                     <button type='submit' disabled={true} className="create-product-button">Create Product</button>
                 </div>
+                { tempUrl.length ? <img className='input-image' src={tempUrl} alt={tempUrl} /> : null }
+                <input 
+                    type="file" 
+                    accept="image/*"
+                    onChange={handleFileChange}
+                />
+                <button type="submit">Add Image</button>
+                { imageLoading && <p>Loading...</p> }
             </form>
         </div>
 
