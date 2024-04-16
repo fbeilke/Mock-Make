@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { getAllProducts } from "../../redux/products"
 import { getAllUsersThunk } from "../../redux/users";
 import SingleProductCard from "../Products/SingleProductCard";
@@ -8,6 +8,7 @@ import "./LandingPage.css"
 
 export default function LandingPage() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { products, allProductsIds } = useSelector(state => state.products)
     const { user } = useSelector(state => state.session);
     const { users } = useSelector(state => state.users);
@@ -67,14 +68,16 @@ export default function LandingPage() {
     randomProducts.push(products[Math.floor(randomNumbers[2] * allProductsIds.length)])
 
     function productsByCategory(category){
-        // const productsArray = Object.values(products)
         const productsByCategoryArray = productsArray.filter(product => product.category === category)
-        console.log(productsByCategoryArray)
+
         return productsByCategoryArray
     }
 
+    if (randomNumbers.length === 0) return <p>Loading...</p>
+
     function randomCategoryProductId(category) {
         const randomId = Math.floor(randomNumbers[3] * productsByCategory(category).length)
+
         return randomId
     }
 
@@ -84,6 +87,7 @@ export default function LandingPage() {
             <h2 className="landing-page-title">Shop Handmade Products</h2>
             <div className="landing-categories-container">
                 {!products ? null : categories.map(category => {
+
                         return (
                         <div className="landing-categories-card" key={category}>
                             <NavLink to={`/products/categories/${categoryUrl[category]}`} className='landing-categories-link'>
@@ -97,8 +101,8 @@ export default function LandingPage() {
             <div>
                 {!user ? null :
                 <div className='landing-if-logged-in'>
-                    <button>View your orders</button>
-                    <button>View your wish list</button>
+                    <button onClick={() => navigate('/orders')}>View your orders</button>
+                    <button onClick={() => navigate('/wishlist')}>View your wish list</button>
                 </div>
                 }
             </div>
