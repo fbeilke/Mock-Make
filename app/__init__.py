@@ -12,6 +12,7 @@ from .api.reviews_routes import reviews_routes
 from .api.cart_routes import cart
 from .api.orders_routes import orders
 from .api.product_image_routes import product_images
+
 from .seeds import seed_commands
 from .config import Config
 

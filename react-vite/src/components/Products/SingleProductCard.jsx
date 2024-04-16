@@ -3,7 +3,7 @@ import "./SingleProductCard.css"
 
 export default function SingleProductCard({ product, users}) {
 
-
+    if (!product || !users) return <p>Loading...</p>
 
     return (
         <NavLink className="single-product-link" to={`/products/${product.id}`} key={product.id}>
