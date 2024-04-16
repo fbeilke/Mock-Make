@@ -148,7 +148,7 @@ export default function ProductDetails() {
                         Write a customer review
                     </button>
                 )}
-                {singleProduct.vendor_id == user.id && (
+                {user && singleProduct.vendor_id == user.id && (
                     <p className="cannot-rev-txt">*You cannot review your own product</p>
                 )}
                 {showReviewForm &&  (
@@ -178,12 +178,12 @@ export default function ProductDetails() {
                         </div>
                     )))}
                 </div>
-                {reviews?.userId === user.id && (
+                {user && reviews?.userId === user.id && (
                             <button onClick={() => openDeleteModal(reviews.id)}>
                                 Delete Review
                             </button>
                 )}
-                    {reviews?.user_id == user?.id &&(
+                    {user && reviews?.user_id == user?.id &&(
                         <OpenModalMenuItem
                             className='delbtn'
                             buttonText='Delete'
@@ -196,12 +196,14 @@ export default function ProductDetails() {
                 {!user || singleProduct.vendor_id !== user.id ? null :
                     <div className="vendor-control-buttons">
                             <button onClick={() => navigate(`/products/${singleProduct.id}/edit`)}>Update Listing</button>
-                            <button onClick={() => alert("Coming Soon")}>Delete Listing</button>
+                            <button onClick={() => alert("Feature coming soon!")}>Delete Listing</button>
                     </div>
                 }
                 <h2>${singleProduct.price}</h2>
                 <p>{singleProduct.name}</p>
-                <span>TODO: add product vendor name</span>
+                {users[singleProduct.vendor_id].vendor_name ? <span>{users[singleProduct.vendor_id].vendor_name}</span> :
+                <span>{users[singleProduct.vendor_id].username}</span>
+                }
                 <span>·</span>
                 <span>TODO: add reviews stars</span>
                 {user && singleProduct.vendor_id === user.id ? null :
