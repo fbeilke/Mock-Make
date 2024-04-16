@@ -85,6 +85,10 @@ product-reviews {
     margin-right: 4px;
 }
 
+.review-image {
+    height: 100px;
+}
+
 .review-content p {
     font-size: 0.9rem;
     color: #333;

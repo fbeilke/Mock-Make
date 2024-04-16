@@ -16,7 +16,7 @@ function ReviewForm({ review, buttonText,onHide }) {
     const [rating, setRating] = useState(review?.rating || 0);
     const [hover, setHover] = useState(0);
     const [reviewText, setReviewText] = useState(review?.content || ''); // Changed from review.review to review.content
-    // const [image, setImage] = useState(null); // This will be the File object for the image
+    const [image, setImage] = useState(null); // This will be the File object for the image
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     // const [imageUrl, setImageUrl] = useState(review?.image_url || '');
@@ -70,10 +70,10 @@ function ReviewForm({ review, buttonText,onHide }) {
             // if (image) {
             //     formData.append('image', image);
             // }
-            const formData= {
-                content:reviewText,
-                rating:rating
-            }
+            const formData = new FormData();
+            formData.append('content', reviewText);
+            formData.append('rating', rating);
+            formData.append('image', image);
 
 
             await dispatch(createReviewThunk(productId, formData));
@@ -111,15 +111,13 @@ function ReviewForm({ review, buttonText,onHide }) {
                         </div>
 
                         <div className='review-section'>
-                            {/* <h2 className='review-heading'>Add a photo</h2> */}
-                            {/* <input
+                            <h2 className='review-heading'>Add a photo</h2>
+                            <input
                                 type='file'
                                 accept="image/*"
-                                // onChange={(e) => setImageUrl(e.target.files[0])}
-                                onChange={handleImageChange}
-
-                            /> */}
-                            {errors.imageUrl && <p className='error-message'>{errors.imageUrl}</p>}
+                                onChange={(e) => setImage(e.target.files[0])}
+                            />
+                            {errors.imageUrl && <p className='error-message'>{errors.image}</p>}
                         </div>
 
                         <div className='review-section'>

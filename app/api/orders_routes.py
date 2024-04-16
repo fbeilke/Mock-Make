@@ -41,7 +41,6 @@ def create_user_order():
 @orders.delete('/<int:id>')
 @login_required
 def cancel_user_order(id):
-    print('delete method')
     order = db.session.get(Order, int(id))
 
     if order.user_id != current_user.id:
