@@ -38,6 +38,7 @@ def post_review(product_id):
     # Add to the session and commit to the database
     db.session.add(new_review)
     db.session.commit()
+    db.session.refresh(new_review)
 
     # Return the new review as a JSON response
     return jsonify(new_review.to_dict()), 201

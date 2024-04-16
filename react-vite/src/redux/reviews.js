@@ -25,10 +25,10 @@ const updateReview = (review) => {
     }
 }
 
-const deleteReview = (review) => {
+const deleteReview = (reviewId) => {
     return {
         type: DELETE_REVIEW,
-        review
+        reviewId
     }
 }
 const getUserReviews = (reviews) => {
@@ -94,8 +94,8 @@ export const deleteReviewThunk = (reviewId) => async (dispatch) => {
     if(!response.ok){
         throw new Error ('Failed to delete review')
     }
-    const data = await response.json()
-    dispatch(deleteReview(data))
+    // const data = await response.json()
+    dispatch(deleteReview(reviewId))
 }
 
 export const getUserReviewsThunk = () => async (dispatch) => {
@@ -116,7 +116,7 @@ function reviewReducer(state = {}, action){
             return{...state, reviews: action.reviews}
         }
         case CREATE_NEW_REVIEW: {
-            return{...state, reviews: [...state.reviews, action.review]}
+            return{...state, reviews: [...state.reviews, action.newReview]}
         }
         case UPDATE_REVIEW: {
             return {...state,
@@ -127,7 +127,7 @@ function reviewReducer(state = {}, action){
         case DELETE_REVIEW: {
             return {
                 ...state,
-                reviews: state.reviews.filter(review => review.id !== action.reviews)
+                reviews: state.reviews.filter(review => review.id !== action.reviewId)
             }
         }
         case GET_USER_REVIEWS: {

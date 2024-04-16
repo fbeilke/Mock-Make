@@ -1,25 +1,153 @@
 .product-detail-columns {
     display: flex;
-    gap: 30px;
+    gap: 50px;
+    padding-top: 20px;
 }
 
 .product-detail-left-side {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .detail-all-images {
+    width: 100px;
     height: 100px;
     aspect-ratio: 1/1;
     display: flex;
     flex-direction: column;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 1px solid #eaeaea;
+    padding: 5px;
+    border-radius: 4px;
+    gap: 10px;
 }
 
 .detail-display-image {
-    width: 500px;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
 }
+body {
+    padding: 20px;
+  }
 
 .product-detail-images {
     display: flex;
-    height: 500px;
+    height: 600px;
+}
+product-reviews {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+
+
+
+
+.product-reviews {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.review {
+    background: #f8f8f8;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.review-info-container {
+    display: column;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.rev-txt {
+    font-weight: bold;
+}
+
+.star-rating-icons {
+    display: flex;
+    align-items: center;
+}
+
+.MdOutlineStar,
+.MdOutlineStarBorder {
+    color: #ffcc00;
+    margin-right: 4px;
+}
+
+.review-content p {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.review button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.review button:hover {
+    background-color: #bb2d3b;
+}
+
+.new-rev-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.new-rev-btn:hover {
+    background-color: #0056b3;
+}
+
+.product-details-right-side {
+    padding: 20px;
+    border-left: 1px solid #eaeaea;
+    display: flex;
+    flex-direction: column;
+}
+
+.thumbnail-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+
+  .detail-display-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+  }
+
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .product-detail-columns {
+        flex-direction: column;
+    }
+
+    .product-details-right-side {
+        border-left: none;
+        border-top: 1px solid #eaeaea;
+    }
 }
