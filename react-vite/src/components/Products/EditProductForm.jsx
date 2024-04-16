@@ -2,6 +2,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateExistingProduct } from '../../redux/products';
+import ImageForm from '../ImageForm';
+import ProductImage from '../ProductImage';
 import './EditProductForm.css'
 
 export default function EditProductForm() {
@@ -112,6 +114,10 @@ export default function EditProductForm() {
                     <button type='submit' disabled={true} className="edit-product-button">Update Product</button>
                 </div>
             </form>
+            { Object.entries(singleProduct.product_images).map(([id, image]) => (
+                <ProductImage key={id} image={image} edit={true} />
+            ))}
+            <ImageForm productId={productId} />
         </div>
     )
 }

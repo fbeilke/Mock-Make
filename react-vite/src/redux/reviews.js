@@ -50,14 +50,12 @@ export const reviewsByProduct = (productId) => async (dispatch) => {
 }
 
 // create new review
-export const createReviewThunk = (productId, newReview) => async (dispatch) => {
+export const createReviewThunk = (productId, reviewFormData) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}/reviews`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newReview),
+        body: reviewFormData,
     });
+
     if(!response.ok){
         throw new Error ('Failed to create new review')
     }
@@ -86,11 +84,9 @@ export const updateReviewThunk = (reviewId, updatedReview) => async (dispatch) =
 // delete review by review id
 export const deleteReviewThunk = (reviewId) => async (dispatch) => {
     const response = await fetch(`/api/reviews/${reviewId}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        method: 'DELETE'
     });
+
     if(!response.ok){
         throw new Error ('Failed to delete review')
     }

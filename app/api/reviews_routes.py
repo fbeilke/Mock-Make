@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from app.models import db, Review, Product
 from flask_login import current_user, login_required
 from app.forms.review_form import CreateReviewForm
+from .aws import s3_upload_file, s3_remove_file, unique_filename
 
 reviews_routes = Blueprint('reviews', __name__)
 
@@ -17,15 +18,31 @@ def get_reviews(product_id):
 @login_required
 def post_review(product_id):
 
-    data = request.get_json()
-    content = data.get('content')
-    rating = data.get('rating')
+    form = CreateReviewForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
-    # Perform data validation
-    if content is None or rating is None:
-        return jsonify({'error': 'Missing content or rating'}), 400
-    if not isinstance(rating, int) or not 1 <= rating <= 5:
-        return jsonify({'error': 'Rating must be an integer between 1 and 5'}), 400
+    content = form.content.data
+    rating = form.rating.data
+    image = form.image.data
+
+    # Perform data validation -- Now done in review_form.py
+    # if content is None or rating is None:
+    #     return jsonify({'error': 'Missing content or rating'}), 400
+    # if not isinstance(rating, int) or not 1 <= rating <= 5:
+    #     return jsonify({'error': 'Rating must be an integer between 1 and 5'}), 400
+    if not form.validate_on_submit():
+        return {"errors": form.errors}, 400
+    
+    image.filename = unique_filename(image.filename)
+    
+    upload = s3_upload_file(image)
+
+    # If the S3 upload fails:
+    if 'url' not in upload:
+        # AWS ERROR OBJECT {"errors": <aws_error>}
+        return upload, 400
+
+    # upload = { "url": aws_url }
 
     # Create a new review instance
     new_review = Review(
@@ -33,6 +50,7 @@ def post_review(product_id):
         product_id=product_id,
         content=content,
         rating=rating,
+        image_url=upload["url"]
     )
 
     # Add to the session and commit to the database
@@ -41,7 +59,7 @@ def post_review(product_id):
     db.session.refresh(new_review)
 
     # Return the new review as a JSON response
-    return jsonify(new_review.to_dict()), 201
+    return new_review.to_dict(), 201
 
 
 
@@ -51,13 +69,23 @@ def post_review(product_id):
 def delete_review(review_id):
     review = Review.query.get(review_id)
     if not review:
-        return jsonify({'error': 'Review not found'}), 404
+        return {'error': 'Review not found'}, 404
     if review.user_id != current_user.id:
-        return jsonify({'error': 'Unauthorized'}), 403
+        return {'error': 'Unauthorized'}, 403
+    
+    deleted = review.to_dict()
 
     db.session.delete(review)
     db.session.commit()
-    return jsonify({'message': 'Review successfully deleted'}), 200
+
+    if 'imageUrl' in deleted:
+        removed = s3_remove_file(deleted['imageUrl'])
+
+        if removed != True:
+            # Return AWS ERROR {"errors": <aws_error>}
+            return removed, 400
+
+    return {'message': 'Review successfully deleted'}, 200
 
 # def post_review(product_id):
 #     # Assume CreateReviewForm is defined and imported correctly
