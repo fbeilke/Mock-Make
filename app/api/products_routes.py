@@ -102,6 +102,8 @@ def create_new_image(id):
     """
     form = ImageForm()
 
+    form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
         # Get the image file from the form
         image = form.data["image"]
@@ -122,7 +124,12 @@ def create_new_image(id):
         url = upload["url"]
         # Check if an image already exists
         # If so set preview to false
-        preview = True if ProductImage.query.filter_by(product_id=id).first() else False
+        num_product_images = len(ProductImage.query.filter_by(product_id=id).all())
+        preview = num_product_images < 1
+
+        # If there are 5 images already, send an error
+        if num_product_images >= 5:
+            return {'errors': 'products can only have 5 images' }, 400
         
         # Create new product image object with url, product id, and preview
         new_image = ProductImage(
@@ -142,4 +149,4 @@ def create_new_image(id):
         return new_image.to_dict(), 201
     
     # If the form doesn't validate successfully, send errors
-    return { "errors": form.errors }
+    return { "errors": form.errors }, 400

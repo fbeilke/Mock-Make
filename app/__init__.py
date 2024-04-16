@@ -11,6 +11,7 @@ from .api.products_routes import products_routes
 from .api.reviews_routes import reviews_routes
 from .api.cart_routes import cart
 from .api.orders_routes import orders
+from .api.product_image_routes import product_images
 from .seeds import seed_commands
 from .config import Config
 
@@ -36,6 +37,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(products_routes, url_prefix='/api/products')
 app.register_blueprint(cart, url_prefix='/api/cart')
 app.register_blueprint(orders, url_prefix='/api/orders')
+app.register_blueprint(product_images, url_prefix='/api/product_images')
 app.register_blueprint(reviews_routes, url_prefix='/api')
 db.init_app(app)
 Migrate(app, db)

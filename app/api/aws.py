@@ -30,7 +30,7 @@ def s3_upload_file(file, acl="public-read"):
     the file to the s3 bucket specified by environ.BUCKET_NAME
     """
     try:
-        s3.upload.fileobj(
+        s3.upload_fileobj(
             file,
             BUCKET_NAME,
             file.filename,
