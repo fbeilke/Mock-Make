@@ -62,13 +62,17 @@ export default function ProductDetails() {
     const allProductImages = Object.values(singleProduct.product_images)
     const reviewsArr = Object.values(reviews)
 
+    const displayableProductImages = allProductImages.length > 5
+    ? allProductImages.slice(0, 5)
+    : allProductImages;
+
     // const usersArr = Object.values(users)
     // const usersDictionary = usersArr.reduce((acc, user) => {
     //     acc[user.id] = user;
     //     return acc;
     //   }, {});
 
-    console.log('TEST >>', users)
+    // console.log('TEST >>', users)
     const openDeleteModal = (reviewId) => {
         setModalContent(
             <DeleteReview
@@ -77,7 +81,6 @@ export default function ProductDetails() {
             />
         );
     };
-
     const addToCart = (product) => {
         const cartProduct = {
             productId: product.id,
@@ -108,6 +111,14 @@ export default function ProductDetails() {
         })
         return starArr
     }
+
+
+    const hideReviewForm = () => setShowReviewForm(false);
+
+
+
+
+
     // const isProductOwner = user && user.id === products.vendor_id;
     // const userHasReviewed = reviews && reviews.some(review => review.user_id === user.id);
     const hasReview = reviewsArr.some(review =>
@@ -117,12 +128,12 @@ export default function ProductDetails() {
             <div className="product-detail-left-side">
                 <div className="product-detail-images">
                     <div className='detail-all-images'>
-                        {allProductImages.map(image => (
-                            <img src={image.url} alt={`image ${image.id}`} key={image.id} onClick={() => setDisplayImageURL(image.url)}/>
+                        {displayableProductImages.map(image => (
+                            <img src={image.url} alt={`image ${image.id}`} key={image.id} onClick={() => setDisplayImageURL(image.url)} className="thumbnail-image"/>
                         ))}
                     </div>
                     <div>
-                        {!displayImageURL ? <img src={allProductImages.filter(image => image.preview)[0].url} alt={`${singleProduct.name}`} className="detail-display-image" /> :
+                        {!displayImageURL ? <img src={displayableProductImages.filter(image => image.preview)[0].url} alt={`${singleProduct.name}`} className="detail-display-image" /> :
                         <img src={displayImageURL} alt={`${singleProduct.name}`} className="detail-display-image" />
                         }
                     </div>
@@ -144,6 +155,7 @@ export default function ProductDetails() {
                     <ReviewForm
                         product_id={singleProduct.id}
                         buttonText="Submit Review"
+                        onHide={hideReviewForm}
 
                         // ...pass other props if needed
                     />
@@ -170,17 +182,7 @@ export default function ProductDetails() {
                                 Delete Review
                             </button>
                 )}
-                    {/* {reviews?.user_id == user?.id  && (
-                            <div className='review-buttons'>
-                                <button className='review-btns delete-rev-btn'>
-                                    <OpenModalMenuItem
-                                        itemText='Delete Review'
-                                        modalComponent={<DeleteReview reviewId={reviews?.id} productId={productId} renderDelete={renderDelete}/>}
-                                    />
-                                </button>
-                            </div>
-                        )} */}
-                        {reviews?.user_id == user?.id &&(
+                    {reviews?.user_id == user?.id &&(
                         <OpenModalMenuItem
                             className='delbtn'
                             buttonText='Delete'
