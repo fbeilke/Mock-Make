@@ -11,6 +11,8 @@ import { MdOutlineStar } from "react-icons/md";
 import ReviewForm from '../ReviewForm/ReviewForm';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteReview from "../DeleteReview/DeleteReview";
+import OpenModalButton from '../OpenModalButton';
+import DeleteProduct from './DeleteProduct';
 import { useModal } from "../../context/Modal";
 import "./ProductDetails.css"
 
@@ -195,8 +197,10 @@ export default function ProductDetails() {
             <div className="product-details-right-side">
                 {!user || singleProduct.vendor_id !== user.id ? null :
                     <div className="vendor-control-buttons">
-                            <button onClick={() => navigate(`/products/${singleProduct.id}/edit`)}>Update Listing</button>
-                            <button onClick={() => alert("Feature coming soon!")}>Delete Listing</button>
+                        <button className='update-product-button' onClick={() => navigate(`/products/${singleProduct.id}/edit`)}>Update Listing</button>
+                        <button  className='delete-product-button'>
+                            <OpenModalMenuItem itemText="Delete Listing" modalComponent={<DeleteProduct productId={singleProduct.id} />} />
+                        </button>
                     </div>
                 }
                 <h2>${singleProduct.price}</h2>
