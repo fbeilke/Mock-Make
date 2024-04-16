@@ -11,7 +11,6 @@ from .api.products_routes import products_routes
 from .api.reviews_routes import reviews_routes
 from .api.cart_routes import cart
 from .api.orders_routes import orders
-from .api.wishlist_routes import wishlist_routes
 
 from .seeds import seed_commands
 from .config import Config
