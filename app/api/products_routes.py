@@ -1,7 +1,8 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, Product, ProductImage
-from app.forms.product_form import ProductForm
+from app.forms import ProductForm, ImageForm
+from .aws import unique_filename, s3_upload_file
 
 products_routes = Blueprint("products_routes", __name__)
 
@@ -90,3 +91,55 @@ def delete_product(id):
         return {"message": "Successfully deleted"}
     else:
         return {"message": "Product with provided id was not found."}
+
+
+
+@products_routes.post('/<int:id>/product_images')
+@login_required
+def create_new_image(id):
+    """
+    Adds an image file to the product specified by <id>
+    """
+    form = ImageForm()
+
+    if form.validate_on_submit():
+        # Get the image file from the form
+        image = form.data["image"]
+        # Generate unique filename for image
+        # Rename the file to unique string
+        image.filename = unique_filename(image.filename)
+        # Send to S3 bucket
+        upload = s3_upload_file(image)
+        # Print (error check)
+        print(upload)
+
+        # If the file upload fails
+        if "url" not in upload:
+            # Return {"errors": <aws_errors>}
+            return upload
+        
+        # File upload success - grab the aws url
+        url = upload["url"]
+        # Check if an image already exists
+        # If so set preview to false
+        preview = True if ProductImage.query.filter_by(product_id=id).first() else False
+        
+        # Create new product image object with url, product id, and preview
+        new_image = ProductImage(
+            url=url,
+            product_id=int(id),
+            preview=preview
+        )
+
+        # Persist in db
+        db.session.add(new_image)
+        db.session.commit()
+
+        # Grab latest version of object from db (just in case)
+        db.session.refresh(new_image)
+
+        # Return image to client
+        return new_image.to_dict(), 201
+    
+    # If the form doesn't validate successfully, send errors
+    return { "errors": form.errors }

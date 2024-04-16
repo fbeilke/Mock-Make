@@ -19,11 +19,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-<<<<<<< HEAD
-        element: <h1>Welcome!<img src="https://mock-make-image-bucket.s3.us-east-2.amazonaws.com/bucket.png"/></h1>,
-=======
         element: <LandingPage />,
->>>>>>> dev
       },
       {
         path: "login",
