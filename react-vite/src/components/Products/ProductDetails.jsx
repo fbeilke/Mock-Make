@@ -62,6 +62,12 @@ export default function ProductDetails() {
     const allProductImages = Object.values(singleProduct.product_images)
     const reviewsArr = Object.values(reviews)
 
+    // const usersArr = Object.values(users)
+    // const usersDictionary = usersArr.reduce((acc, user) => {
+    //     acc[user.id] = user;
+    //     return acc;
+    //   }, {});
+
     console.log('TEST >>', users)
     const openDeleteModal = (reviewId) => {
         setModalContent(
@@ -82,7 +88,6 @@ export default function ProductDetails() {
     // const handleAddReview = (review) => {
     //     dispatch(createReviewThunk(review));
     // }
-
 
     // // Example delete review function
     // const handleDeleteReview = (reviewId) => {

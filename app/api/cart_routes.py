@@ -43,10 +43,19 @@ def change_product_quantity():
     db.session.refresh(cart_product)
     return cart_product.to_dict()
 
+@cart.delete('/')
+@login_required
+def empty_cart():
+    cart_products = CartProduct.query.filter_by(user_id = current_user.id).all()
+    for product in cart_products:
+        db.session.delete(product)
+    db.session.commit()
+    return {"message": "cart successfully emptied"}
+
 @cart.delete('/<int:id>')
 @login_required
 def delete_cart_product(id):
-    cart_product = CartProduct.query.filter(CartProduct.product_id == id, CartProduct.user_id == current_user.id).first()
+    cart_product = CartProduct.query.filter_by(product_id = id, user_id = current_user.id).first()
     deleted = cart_product.to_dict()
     db.session.delete(cart_product)
     db.session.commit()

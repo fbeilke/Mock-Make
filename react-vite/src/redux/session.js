@@ -101,6 +101,18 @@ export const getCartThunk = () => async (dispatch) => {
   }
 }
 
+export const emptyCartThunk = () => async (dispatch) => {
+  const response = await fetch('/api/cart/', {
+    method: 'DELETE'
+  });
+
+  if(response.ok) {
+    dispatch(setCart([]));
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
+}
+
 export const addCartItemThunk = (product) => async dispatch => {
   const response = await fetch('/api/cart/', {
     method: 'POST',
