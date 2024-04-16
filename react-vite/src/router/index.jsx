@@ -10,6 +10,7 @@ import EditProductForm from '../components/Products/EditProductForm';
 import OrderList from '../components/OrderList';
 import Checkout from '../components/Checkout';
 import LandingPage from '../components/LandingPage/LandingPage';
+import WishList from '../components/WishList/WishList';
 // import ReviewForm from '../components/ReviewForm/ReviewForm';
 
 
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
       {
         path: '/orders',
         element: <OrderList />
+      },
+      {
+        path: '/wishlist',
+        element: <WishList />
       }
     ],
   },
