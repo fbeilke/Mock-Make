@@ -50,14 +50,12 @@ export const reviewsByProduct = (productId) => async (dispatch) => {
 }
 
 // create new review
-export const createReviewThunk = (productId, newReview) => async (dispatch) => {
+export const createReviewThunk = (productId, reviewFormData) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}/reviews`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newReview),
+        body: reviewFormData,
     });
+    
     if(!response.ok){
         throw new Error ('Failed to create new review')
     }

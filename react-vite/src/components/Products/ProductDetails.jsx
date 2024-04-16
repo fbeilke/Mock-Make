@@ -166,6 +166,7 @@ export default function ProductDetails() {
                             <p className='rev-txt rev-name'>{users[review?.userId]?.firstName} <span className='review-date-txt'>wrote a review on {review && (formatDateV2(review?.createdAt))}</span></p>
                             <p className='star-rating-icons'>{starsIcon(review?.rating)}</p>
                             <div className="review-content">
+                               <img className='review-image' src={review?.imageUrl} alt={review?.imageUrl || "Review Image"} />
                                <p>{review?.content}</p>
                                {review?.userId === user.id && (
                             <button onClick={() => openDeleteModal(review?.id)}>
