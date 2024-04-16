@@ -1,8 +1,8 @@
-const GET_ALL_REVIEWS = '/reviews'
-const CREATE_NEW_REVIEW = '/reviews/new'
-const UPDATE_REVIEW = '/reviews/update'
-const DELETE_REVIEW = '/reviews/delete'
-const GET_USER_REVIEWS = '/userReviews'
+const GET_ALL_REVIEWS = 'GET_ALL_REVIEWS';
+const CREATE_NEW_REVIEW = 'CREATE_NEW_REVIEW';
+const UPDATE_REVIEW = 'UPDATE_REVIEW';
+const DELETE_REVIEW = 'DELETE_REVIEW';
+const GET_USER_REVIEWS = 'GET_USER_REVIEWS';
 
 // ACTION TYPES
 const getAllReviews = (reviews) => {
@@ -51,10 +51,13 @@ export const reviewsByProduct = (productId) => async (dispatch) => {
 
 // create new review
 export const createReviewThunk = (productId, newReview) => async (dispatch) => {
-    const response = await fetch(`/api/products/${parseInt(productId)}/reviews/new`, {
+    const response = await fetch(`/api/products/${productId}/reviews`, {
         method: 'POST',
-        body: newReview
-    })
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newReview),
+    });
     if(!response.ok){
         throw new Error ('Failed to create new review')
     }
@@ -65,9 +68,12 @@ export const createReviewThunk = (productId, newReview) => async (dispatch) => {
 
 // update review by review id
 export const updateReviewThunk = (reviewId, updatedReview) => async (dispatch) => {
-    const response = await fetch (`/api/reviews/${parseInt(reviewId)}/edit`, {
+    const response = await fetch(`/api/reviews/${reviewId}`, {
         method: 'PUT',
-        body: updatedReview
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedReview),
     })
     if(!response.ok){
         throw new Error('Failed to update review')
@@ -79,9 +85,12 @@ export const updateReviewThunk = (reviewId, updatedReview) => async (dispatch) =
 
 // delete review by review id
 export const deleteReviewThunk = (reviewId) => async (dispatch) => {
-    const response = await fetch(`/api/reviews/${parseInt(reviewId)}/delete`, {
-        method: 'DELETE'
-    })
+    const response = await fetch(`/api/reviews/${reviewId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
     if(!response.ok){
         throw new Error ('Failed to delete review')
     }
@@ -107,15 +116,19 @@ function reviewReducer(state = {}, action){
             return{...state, reviews: action.reviews}
         }
         case CREATE_NEW_REVIEW: {
-            return{...state, ...action.newReview}
+            return{...state, reviews: [...state.reviews, action.review]}
         }
         case UPDATE_REVIEW: {
-            return{...state, ...action.review}
-        }
+            return {...state,
+            reviews: state.reviews.map(review =>
+                review.id === action.payload.id ? action.reviews : review
+            )
+        }}
         case DELETE_REVIEW: {
-            const deleteState = {...state}
-            delete deleteState[action.review]
-            return deleteState
+            return {
+                ...state,
+                reviews: state.reviews.filter(review => review.id !== action.reviews)
+            }
         }
         case GET_USER_REVIEWS: {
             return{...state, ...action.reviews}
