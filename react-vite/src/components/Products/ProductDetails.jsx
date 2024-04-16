@@ -11,7 +11,6 @@ import { MdOutlineStar } from "react-icons/md";
 import ReviewForm from '../ReviewForm/ReviewForm';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteReview from "../DeleteReview/DeleteReview";
-import OpenModalButton from '../OpenModalButton';
 import DeleteProduct from './DeleteProduct';
 import { useModal } from "../../context/Modal";
 import "./ProductDetails.css"
