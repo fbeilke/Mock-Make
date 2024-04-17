@@ -52,13 +52,10 @@ def add_to_wishlist():
         db.session.commit()
         return new_wish.to_dict(), 201
 
-@user_routes.route('/<int:user_id>/wishlist/<int:product_id>', methods=['DELETE'])
+@user_routes.route('/wishlist/<int:product_id>', methods=['DELETE'])
 @login_required
-def remove_from_wishlist(user_id, product_id):
-    if user_id != current_user.id:
-        return jsonify({'error': 'Unauthorized'}), 403
-
-    wish = UserWish.query.filter_by(user_id=user_id, product_id=product_id).first()
+def remove_from_wishlist(product_id):
+    wish = UserWish.query.filter_by(user_id=current_user.id, product_id=product_id).first()
     if wish:
         db.session.delete(wish)
         db.session.commit()

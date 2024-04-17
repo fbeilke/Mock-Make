@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllProducts } from '../../redux/products';
-import { useWishlist } from '../../context/UserWishes';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import WishlistItem from "../WishlistItem/WishlistItem";
 import { fetchWishlist } from "../../redux/session";
 // import './Wishlist.css';
@@ -17,7 +16,7 @@ function Wishlist() {
     if (!sessionUser) navigate('/'); // Only display wishlist if a user is logged in
 
     useEffect(() => {
-        dispatch(fetchWishlist())
+        dispatch(fetchWishlist(sessionUser.id))
         dispatch(getAllProducts());
     }, [dispatch, sessionUser]);
 

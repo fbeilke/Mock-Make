@@ -1,21 +1,16 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
-import { NavLink, useNavigate,useParams } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { getAllProducts } from "../../redux/products"
 import { getAllUsersThunk } from "../../redux/users";
 import { getAllReviews } from "../../redux/reviews";
 import SingleProductCard from "../Products/SingleProductCard";
-import { addItemToWishlist } from '../../redux/session';
-import { getSingleProduct } from '../../redux/products'
-// import { Wishlist } from "../WishList/WishList"
-// import { WishlistItem } from "../WishList/WishList"
 import "./LandingPage.css"
 
 export default function LandingPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { products, allProductsIds } = useSelector(state => state.products)
-    const { productId } = useParams();
+    const { products, allProductsIds } = useSelector(state => state.products);
     const { user } = useSelector(state => state.session);
     const { users } = useSelector(state => state.users);
     const { reviews } = useSelector(state => state.reviews);
@@ -86,30 +81,6 @@ export default function LandingPage() {
 
         return randomId
     }
-
-    // const addToWishlist = (product) => {
-    //     const wishlistProduct = {
-    //         productId: SingleProductCard.id,
-
-    //     };
-    //     dispatch(addItemToWishlist (wishlistProduct.productId, user.id)); // Assuming you have `user.id` available
-    // }
-    // const addToWishlist = (product) => {
-    //     if (!product || !product.id) {
-    //         console.error('Product data is incomplete:', product);
-    //         return; // Exit if product data is not available
-    //     }
-
-    //     const wishlistProduct = {
-    //         productId: product.id,
-    //     };
-
-    //     dispatch(addItemToWishlist(wishlistProduct.productId, user.id)); // Make sure user.id is available here
-    // };
-
-
-    // const allProductImages = Object.values(singleProduct.product_images)
-    // console.log("=========>",singleProduct)
 
     if (!products) return <p>Loading...</p>
 

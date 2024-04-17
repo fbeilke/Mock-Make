@@ -178,8 +178,7 @@ export const deleteCartItemThunk = (productId) => async dispatch => {
 }
 
 // Fetch the user's wishlist
-export const fetchWishlist = () => async (dispatch, getState) => {
-  const userId = getState().session.user.id;
+export const fetchWishlist = (userId) => async (dispatch) => {
       const response = await fetch(`/api/users/${userId}/wishlist`);
       if (response.ok) {
           const data = await response.json();
@@ -190,7 +189,7 @@ export const fetchWishlist = () => async (dispatch, getState) => {
 };
 
 // Add an item to the wishlist
-export const addItemToWishlist = (productId) => async (dispatch, getState) => {
+export const addItemToWishlist = (productId) => async (dispatch) => {
 
   try {
   const response = await fetch(`/api/users/wishlist/`, {
@@ -218,12 +217,11 @@ export const addItemToWishlist = (productId) => async (dispatch, getState) => {
 
 
 // Remove an item from the wishlist
-export const removeItemFromWishlist = (productId) => async (dispatch, getState) => {
-  const userId = getState().session.user.id;
-
-      const response = await fetch(`/api/users/${userId}/wishlist/${productId}`, {
+export const removeItemFromWishlist = (productId) => async (dispatch) => {
+      const response = await fetch(`/api/users/wishlist/${productId}`, {
           method: 'DELETE',
       });
+
       if (response.ok) {
           dispatch(removeFromWishlist(productId));
       } else {
@@ -265,11 +263,12 @@ function sessionReducer(state = initialState, action) {
       const newState = {...state}
       newState.wishlist[action.payload.productId] = action.payload
       return newState
-      }
-    case REMOVE_FROM_WISHLIST:
+    }
+    case REMOVE_FROM_WISHLIST: {
       const newState = {...state}
       delete newState.wishlist[action.payload]
       return newState
+    }
     default:
       return state;
 
