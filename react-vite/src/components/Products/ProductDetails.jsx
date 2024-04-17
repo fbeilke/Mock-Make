@@ -37,9 +37,9 @@ export default function ProductDetails() {
     const { productId } = useParams();
     const { products } = useSelector(state => state.products)
     const { reviews } = useSelector(state => state.reviews)
+    const { users } = useSelector(state => state.users)
     const { user } = useSelector(state => state.session)
     const [displayImageURL, setDisplayImageURL] = useState(null)
-    const { users } = useSelector(state => state.users)
     const [showReviewForm, setShowReviewForm] = useState(false);
     const { setModalContent } = useModal();
 
@@ -67,13 +67,7 @@ export default function ProductDetails() {
     ? allProductImages.slice(0, 5)
     : allProductImages;
 
-    // const usersArr = Object.values(users)
-    // const usersDictionary = usersArr.reduce((acc, user) => {
-    //     acc[user.id] = user;
-    //     return acc;
-    //   }, {});
 
-    // console.log('TEST >>', users)
     const openDeleteModal = (reviewId) => {
         setModalContent(
             <DeleteReview
@@ -82,6 +76,7 @@ export default function ProductDetails() {
             />
         );
     };
+
     const addToCart = (product) => {
         const cartProduct = {
             productId: product.id,
@@ -89,14 +84,7 @@ export default function ProductDetails() {
         }
         dispatch(addCartItemThunk(cartProduct));
     }
-    // const handleAddReview = (review) => {
-    //     dispatch(createReviewThunk(review));
-    // }
 
-    // // Example delete review function
-    // const handleDeleteReview = (reviewId) => {
-    //     dispatch(deleteReviewThunk(reviewId));
-    // }
 
     function starsIcon(avgRating){
         let filledStar = Math.floor(avgRating) // round avg rating down
@@ -114,14 +102,6 @@ export default function ProductDetails() {
     }
 
 
-    const hideReviewForm = () => setShowReviewForm(false);
-
-
-
-
-
-    // const isProductOwner = user && user.id === products.vendor_id;
-    // const userHasReviewed = reviews && reviews.some(review => review.user_id === user.id);
     const hasReview = reviewsArr.some(review =>
         review?.userId === user?.id);
     return (
@@ -154,11 +134,9 @@ export default function ProductDetails() {
                 )}
                 {showReviewForm &&  (
                     <ReviewForm
-                        product_id={singleProduct.id}
+                        productId={singleProduct.id}
                         buttonText="Submit Review"
-                        onHide={hideReviewForm}
-
-                        // ...pass other props if needed
+                        hideForm={() => setShowReviewForm(false)}
                     />
                 )}
                 {reviews && (reviewsArr.map(review => (

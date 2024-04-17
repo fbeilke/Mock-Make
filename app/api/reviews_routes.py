@@ -85,8 +85,8 @@ def delete_review(review_id):
         removed = s3_remove_file(deleted['imageUrl'])
 
         if removed != True:
-            # Return AWS ERROR {"errors": <aws_error>}
-            return removed, 400
+            # Print AWS ERROR {"errors": <aws_error>}
+            print(removed["errors"])
 
     return {'message': 'Review successfully deleted'}, 200
 

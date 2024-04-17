@@ -96,12 +96,12 @@ export const getSingleProduct = (productId) => async(dispatch) => {
     }
 }
 
-export const createNewProduct = (payload) => async(dispatch) => {
-    const response = await fetch('/api/products', {
+export const createNewProduct = (productFormData) => async (dispatch) => {
+    const response = await fetch('/api/products/', {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(payload)
-    })
+        body: productFormData
+    });
+
     if (response.ok) {
         const data = await response.json();
         dispatch(newProduct(data))
