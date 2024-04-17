@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewProduct } from '../../redux/products';
 import { formDataFromObject } from '../../utils/formDataUtils';
-import './NewProductForm.css'
+import ImageInput from '../ImageInput';
+import './NewProductForm.css';
 
 export default function NewProductForm() {
     const navigate = useNavigate();
@@ -15,7 +16,6 @@ export default function NewProductForm() {
     const [price, setPrice] = useState(0);
     const [validators, setValidators] = useState({});
     const [file, setFile] = useState(null);
-    const [tempUrl, setTempUrl] = useState("");
     const [imageLoading, setImageLoading] = useState(false);
 
     // NEED TO DO PICTURES
@@ -57,32 +57,6 @@ export default function NewProductForm() {
                 await navigate(`/products/${data.id}`);
             }
         }
-    }
-
-    const handleFileChange = e => {
-        // If they did not choose a file
-        if(!e.target.files.length) {
-
-            // Release old file URL
-            if(tempUrl.length) {
-                setTempUrl("");
-                URL.revokeObjectURL(tempUrl);
-            }
-            return;
-        }
-
-        // File to be added
-        const newFile = e.target.files[0];
-        setFile(newFile);
-
-        // If there was previously a fileURL, release it
-        if(tempUrl.length) {
-            setTempUrl("");
-            URL.revokeObjectURL(tempUrl);
-        }
-
-        // Show the file in the temp image
-        setTempUrl(URL.createObjectURL(newFile));
     }
 
     return (
@@ -131,17 +105,12 @@ export default function NewProductForm() {
                     />
                     {validators.price && <p className="product-form-errors">{validators.price}</p>}
                 </div>
-                <div>
-                    <button type='submit' disabled={true} className="create-product-button">Create Product</button>
-                </div>
-                { tempUrl.length ? <img className='input-image' src={tempUrl} alt={tempUrl} /> : null }
-                <input 
-                    type="file" 
-                    accept="image/*"
-                    onChange={handleFileChange}
-                />
-                <button type="submit">Add Image</button>
+                <p>Add an Image.</p>
+                <ImageInput setFile={setFile} />
                 { imageLoading && <p>Loading...</p> }
+                <div>
+                    <button type='submit' className="create-product-button">Create Product</button>
+                </div>
             </form>
         </div>
 

@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, Product, ProductImage
 from app.forms import ProductForm, ImageForm
-from .aws import unique_filename, s3_upload_file
+from .aws import unique_filename, s3_upload_file, s3_remove_file
 
 products_routes = Blueprint("products_routes", __name__)
 
@@ -104,8 +104,23 @@ def delete_product(id):
     '''
     product_to_delete = Product.query.filter(Product.id == id).first()
     if product_to_delete:
+        deleted = product_to_delete.to_dict()
+
+        # Product delete
         db.session.delete(product_to_delete)
         db.session.commit()
+
+
+        # AWS IMAGE DELETE
+        if 'imageUrl' in deleted:
+            image_url = deleted['imageUrl']
+
+            removed = s3_remove_file(image_url)
+            
+            if removed != True:
+                print("AWS ERROR:", removed["errors"])
+
+
         return {"message": "Successfully deleted"}
     else:
         return {"message": "Product with provided id was not found."}
