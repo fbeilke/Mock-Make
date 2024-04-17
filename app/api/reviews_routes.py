@@ -80,7 +80,8 @@ def delete_review(review_id):
     db.session.delete(review)
     db.session.commit()
 
-    if 'imageUrl' in deleted:
+
+    if deleted["imageUrl"] != None:
         removed = s3_remove_file(deleted['imageUrl'])
 
         if removed != True:
