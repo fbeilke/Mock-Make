@@ -1,37 +1,38 @@
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
-import { addProductImageThunk } from '../../redux/products';
+import { formDataFromObject } from '../../utils/formDataUtils';
+import ImageInput from "../ImageInput";
+import './ImageForm.css';
 
-function ImageForm({ productId }) {
+function ImageForm({ imageThunk }) {
     const dispatch = useDispatch();
-    const [file, setFile] = useState(null);
-    const [imageLoading, setImageLoading] = useState(false);
+    const [image, setImage] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        setImageLoading(true);
-        const formData = new FormData();
-        formData.append("image", file);
+        setSubmitting(true);
 
-        await dispatch(addProductImageThunk(productId, formData));
-        setImageLoading(false);
+        const payload = {
+            image
+        }
+
+        const formData = formDataFromObject(payload)
+
+        await dispatch(imageThunk(formData));
+
+        setSubmitting(false);
+        setImage(null);
     }
 
+    if (submitting) return <div>Loading...</div>
+
     return (
-        <div>
-            <form
-                onSubmit={handleSubmit}
-                encType="multipart/form-data"
-            >
-                <input 
-                    type="file" 
-                    accept="image/*"
-                    onChange={(e) => setFile(e.target.files[0])}
-                />
-                <button type="submit">Submit</button>
-                { imageLoading && <p>Loading...</p> }
-            </form>
-        </div>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <p className="image-input-label">Add an Image</p>
+            <ImageInput setFile={setImage} loading={submitting} />
+            { image ? <button className="add-image-btn" type="submit" disabled={image === null}>Add This Image</button> : null }
+        </form>
     )
 }
 

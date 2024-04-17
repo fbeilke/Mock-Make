@@ -1,43 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
-// import { handleAddReview } from '../Products/ProductDetails'
 import { createReviewThunk } from "../../redux/reviews";
-import './ReviewForm.css';
 import { MdOutlineStar, MdOutlineStarBorder } from "react-icons/md";
-import { getSingleProduct } from "../../redux/products";
+import { formDataFromObject } from '../../utils/formDataUtils';
+import './ReviewForm.css';
+import ImageInput from "../ImageInput/ImageInput";
 
-function ReviewForm({ review, buttonText,onHide }) {
+function ReviewForm({ productId, buttonText, hideForm }) {
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
-    const { productId } = useParams();
-    // const currentUser = useSelector(state => state.session.user);
     const product = useSelector(state => state.products[productId]);
-    const [rating, setRating] = useState(review?.rating || 0);
+    const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
-    const [reviewText, setReviewText] = useState(review?.content || ''); // Changed from review.review to review.content
+    const [reviewText, setReviewText] = useState(''); // Changed from review.review to review.content
     const [image, setImage] = useState(null); // This will be the File object for the image
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
-    // const [imageUrl, setImageUrl] = useState(review?.image_url || '');
-    // const [imageFile, setImageFile] = useState(null);  // This holds the actual file object, not a URL.
-
-// const handleImageChange = (event) => {
-//     if (event.target.files && event.target.files[0]) {
-//         setImageFile(event.target.files[0]);  // Store the File object.
-//     }
-// };
-
-    useEffect(() => {
-        // if (!product) { // Check if product data is already loaded
-            dispatch(getSingleProduct(productId));
-            if(review){
-            setRating(review?.rating)
-            setReviewText(review?.review)
-            }
-
-        // Set form data from the passed-in review (if editing)
-    }, [dispatch, productId, product, review]);
 
     // Validation and error handling can be improved by checking immediately before submitting
     const validate = () => {
@@ -58,32 +35,27 @@ function ReviewForm({ review, buttonText,onHide }) {
         event.preventDefault();
         const formErrors = validate();
         setErrors(formErrors);
-        onHide();
-        // handleAddReview(formData);
+        hideForm();
 
         if (Object.keys(formErrors).length === 0) {
             setIsSubmitting(true);
 
-            // const formData = new FormData();
-            // formData.append('content', reviewText);
-            // formData.append('rating', rating);
-            // if (image) {
-            //     formData.append('image', image);
-            // }
-            const formData = new FormData();
-            formData.append('content', reviewText);
-            formData.append('rating', rating);
-            formData.append('image', image);
+            const payload = {
+                content: reviewText,
+                rating,
+                image
+            }
 
+            const formData = formDataFromObject(payload);
 
             await dispatch(createReviewThunk(productId, formData));
             setIsSubmitting(false);
-            onHide();
-
-
         }
     };
-    if (isSubmitting) <div>Loading...</div>;
+
+
+    if (isSubmitting) return <div>Loading...</div>;
+
     return (
                 <div className='review-form-container'>
                     <div className='product-review-container'>
@@ -94,12 +66,12 @@ function ReviewForm({ review, buttonText,onHide }) {
                         <div className='review-section'>
                             <h2 className='review-heading'>Rating</h2>
                             <div className='rating-field'>
-                                {[1, 2, 3, 4, 5].map((star, index) => (
-                                    <label key={index} className='star-label'>
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                    <label key={star} className='star-label'>
                                         <span
                                             className='star'
                                             onMouseEnter={() => setHover(star)}
-                                            onMouseLeave={() => setHover(0)}
+                                            onMouseLeave={() => setHover(rating)}
                                             onClick={() => setRating(star)}
                                         >
                                             {star <= (hover || rating) ? <MdOutlineStar /> : <MdOutlineStarBorder />}
@@ -112,11 +84,7 @@ function ReviewForm({ review, buttonText,onHide }) {
 
                         <div className='review-section'>
                             <h2 className='review-heading'>Add a photo</h2>
-                            <input
-                                type='file'
-                                accept="image/*"
-                                onChange={(e) => setImage(e.target.files[0])}
-                            />
+                            <ImageInput setFile={setImage} />
                             {errors.imageUrl && <p className='error-message'>{errors.image}</p>}
                         </div>
 
