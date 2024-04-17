@@ -7,6 +7,7 @@ import Cart from "../components/Cart";
 import Navigation from "../components/Navigation/Navigation";
 import Footer from "../components/Footer";
 import { CartProvider } from "../context/CartProvider";
+import { WishlistProvider } from "../context/UserWishes";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ export default function Layout() {
   return (
     <>
       <ModalProvider>
+       <WishlistProvider>
         <CartProvider>
           <Navigation />
           <Cart />
@@ -25,6 +27,7 @@ export default function Layout() {
           {isLoaded &&<Footer/>}
           <Modal />
         </CartProvider>
+       </WishlistProvider>
       </ModalProvider>
     </>
   );

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleProduct } from '../../redux/products'
 import { addCartItemThunk } from '../../redux/session';
+import { addItemToWishlist } from '../../redux/session';
 import { getAllUsersThunk } from '../../redux/users';
 // import { NavLink } from 'react-router-dom';
 import { reviewsByProduct} from '../../redux/reviews'
@@ -48,6 +49,7 @@ export default function ProductDetails() {
         dispatch(getSingleProduct(productId))
         dispatch(reviewsByProduct(productId))
         dispatch(getAllUsersThunk())
+        dispatch(addItemToWishlist(productId))
     }, [dispatch, productId])
 
 
@@ -89,6 +91,14 @@ export default function ProductDetails() {
         }
         dispatch(addCartItemThunk(cartProduct));
     }
+    const addToWishlist = (product) => {
+        const wishlistProduct = {
+            productId: product.id,
+
+        };
+        dispatch(addItemToWishlist (wishlistProduct.productId, user.id));
+    }
+
     // const handleAddReview = (review) => {
     //     dispatch(createReviewThunk(review));
     // }
@@ -216,7 +226,7 @@ export default function ProductDetails() {
                 {user && singleProduct.vendor_id === user.id ? null :
                 <p>
                     <button className='product-details-cart-button' onClick={() => addToCart(singleProduct)}>Add to cart</button>
-                    <button className='product-details-wishlist-button'>Add to wishlist</button>
+                    <button className='product-details-wishlist-button' onClick={() => {navigate('/wishlist');addToWishlist(singleProduct);}}>Add to wishlist</button>
                 </p>
                 }
                 <p>{singleProduct.description}</p>
