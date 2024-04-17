@@ -16,13 +16,13 @@ def add_cart_product():
     data = request.json
 
     # Check if the product is already in the cart
-    exists = CartProduct.query.filter_by(product_id = data["productId"]).first()
+    exists = CartProduct.query.filter_by(product_id = data["productId"], user_id = current_user.id).first()
     if exists:
         exists.quantity += 1
         db.session.commit()
         db.session.refresh(exists)
         return exists.to_dict()
-    
+
     cart_product = CartProduct(
         product_id = data["productId"],
         user_id = current_user.id,
@@ -37,7 +37,7 @@ def add_cart_product():
 def change_product_quantity():
     data = request.json
     print("DATA", data)
-    cart_product = CartProduct.query.filter(CartProduct.product_id == data['productId'], CartProduct.user_id == current_user.id).first()
+    cart_product = CartProduct.query.filter_by(product_id = data['productId'], user_id = current_user.id).first()
     cart_product.quantity = data['quantity']
     db.session.commit()
     db.session.refresh(cart_product)

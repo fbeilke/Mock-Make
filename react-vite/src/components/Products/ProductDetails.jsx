@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleProduct } from '../../redux/products'
 import { addCartItemThunk } from '../../redux/session';
+import { addItemToWishlist } from '../../redux/session';
 import { getAllUsersThunk } from '../../redux/users';
 // import { NavLink } from 'react-router-dom';
 import { reviewsByProduct} from '../../redux/reviews'
@@ -84,6 +85,7 @@ export default function ProductDetails() {
         }
         dispatch(addCartItemThunk(cartProduct));
     }
+
 
 
     function starsIcon(avgRating){
@@ -194,7 +196,7 @@ export default function ProductDetails() {
                 {user && singleProduct.vendor_id === user.id ? null :
                 <p>
                     <button className='product-details-cart-button' onClick={() => addToCart(singleProduct)}>Add to cart</button>
-                    <button className='product-details-wishlist-button'>Add to wishlist</button>
+                    <button className='product-details-wishlist-button' onClick={() => {navigate('/wishlist');dispatch(addItemToWishlist(singleProduct.id));}}>Add to wishlist</button>
                 </p>
                 }
                 <p>{singleProduct.description}</p>
