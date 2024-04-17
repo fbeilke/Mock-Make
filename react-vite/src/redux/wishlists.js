@@ -85,7 +85,7 @@
 
 // // Wishlist Reducer
 // const initialState = {
-//     items: [], // Assuming the wishlist is an array of product IDs
+//     items: {},
 //     error: null
 // };
 
@@ -93,13 +93,11 @@
 //     switch(action.type) {
 //         case SET_WISHLIST_ITEMS:
 //             return {
-//                 ...state,
-//                 items: action.payload
+//                 ...state, ...action.payload
 //             };
 //         case ADD_TO_WISHLIST:
 //             return {
 //                 ...state,
-//                 items: [...state.items, action.payload]
 //             };
 //         case REMOVE_FROM_WISHLIST:
 //             return {

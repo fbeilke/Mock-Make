@@ -180,10 +180,10 @@ export const deleteCartItemThunk = (productId) => async dispatch => {
 // Fetch the user's wishlist
 export const fetchWishlist = () => async (dispatch, getState) => {
   const userId = getState().session.user.id;
-      const response = await fetch(`/api/users/wishlist/${userId}`);
+      const response = await fetch(`/api/users/${userId}/wishlist`);
       if (response.ok) {
           const data = await response.json();
-          dispatch(setWishlist(data.wishlistItems));
+          dispatch(setWishlist(data));
       } else {
           throw new Error('Unable to fetch wishlist');
       }
@@ -191,12 +191,9 @@ export const fetchWishlist = () => async (dispatch, getState) => {
 
 // Add an item to the wishlist
 export const addItemToWishlist = (productId) => async (dispatch, getState) => {
-  const userId = getState().session.user.id;
-  const { user } = getState().session;
-  console.log(productId)
-  if (!user) return;
+
   try {
-  const response = await fetch(`/api/users/${userId}/wishlist/${productId}`, {
+  const response = await fetch(`/api/users/wishlist/`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -236,7 +233,7 @@ export const removeItemFromWishlist = (productId) => async (dispatch, getState) 
 };
 
 
-const initialState = { user: null, cart: null,wishlist: []};
+const initialState = { user: {}, cart: {}, wishlist: {}};
 
 function sessionReducer(state = initialState, action) {
   switch (action.type) {
@@ -262,21 +259,17 @@ function sessionReducer(state = initialState, action) {
     case REMOVE_CART:
       return { ...state, cart: null };
 
-      case SET_WISHLIST:
-        return {
-            ...state,
-            wishlist: action.payload
-        };
-    case ADD_TO_WISHLIST:
-        return {
-            ...state,
-            wishlist: [...state.wishlist, action.payload]
-        };
+    case SET_WISHLIST:
+      return {...state, wishlist: action.payload}
+    case ADD_TO_WISHLIST: {
+      const newState = {...state}
+      newState.wishlist[action.payload.productId] = action.payload
+      return newState
+      }
     case REMOVE_FROM_WISHLIST:
-        return {
-            ...state,
-            wishlist: state.wishlist.filter(item => item.id !== action.payload)
-        };
+      const newState = {...state}
+      delete newState.wishlist[action.payload]
+      return newState
     default:
       return state;
 

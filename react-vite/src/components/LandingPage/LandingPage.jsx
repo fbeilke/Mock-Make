@@ -48,7 +48,6 @@ export default function LandingPage() {
     useEffect(() => {
         dispatch(getAllProducts())
         dispatch(getAllUsersThunk())
-        dispatch(addItemToWishlist)
         dispatch(getAllReviews())
     }, [dispatch])
 
@@ -88,13 +87,13 @@ export default function LandingPage() {
         return randomId
     }
 
-    const addToWishlist = (product) => {
-        const wishlistProduct = {
-            productId: SingleProductCard.id,
+    // const addToWishlist = (product) => {
+    //     const wishlistProduct = {
+    //         productId: SingleProductCard.id,
 
-        };
-        dispatch(addItemToWishlist (wishlistProduct.productId, user.id)); // Assuming you have `user.id` available
-    }
+    //     };
+    //     dispatch(addItemToWishlist (wishlistProduct.productId, user.id)); // Assuming you have `user.id` available
+    // }
     // const addToWishlist = (product) => {
     //     if (!product || !product.id) {
     //         console.error('Product data is incomplete:', product);
@@ -134,7 +133,7 @@ export default function LandingPage() {
                 {!user ? null :
                 <div className='landing-if-logged-in'>
                     <button onClick={() => navigate('/orders')}>View your orders</button>
-                    <button onClick={() => navigate('/wishlist')} {...addToWishlist(SingleProductCard)}>View your wish list</button>
+                    <button onClick={() => navigate('/wishlist')}>View your wish list</button>
                 </div>
                 }
             </div>
