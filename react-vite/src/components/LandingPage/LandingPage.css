@@ -58,3 +58,18 @@
     flex-direction: column;
     align-items: center;
 }
+
+.landing-all-products-button-container {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+}
+
+.all-products-button {
+    background-color: #eb812a;
+    border: none;
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
+    color: white;
+}

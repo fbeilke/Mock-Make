@@ -10,8 +10,8 @@ reviews_routes = Blueprint('reviews', __name__)
 @reviews_routes.route('/products/<int:product_id>/reviews', methods=['GET'])
 def get_reviews(product_id):
     reviews = Review.query.filter_by(product_id=product_id).all()
-    reviews_list = [review.to_dict() for review in reviews]
-    return jsonify(reviews_list)
+    reviews_dict = {review.id: review.to_dict() for review in reviews}
+    return reviews_dict
 
 # POST A REVIEW FOR A SPECIFIC PRODUCT
 @reviews_routes.route('/products/<int:product_id>/reviews', methods=['POST'])
@@ -32,15 +32,17 @@ def post_review(product_id):
     #     return jsonify({'error': 'Rating must be an integer between 1 and 5'}), 400
     if not form.validate_on_submit():
         return {"errors": form.errors}, 400
-    
-    image.filename = unique_filename(image.filename)
-    
-    upload = s3_upload_file(image)
 
-    # If the S3 upload fails:
-    if 'url' not in upload:
-        # AWS ERROR OBJECT {"errors": <aws_error>}
-        return upload, 400
+    if image != "null":
+        image.filename = unique_filename(image.filename)
+        upload = s3_upload_file(image)
+        # If the S3 upload fails:
+        if 'url' not in upload:
+            # AWS ERROR OBJECT {"errors": <aws_error>}
+            return upload, 400
+    else:
+        upload = {}
+        upload["url"] = None
 
     # upload = { "url": aws_url }
 
@@ -72,7 +74,7 @@ def delete_review(review_id):
         return {'error': 'Review not found'}, 404
     if review.user_id != current_user.id:
         return {'error': 'Unauthorized'}, 403
-    
+
     deleted = review.to_dict()
 
     db.session.delete(review)
@@ -86,6 +88,12 @@ def delete_review(review_id):
             return removed, 400
 
     return {'message': 'Review successfully deleted'}, 200
+
+@reviews_routes.route('/reviews', methods=["GET"])
+def get_all_reviews():
+    reviews = Review.query.all()
+    return {review.id: review.to_dict() for review in reviews}
+
 
 # def post_review(product_id):
 #     # Assume CreateReviewForm is defined and imported correctly

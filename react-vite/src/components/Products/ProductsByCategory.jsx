@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getProductsByCategory } from '../../redux/products';
 import { getAllUsersThunk } from '../../redux/users';
+import { getAllReviews } from '../../redux/reviews';
 import { useDispatch, useSelector } from 'react-redux';
 import ProductsList from './ProductsList'
 
@@ -10,6 +11,7 @@ export default function ProductsByCategory() {
     const dispatch = useDispatch();
     const { products } = useSelector(state => state.products)
     const { users } = useSelector(state => state.users)
+    const { reviews } = useSelector(state => state.reviews)
 
     function categoryTitle() {
         switch(category) {
@@ -33,12 +35,13 @@ export default function ProductsByCategory() {
     useEffect(() => {
         dispatch(getProductsByCategory(categoryName))
         dispatch(getAllUsersThunk())
+        dispatch(getAllReviews())
     }, [dispatch, categoryName])
 
     return (
         <div className="products-page">
             <h2>{categoryName} Products</h2>
-            <ProductsList products={products} users={users}/>
+            <ProductsList products={products} users={users} reviews={reviews}/>
         </div>
     )
 }
