@@ -129,6 +129,27 @@ product-reviews {
     flex-direction: column;
 }
 
+.delete-product-button {
+    background-color: #eb812a;
+    border: none;
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
+    color: white;
+    margin: 15px 10px;
+    list-style: none;
+}
+
+.update-product-button {
+    background-color: #eb812a;
+    border: none;
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
+    color: white;
+    margin: 15px 10px;
+}
+
 .thumbnail-image {
     width: 100px;
     height: 100px;

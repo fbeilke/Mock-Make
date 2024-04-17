@@ -1,0 +1,37 @@
+.delete-product-modal {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    margin: auto;
+    text-align: center;
+}
+
+.confirm-delete-text {
+    color: #333;
+}
+.delete-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 10px;
+    width: 100px;
+}
+
+.delete-button.confirm {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-button.cancel {
+    background-color: #6c757d;
+    color: white;
+
+}
+
+.delete-button:hover {
+    opacity: 0.9;
+}
