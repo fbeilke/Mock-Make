@@ -2,9 +2,10 @@ import { NavLink } from "react-router-dom"
 import { useDispatch } from "react-redux";
 import { addCartItemThunk } from "../../redux/session"
 import "./ProductsList.css"
+import ReviewStars from "../ReviewStars/ReviewStars";
 
 
-export default function ProductsList({ products, users }) {
+export default function ProductsList({ products, users, reviews }) {
     const dispatch = useDispatch()
 
     if (!users || !products) return null;
@@ -17,6 +18,16 @@ export default function ProductsList({ products, users }) {
         dispatch(addCartItemThunk(cartProduct));
     }
 
+    function reviewsByProduct(productID) {
+
+        if (reviews) {
+            const reviewsArr = Object.values(reviews);
+            return reviewsArr.filter(review => review.productId === productID)
+        } else {
+            return null;
+        }
+    }
+
     return (
         <div className="products-list">
             {!products ? null : Object.values(products).map(product => (
@@ -25,7 +36,7 @@ export default function ProductsList({ products, users }) {
                         <img className="each-product-image" src={`${Object.values(product.product_images).filter(productImage => productImage.preview)[0].url}`} alt={`${product.name}`} />
                         <div className="each-product-info">
                             <p>{product.name}</p>
-                            <span>TODO: add reviews stars</span>
+                            <ReviewStars reviewsByProductId={reviewsByProduct(product.id)}/>
                             <span> · </span>
                             {users[product.vendor_id].vendor_name ? <span>{users[product.vendor_id].vendor_name}</span> :
                             <span>{users[product.vendor_id].username}</span>

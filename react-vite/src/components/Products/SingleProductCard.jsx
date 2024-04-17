@@ -1,9 +1,19 @@
 import { NavLink } from "react-router-dom"
 import "./SingleProductCard.css"
+import ReviewStars from "../ReviewStars/ReviewStars"
 
-export default function SingleProductCard({ product, users}) {
+export default function SingleProductCard({ product, users, reviews}) {
 
     if (!product || !users) return <p>Loading...</p>
+
+    let reviewsByProduct;
+
+    if (reviews) {
+        const reviewsArr = Object.values(reviews);
+        reviewsByProduct = reviewsArr.filter(review => review.productId === product.id)
+
+    }
+
 
     return (
         <NavLink className="single-product-link" to={`/products/${product.id}`} key={product.id}>
@@ -17,7 +27,7 @@ export default function SingleProductCard({ product, users}) {
                 <span>{users[product.vendor_id].username}</span>
                 }
                 <span> · </span>
-                <span>TODO: add reviews stars</span>
+                <ReviewStars reviewsByProductId={reviewsByProduct} />
                 <p className='single-product-price'>${product.price}</p>
                 <p>{product.description}</p>
 
