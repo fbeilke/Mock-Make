@@ -141,7 +141,7 @@ function reviewReducer(state = {}, action){
         }
         case DELETE_REVIEW: {
             const newState = {...state}
-            delete newState[action.reviewId]
+            delete newState.reviews[action.reviewId]
             return newState
         }
         case GET_USER_REVIEWS: {

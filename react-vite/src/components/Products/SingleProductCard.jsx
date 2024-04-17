@@ -4,7 +4,7 @@ import ReviewStars from "../ReviewStars/ReviewStars"
 
 export default function SingleProductCard({ product, users, reviews}) {
 
-    if (!product || !users) return <p>Loading...</p>
+    if (!product || !users) return null
 
     let reviewsByProduct;
 
