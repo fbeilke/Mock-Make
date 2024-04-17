@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { NavLink, useNavigate,useParams } from "react-router-dom";
 import { getAllProducts } from "../../redux/products"
 import { getAllUsersThunk } from "../../redux/users";
+import { getAllReviews } from "../../redux/reviews";
 import SingleProductCard from "../Products/SingleProductCard";
 import { addItemToWishlist } from '../../redux/session';
 import { getSingleProduct } from '../../redux/products'
@@ -17,6 +18,7 @@ export default function LandingPage() {
     const { productId } = useParams();
     const { user } = useSelector(state => state.session);
     const { users } = useSelector(state => state.users);
+    const { reviews } = useSelector(state => state.reviews);
     const [randomNumbers, setRandomNumbers] = useState([]);
     const categories = [
         "Home Goods",
@@ -47,6 +49,7 @@ export default function LandingPage() {
         dispatch(getAllProducts())
         dispatch(getAllUsersThunk())
         dispatch(addItemToWishlist)
+        dispatch(getAllReviews())
     }, [dispatch])
 
     if (!products) return <p>Loading...</p>
@@ -139,10 +142,13 @@ export default function LandingPage() {
                 <h3 className='landing-random-products-title'>Products we think you&apos;ll love:</h3>
                 <div className="random-product-card">
                     {!users || !randomProducts ? null : randomProducts.map(product => (
-                        <SingleProductCard product={product} users={users} key={!product ? null : product.id}/>
+                        <SingleProductCard product={product} users={users} reviews={reviews} key={!product ? null : product.id}/>
                     ))}
                 </div>
 
+            </div>
+            <div className='landing-all-products-button-container'>
+                <button onClick={() => navigate('/products')} className='all-products-button'>View all products</button>
             </div>
 
         </div>

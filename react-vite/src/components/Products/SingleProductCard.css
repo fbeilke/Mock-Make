@@ -13,12 +13,16 @@
 }
 
 .single-product-image-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 50%;
 }
 
 .single-product-image {
-    margin: 50px;
     height: 300px;
+    max-width: 300px;
+    object-fit: cover;
 }
 
 .single-product-info {

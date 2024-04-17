@@ -1,13 +1,21 @@
-const GET_ALL_REVIEWS = 'GET_ALL_REVIEWS';
+const ALL_REVIEWS = 'ALL_REVIEWS';
+const GET_ALL_REVIEWS_PRODUCT = 'GET_ALL_REVIEWS_PRODUCT';
 const CREATE_NEW_REVIEW = 'CREATE_NEW_REVIEW';
 const UPDATE_REVIEW = 'UPDATE_REVIEW';
 const DELETE_REVIEW = 'DELETE_REVIEW';
 const GET_USER_REVIEWS = 'GET_USER_REVIEWS';
 
 // ACTION TYPES
-const getAllReviews = (reviews) => {
+const allReviews = (reviews) => {
     return{
-        type: GET_ALL_REVIEWS,
+        type: ALL_REVIEWS,
+        reviews
+    }
+}
+
+const getAllReviewsProduct = (reviews) => {
+    return{
+        type: GET_ALL_REVIEWS_PRODUCT,
         reviews
     }
 }
@@ -40,13 +48,23 @@ const getUserReviews = (reviews) => {
 
 // THUNKS
 // get all reviews by product Id
+export const getAllReviews = () => async (dispatch) => {
+    const response = await fetch('/api/reviews')
+    if (!response.ok) {
+        throw new Error("Failed to get reviews")
+    }
+    const data = await response.json()
+    dispatch(allReviews(data))
+}
+
+
 export const reviewsByProduct = (productId) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}/reviews`)
     if(!response.ok){
         throw new Error ('Failed to get reviews')
     }
     const data = await response.json()
-    dispatch(getAllReviews(data))
+    dispatch(getAllReviewsProduct(data))
 }
 
 // create new review
@@ -108,26 +126,29 @@ export const getUserReviewsThunk = () => async (dispatch) => {
 // REDUCER
 function reviewReducer(state = {}, action){
     switch(action.type){
-        case GET_ALL_REVIEWS:{
+        case GET_ALL_REVIEWS_PRODUCT:{
             return{...state, reviews: action.reviews}
         }
         case CREATE_NEW_REVIEW: {
-            return{...state, reviews: [...state.reviews, action.newReview]}
+            const newState = {...state}
+            newState.reviews[action.newReview.id] = action.newReview
+            return newState
         }
         case UPDATE_REVIEW: {
-            return {...state,
-            reviews: state.reviews.map(review =>
-                review.id === action.payload.id ? action.reviews : review
-            )
-        }}
+            const newState = {...state}
+            newState.reviews[action.review.id] = action.review
+            return newState
+        }
         case DELETE_REVIEW: {
-            return {
-                ...state,
-                reviews: state.reviews.filter(review => review.id !== action.reviewId)
-            }
+            const newState = {...state}
+            delete newState.reviews[action.reviewId]
+            return newState
         }
         case GET_USER_REVIEWS: {
             return{...state, ...action.reviews}
+        }
+        case ALL_REVIEWS: {
+            return {...state, reviews: action.reviews}
         }
         default:
             return state

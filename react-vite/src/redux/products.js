@@ -188,7 +188,7 @@ export default function productsReducer(state = initialState, action) {
             }
         case DELETE_PRODUCT: {
             const newState = {...state}
-            delete newState[action.productId]
+            delete newState.products[action.productId]
             return newState;
         }
         case NEW_PRODUCT_IMAGE: {

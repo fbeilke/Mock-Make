@@ -12,8 +12,10 @@ import { MdOutlineStar } from "react-icons/md";
 import ReviewForm from '../ReviewForm/ReviewForm';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteReview from "../DeleteReview/DeleteReview";
+import DeleteProduct from './DeleteProduct';
 import { useModal } from "../../context/Modal";
 import "./ProductDetails.css"
+import ReviewStars from '../ReviewStars/ReviewStars';
 
 
 function formatDateV2(date) {
@@ -40,7 +42,6 @@ export default function ProductDetails() {
     const [displayImageURL, setDisplayImageURL] = useState(null)
     const { users } = useSelector(state => state.users)
     const [showReviewForm, setShowReviewForm] = useState(false);
-    const [deleteReview, setDeleteReview ]= useState(false)
     const { setModalContent } = useModal();
 
 
@@ -49,16 +50,16 @@ export default function ProductDetails() {
         dispatch(reviewsByProduct(productId))
         dispatch(getAllUsersThunk())
         dispatch(addItemToWishlist(productId))
-    }, [dispatch, deleteReview, productId])
+    }, [dispatch, productId])
 
 
     if (!products) return null;
     if (!reviews) return null;
     if (!users) return null;
     console.log('users' , users)
-    const renderDelete = () => {
-        setDeleteReview(!deleteReview)
-    }
+    // const renderDelete = () => {
+    //     setDeleteReview(!deleteReview)
+    // }
 
     const singleProduct = products[productId];
     const allProductImages = Object.values(singleProduct.product_images)
@@ -158,7 +159,7 @@ export default function ProductDetails() {
                         Write a customer review
                     </button>
                 )}
-                {singleProduct.vendor_id == user.id && (
+                {user && singleProduct.vendor_id == user.id && (
                     <p className="cannot-rev-txt">*You cannot review your own product</p>
                 )}
                 {showReviewForm &&  (
@@ -170,13 +171,15 @@ export default function ProductDetails() {
                         // ...pass other props if needed
                     />
                 )}
-                {reviews && (reviews.map(review => (
+                {reviews && (reviewsArr.map(review => (
                         <div key={review?.id} className="review">
                             <div className='review-info-container'>
                             <p className='rev-txt rev-name'>{users[review?.userId]?.firstName} <span className='review-date-txt'>wrote a review on {review && (formatDateV2(review?.createdAt))}</span></p>
                             <p className='star-rating-icons'>{starsIcon(review?.rating)}</p>
                             <div className="review-content">
-                               <img className='review-image' src={review?.imageUrl} alt={review?.imageUrl || "Review Image"} />
+                                {review?.imageUrl === null ? null :
+                                    <img className='review-image' src={review?.imageUrl} alt={review?.imageUrl || "Review Image"} />
+                                }
                                <p>{review?.content}</p>
                                {review?.userId === user.id && (
                             <button onClick={() => openDeleteModal(review?.id)}>
@@ -188,38 +191,42 @@ export default function ProductDetails() {
                         </div>
                     )))}
                 </div>
-                {reviews?.userId === user.id && (
+                {/* {user && reviews?.userId === user.id && (
                             <button onClick={() => openDeleteModal(reviews.id)}>
                                 Delete Review
                             </button>
                 )}
-                    {reviews?.user_id == user?.id &&(
+                    {user && reviews?.user_id == user?.id &&(
                         <OpenModalMenuItem
                             className='delbtn'
                             buttonText='Delete'
                             modalComponent={<DeleteReview reviewId={reviews?.id} renderDelete={renderDelete}/>}
                         />
-                    )}
+                    )} */}
 
              </div>
             <div className="product-details-right-side">
                 {!user || singleProduct.vendor_id !== user.id ? null :
                     <div className="vendor-control-buttons">
-                            <button onClick={() => navigate(`/products/${singleProduct.id}/edit`)}>Update Listing</button>
-                            <button onClick={() => alert("Coming Soon")}>Delete Listing</button>
+                        <button className='update-product-button' onClick={() => navigate(`/products/${singleProduct.id}/edit`)}>Update Listing</button>
+                        <button  className='delete-product-button'>
+                            <OpenModalMenuItem itemText="Delete Listing" modalComponent={<DeleteProduct productId={singleProduct.id} />} />
+                        </button>
                     </div>
                 }
                 <h2>${singleProduct.price}</h2>
                 <p>{singleProduct.name}</p>
-                <span>TODO: add product vendor name</span>
-                <span>·</span>
-                <span>TODO: add reviews stars</span>
+                <div className='product-details-vendor-review-stars'>
+                    {users[singleProduct.vendor_id].vendor_name ? <span>{users[singleProduct.vendor_id].vendor_name}</span> :
+                    <span>{users[singleProduct.vendor_id].username}</span>
+                    }
+                    <span>·</span>
+                    <ReviewStars reviewsByProductId={Object.values(reviews)} />
+                </div>
                 {user && singleProduct.vendor_id === user.id ? null :
                 <p>
-                    <button onClick={() => addToCart(singleProduct)}>Add to cart</button>
-                    {/* <button onClick={() => navigate('/wishlist') addToWishlist(singleProduct)}>Add to wishlist </button> */}
-                    <button onClick={() => {
-                     navigate('/wishlist');addToWishlist(singleProduct);}}> Add to wishlist</button>
+                    <button className='product-details-cart-button' onClick={() => addToCart(singleProduct)}>Add to cart</button>
+                    <button className='product-details-wishlist-button' onClick={() => {navigate('/wishlist');addToWishlist(singleProduct);}}>Add to wishlist</button>
                 </p>
                 }
                 <p>{singleProduct.description}</p>

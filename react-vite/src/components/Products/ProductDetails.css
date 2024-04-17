@@ -129,6 +129,55 @@ product-reviews {
     flex-direction: column;
 }
 
+.delete-product-button {
+    background-color: #eb812a;
+    border: none;
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
+    color: white;
+    margin: 15px 10px;
+    list-style: none;
+}
+
+.update-product-button {
+    background-color: #eb812a;
+    border: none;
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
+    color: white;
+    margin: 15px 10px;
+}
+
+.product-details-cart-button {
+    background-color: #eb812a;
+    border: none;
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
+    color: white;
+    margin: 15px 10px;
+    list-style: none;
+}
+
+.product-details-wishlist-button {
+    background-color: #eb812a;
+    border: none;
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
+    color: white;
+    margin: 15px 10px;
+    list-style: none;
+}
+
+.product-details-vendor-review-stars {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .thumbnail-image {
     width: 100px;
     height: 100px;
