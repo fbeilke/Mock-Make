@@ -16,7 +16,7 @@ class Product(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, default=datetime.now(), onupdate=datetime.now())
 
-    images = db.relationship("ProductImage", back_populates="product")
+    images = db.relationship("ProductImage", back_populates="product", cascade='all, delete-orphan')
     vendor = db.relationship("User", back_populates="products")
 
     def to_dict(self):
