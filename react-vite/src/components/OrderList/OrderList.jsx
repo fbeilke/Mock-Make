@@ -10,7 +10,11 @@ function OrderList() {
 
     useEffect(() => {
         dispatch(getUserOrdersThunk());
-    }, [dispatch])
+    }, [dispatch]);
+
+    useEffect(() => {
+        window.scrollTo(0,0);
+    }, []);
 
     return (
         <div id="order-list">
