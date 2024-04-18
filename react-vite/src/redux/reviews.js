@@ -75,7 +75,8 @@ export const createReviewThunk = (productId, reviewFormData) => async (dispatch)
     });
 
     if(!response.ok){
-        throw new Error ('Failed to create new review')
+        const data = await response.json();
+        throw new Error ('Failed to create new review. Server responded with:' + data);
     }
     const data = await response.json()
     dispatch(createReview(data))
