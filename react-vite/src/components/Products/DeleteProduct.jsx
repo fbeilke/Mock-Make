@@ -13,7 +13,7 @@ export default function DeleteProduct({ productId }) {
     async function handleDeleteProduct() {
         const response = await dispatch(deleteExistingProduct(productId));
 
-        if (!response) {
+        if (response) {
             alert("There was an error.")
         } else {
             closeModal()

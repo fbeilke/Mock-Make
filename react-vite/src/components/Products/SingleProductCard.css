@@ -41,3 +41,9 @@
     font-size: 25px;
     font-weight: bold;
 }
+
+.single-product-vendor-review-stars {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

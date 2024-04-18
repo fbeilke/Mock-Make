@@ -26,3 +26,20 @@
 .each-product-info {
     color: black;
 }
+
+.products-list button {
+    background-color: #eb812a;
+    border: none;
+    height: 50px;
+    width: 150px;
+    border-radius: 25px;
+    color: white;
+    margin: 15px 10px;
+    list-style: none;
+}
+
+.product-vendor-review-stars {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

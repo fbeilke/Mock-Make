@@ -54,12 +54,12 @@ def create_new_product():
         if 'url' not in upload:
             # AWS ERROR OBJECT {"errors": <aws_error>}
             return upload, 400
-        
+
         new_product_image = ProductImage(
             url=upload['url'],
             preview=True
         )
-        
+
         new_product.images.append(new_product_image)
 
         db.session.add(new_product)
@@ -116,7 +116,7 @@ def delete_product(id):
             image_url = deleted['imageUrl']
 
             removed = s3_remove_file(image_url)
-            
+
             if removed != True:
                 print("AWS ERROR:", removed["errors"])
 
@@ -152,7 +152,7 @@ def create_new_image(id):
         if "url" not in upload:
             # Return {"errors": <aws_errors>}
             return upload
-        
+
         # File upload success - grab the aws url
         url = upload["url"]
         # Check if an image already exists
@@ -163,7 +163,7 @@ def create_new_image(id):
         # If there are 5 images already, send an error
         if num_product_images >= 5:
             return {'errors': 'products can only have 5 images' }, 400
-        
+
         # Create new product image object with url, product id, and preview
         new_image = ProductImage(
             url=url,
@@ -180,6 +180,6 @@ def create_new_image(id):
 
         # Return image to client
         return new_image.to_dict(), 201
-    
+
     # If the form doesn't validate successfully, send errors
     return { "errors": form.errors }, 400
