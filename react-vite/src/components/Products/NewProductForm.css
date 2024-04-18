@@ -3,5 +3,15 @@
 }
 
 .create-product-button {
-    margin: 20px;
+    background-color: #eb812a;
+    border: none;
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
+    color: white;
+    margin: 15px 10px;
+}
+
+.product-form-errors {
+    color: red;
 }
