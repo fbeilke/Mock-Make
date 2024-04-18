@@ -1,0 +1,8 @@
+.order-item {
+    border-top: 1px solid black;
+    width: 400px;
+}
+
+.order-item-image {
+    height: 100px;
+}

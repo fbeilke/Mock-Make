@@ -4,6 +4,9 @@ const SET_CART = 'session/setCart';
 const SET_CART_PRODUCT = 'session/setCartProduct';
 const DELETE_CART_PRODUCT = 'session/deleteCartProduct';
 const REMOVE_CART = 'session/removeCart';
+const SET_WISHLIST = 'session/SET_WISHLIST';
+const ADD_TO_WISHLIST = 'session/ADD_TO_WISHLIST';
+const REMOVE_FROM_WISHLIST = 'session/REMOVE_FROM_WISHLIST';
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -32,6 +35,25 @@ const deleteCartProduct = (productId) => ({
 const removeCart = () => ({
   type: REMOVE_CART
 })
+
+const setWishlist = (items) => ({
+  type: SET_WISHLIST,
+  payload: items,
+});
+
+const addToWishlist = (item) => ({
+  type: ADD_TO_WISHLIST,
+  payload: item,
+});
+
+const removeFromWishlist = (itemId) => ({
+  type: REMOVE_FROM_WISHLIST,
+  payload: itemId,
+});
+
+
+
+
 
 export const thunkAuthenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/");
@@ -88,6 +110,7 @@ export const thunkLogout = () => async (dispatch) => {
   await fetch("/api/auth/logout");
   dispatch(removeUser());
   dispatch(removeCart());
+
 };
 
 export const getCartThunk = () => async (dispatch) => {
@@ -96,6 +119,18 @@ export const getCartThunk = () => async (dispatch) => {
   if(response.ok) {
     const data = await response.json();
     dispatch(setCart(data));
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
+}
+
+export const emptyCartThunk = () => async (dispatch) => {
+  const response = await fetch('/api/cart/', {
+    method: 'DELETE'
+  });
+
+  if(response.ok) {
+    dispatch(setCart([]));
   } else {
     return { server: "Something went wrong. Please try again" }
   }
@@ -142,7 +177,61 @@ export const deleteCartItemThunk = (productId) => async dispatch => {
   }
 }
 
-const initialState = { user: null, cart: null };
+// Fetch the user's wishlist
+export const fetchWishlist = (userId) => async (dispatch) => {
+      const response = await fetch(`/api/users/${userId}/wishlist`);
+      if (response.ok) {
+          const data = await response.json();
+          dispatch(setWishlist(data));
+      } else {
+          throw new Error('Unable to fetch wishlist');
+      }
+};
+
+// Add an item to the wishlist
+export const addItemToWishlist = (productId) => async (dispatch) => {
+
+  try {
+  const response = await fetch(`/api/users/wishlist/`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ productId }),
+      });
+      if (response.ok) {
+          const newItem = await response.json();
+          dispatch(addToWishlist(newItem));
+      } else if (response.status === 409) {
+        // Handle the conflict, perhaps by setting an error state or alerting the user
+        alert('This item is already in your wishlist.');
+      } else {
+        // Handle other potential errors
+        throw new Error('Unable to add item to wishlist');
+      }
+    } catch (error) {
+      console.error('Wishlist error:', error);
+    }
+  };
+
+
+
+// Remove an item from the wishlist
+export const removeItemFromWishlist = (productId) => async (dispatch) => {
+      const response = await fetch(`/api/users/wishlist/${productId}`, {
+          method: 'DELETE',
+      });
+
+      if (response.ok) {
+          dispatch(removeFromWishlist(productId));
+      } else {
+          throw new Error('Unable to remove item from wishlist');
+      }
+
+};
+
+
+const initialState = { user: {}, cart: {}, wishlist: {}};
 
 function sessionReducer(state = initialState, action) {
   switch (action.type) {
@@ -167,9 +256,24 @@ function sessionReducer(state = initialState, action) {
     }
     case REMOVE_CART:
       return { ...state, cart: null };
+
+    case SET_WISHLIST:
+      return {...state, wishlist: action.payload}
+    case ADD_TO_WISHLIST: {
+      const newState = {...state}
+      newState.wishlist[action.payload.productId] = action.payload
+      return newState
+    }
+    case REMOVE_FROM_WISHLIST: {
+      const newState = {...state}
+      delete newState.wishlist[action.payload]
+      return newState
+    }
     default:
       return state;
+
   }
+
 }
 
 export default sessionReducer;

@@ -1,13 +1,21 @@
-const GET_ALL_REVIEWS = '/reviews'
-const CREATE_NEW_REVIEW = '/reviews/new'
-const UPDATE_REVIEW = '/reviews/update'
-const DELETE_REVIEW = '/reviews/delete'
-const GET_USER_REVIEWS = '/userReviews'
+const ALL_REVIEWS = 'ALL_REVIEWS';
+const GET_ALL_REVIEWS_PRODUCT = 'GET_ALL_REVIEWS_PRODUCT';
+const CREATE_NEW_REVIEW = 'CREATE_NEW_REVIEW';
+const UPDATE_REVIEW = 'UPDATE_REVIEW';
+const DELETE_REVIEW = 'DELETE_REVIEW';
+const GET_USER_REVIEWS = 'GET_USER_REVIEWS';
 
 // ACTION TYPES
-const getAllReviews = (reviews) => {
+const allReviews = (reviews) => {
     return{
-        type: GET_ALL_REVIEWS,
+        type: ALL_REVIEWS,
+        reviews
+    }
+}
+
+const getAllReviewsProduct = (reviews) => {
+    return{
+        type: GET_ALL_REVIEWS_PRODUCT,
         reviews
     }
 }
@@ -25,10 +33,10 @@ const updateReview = (review) => {
     }
 }
 
-const deleteReview = (review) => {
+const deleteReview = (reviewId) => {
     return {
         type: DELETE_REVIEW,
-        review
+        reviewId
     }
 }
 const getUserReviews = (reviews) => {
@@ -40,21 +48,32 @@ const getUserReviews = (reviews) => {
 
 // THUNKS
 // get all reviews by product Id
+export const getAllReviews = () => async (dispatch) => {
+    const response = await fetch('/api/reviews')
+    if (!response.ok) {
+        throw new Error("Failed to get reviews")
+    }
+    const data = await response.json()
+    dispatch(allReviews(data))
+}
+
+
 export const reviewsByProduct = (productId) => async (dispatch) => {
     const response = await fetch(`/api/products/${productId}/reviews`)
     if(!response.ok){
         throw new Error ('Failed to get reviews')
     }
     const data = await response.json()
-    dispatch(getAllReviews(data))
+    dispatch(getAllReviewsProduct(data))
 }
 
 // create new review
-export const createReviewThunk = (productId, newReview) => async (dispatch) => {
-    const response = await fetch(`/api/products/${parseInt(productId)}/reviews/new`, {
+export const createReviewThunk = (productId, reviewFormData) => async (dispatch) => {
+    const response = await fetch(`/api/products/${productId}/reviews`, {
         method: 'POST',
-        body: newReview
-    })
+        body: reviewFormData,
+    });
+
     if(!response.ok){
         throw new Error ('Failed to create new review')
     }
@@ -65,9 +84,12 @@ export const createReviewThunk = (productId, newReview) => async (dispatch) => {
 
 // update review by review id
 export const updateReviewThunk = (reviewId, updatedReview) => async (dispatch) => {
-    const response = await fetch (`/api/reviews/${parseInt(reviewId)}/edit`, {
+    const response = await fetch(`/api/reviews/${reviewId}`, {
         method: 'PUT',
-        body: updatedReview
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedReview),
     })
     if(!response.ok){
         throw new Error('Failed to update review')
@@ -79,14 +101,15 @@ export const updateReviewThunk = (reviewId, updatedReview) => async (dispatch) =
 
 // delete review by review id
 export const deleteReviewThunk = (reviewId) => async (dispatch) => {
-    const response = await fetch(`/api/reviews/${parseInt(reviewId)}/delete`, {
+    const response = await fetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE'
-    })
+    });
+
     if(!response.ok){
         throw new Error ('Failed to delete review')
     }
-    const data = await response.json()
-    dispatch(deleteReview(data))
+    // const data = await response.json()
+    dispatch(deleteReview(reviewId))
 }
 
 export const getUserReviewsThunk = () => async (dispatch) => {
@@ -103,22 +126,29 @@ export const getUserReviewsThunk = () => async (dispatch) => {
 // REDUCER
 function reviewReducer(state = {}, action){
     switch(action.type){
-        case GET_ALL_REVIEWS:{
+        case GET_ALL_REVIEWS_PRODUCT:{
             return{...state, reviews: action.reviews}
         }
         case CREATE_NEW_REVIEW: {
-            return{...state, ...action.newReview}
+            const newState = {...state}
+            newState.reviews[action.newReview.id] = action.newReview
+            return newState
         }
         case UPDATE_REVIEW: {
-            return{...state, ...action.review}
+            const newState = {...state}
+            newState.reviews[action.review.id] = action.review
+            return newState
         }
         case DELETE_REVIEW: {
-            const deleteState = {...state}
-            delete deleteState[action.review]
-            return deleteState
+            const newState = {...state}
+            delete newState.reviews[action.reviewId]
+            return newState
         }
         case GET_USER_REVIEWS: {
             return{...state, ...action.reviews}
+        }
+        case ALL_REVIEWS: {
+            return {...state, reviews: action.reviews}
         }
         default:
             return state

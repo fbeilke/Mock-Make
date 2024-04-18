@@ -1,7 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateExistingProduct } from '../../redux/products';
+import { addProductImageThunk, updateExistingProduct } from '../../redux/products';
+import ProductImage from '../ProductImage';
+import ImageForm from '../ImageForm';
 import './EditProductForm.css'
 
 export default function EditProductForm() {
@@ -112,6 +114,13 @@ export default function EditProductForm() {
                     <button type='submit' disabled={true} className="edit-product-button">Update Product</button>
                 </div>
             </form>
+            <div className='image-edit-list'>
+
+            </div>
+            { Object.entries(singleProduct.product_images).map(([id, image]) => (
+                <ProductImage key={id} image={image} edit={true} />
+            ))}
+            <ImageForm imageThunk={(image) => addProductImageThunk(productId, image)} />
         </div>
     )
 }

@@ -1,0 +1,52 @@
+.input-image {
+    height: 100px;
+}
+
+.input-image-container {
+    position: relative;
+
+    height: 100px;
+    width: 100px;
+}
+
+.input-image-container > svg {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.image-input-label {
+    color: #212121;
+}
+
+.image-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+
+    height: 100px;
+    width: 100px;
+
+    border: 1px solid;
+    border-radius: 8px;
+    color: #e9ba45;
+    border-color: #e9ba45;
+}
+
+.image-input:hover {
+    color: #93d0df;
+    border-color: #93d0df;
+}
+
+.image-input input {
+    opacity: 0;
+    font-size: 100px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100;
+    width: 100;
+}

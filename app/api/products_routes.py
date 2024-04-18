@@ -1,7 +1,8 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, Product, ProductImage
-from app.forms.product_form import ProductForm
+from app.forms import ProductForm, ImageForm
+from .aws import unique_filename, s3_upload_file, s3_remove_file
 
 products_routes = Blueprint("products_routes", __name__)
 
@@ -37,16 +38,34 @@ def create_new_product():
     '''
     Return data in dictionary for a new product
     '''
-    data = request.json
-    form = ProductForm(**data)
+    form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        data["vendor_id"] = current_user["id"]
-        new_product = Product(**data)
+        new_product = Product(**{key: value for key,value in form.data.items() if key not in ['csrf_token', 'image']})
+        new_product.vendor_id = current_user.id
+
+        image = form.image.data
+        image.filename = unique_filename(image.filename)
+
+        upload = s3_upload_file(image)
+
+        # If the S3 upload fails:
+        if 'url' not in upload:
+            # AWS ERROR OBJECT {"errors": <aws_error>}
+            return upload, 400
+        
+        new_product_image = ProductImage(
+            url=upload['url'],
+            preview=True
+        )
+        
+        new_product.images.append(new_product_image)
+
         db.session.add(new_product)
         db.session.commit()
-        return new_product.to_dict()
+
+        return new_product.to_dict(), 201
     elif form.errors:
         return form.errors, 400
     else:
@@ -85,8 +104,82 @@ def delete_product(id):
     '''
     product_to_delete = Product.query.filter(Product.id == id).first()
     if product_to_delete:
+        deleted = product_to_delete.to_dict()
+
+        # Product delete
         db.session.delete(product_to_delete)
         db.session.commit()
+
+
+        # AWS IMAGE DELETE
+        if 'imageUrl' in deleted:
+            image_url = deleted['imageUrl']
+
+            removed = s3_remove_file(image_url)
+            
+            if removed != True:
+                print("AWS ERROR:", removed["errors"])
+
+
         return {"message": "Successfully deleted"}
     else:
         return {"message": "Product with provided id was not found."}
+
+
+
+@products_routes.post('/<int:id>/product_images')
+@login_required
+def create_new_image(id):
+    """
+    Adds an image file to the product specified by <id>
+    """
+    form = ImageForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        # Get the image file from the form
+        image = form.data["image"]
+        # Generate unique filename for image
+        # Rename the file to unique string
+        image.filename = unique_filename(image.filename)
+        # Send to S3 bucket
+        upload = s3_upload_file(image)
+        # Print (error check)
+        print(upload)
+
+        # If the file upload fails
+        if "url" not in upload:
+            # Return {"errors": <aws_errors>}
+            return upload
+        
+        # File upload success - grab the aws url
+        url = upload["url"]
+        # Check if an image already exists
+        # If so set preview to false
+        num_product_images = len(ProductImage.query.filter_by(product_id=id).all())
+        preview = num_product_images < 1
+
+        # If there are 5 images already, send an error
+        if num_product_images >= 5:
+            return {'errors': 'products can only have 5 images' }, 400
+        
+        # Create new product image object with url, product id, and preview
+        new_image = ProductImage(
+            url=url,
+            product_id=int(id),
+            preview=preview
+        )
+
+        # Persist in db
+        db.session.add(new_image)
+        db.session.commit()
+
+        # Grab latest version of object from db (just in case)
+        db.session.refresh(new_image)
+
+        # Return image to client
+        return new_image.to_dict(), 201
+    
+    # If the form doesn't validate successfully, send errors
+    return { "errors": form.errors }, 400

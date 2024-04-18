@@ -1,0 +1,16 @@
+.product-image {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+}
+
+.product-image > svg {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.product-image > img {
+    width: 100px;
+}

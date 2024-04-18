@@ -1,3 +1,7 @@
+.create-product-form > .image-input-container {
+    margin-top: 10px;
+}
+
 .create-product-button {
     margin: 20px;
 }

@@ -1,13 +1,17 @@
-import { NavLink, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getProductsByCategory } from '../../redux/products';
+import { getAllUsersThunk } from '../../redux/users';
+import { getAllReviews } from '../../redux/reviews';
 import { useDispatch, useSelector } from 'react-redux';
-import './ProductsByCategory.css'
+import ProductsList from './ProductsList'
 
 export default function ProductsByCategory() {
     const { category } = useParams()
     const dispatch = useDispatch();
     const { products } = useSelector(state => state.products)
+    const { users } = useSelector(state => state.users)
+    const { reviews } = useSelector(state => state.reviews)
 
     function categoryTitle() {
         switch(category) {
@@ -30,28 +34,14 @@ export default function ProductsByCategory() {
 
     useEffect(() => {
         dispatch(getProductsByCategory(categoryName))
+        dispatch(getAllUsersThunk())
+        dispatch(getAllReviews())
     }, [dispatch, categoryName])
 
     return (
         <div className="products-page">
             <h2>{categoryName} Products</h2>
-            <div className="products-list">
-                {!products ? null : Object.values(products).map(product => (
-                    <div key={product.id} className="each-product">
-                        <NavLink to={`/products/${product.id}`} className="each-product-link">
-                            <img className="each-product-image" src={`${Object.values(product.product_images).filter(productImage => productImage.preview)[0].url}`} alt={`${product.name}`} />
-                            <div className="each-product-info">
-                                <p>{product.name}</p>
-                                <span>TODO: add reviews stars</span>
-                                <span>·</span>
-                                <span>TODO: add vendor name</span>
-                                <h3>${product.price}</h3>
-                            </div>
-                        </NavLink>
-                        <button>Add to cart</button>
-                    </div>
-                ))}
-            </div>
+            <ProductsList products={products} users={users} reviews={reviews}/>
         </div>
     )
 }

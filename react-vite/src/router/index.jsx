@@ -7,6 +7,10 @@ import ProductsByCategory from '../components/Products/ProductsByCategory';
 import NewProductForm from '../components/Products/NewProductForm';
 import ProductDetails from '../components/Products/ProductDetails';
 import EditProductForm from '../components/Products/EditProductForm';
+import OrderList from '../components/OrderList';
+import Checkout from '../components/Checkout';
+import LandingPage from '../components/LandingPage/LandingPage';
+import WishList from '../components/WishList/WishList';
 // import ReviewForm from '../components/ReviewForm/ReviewForm';
 
 
@@ -16,7 +20,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <LandingPage />,
       },
       {
         path: "login",
@@ -45,6 +49,18 @@ export const router = createBrowserRouter([
       {
         path: '/products/:productId/edit',
         element: <EditProductForm />
+      },
+      {
+        path: '/checkout',
+        element: <Checkout />
+      },
+      {
+        path: '/orders',
+        element: <OrderList />
+      },
+      {
+        path: '/wishlist',
+        element: <WishList />
       }
     ],
   },
