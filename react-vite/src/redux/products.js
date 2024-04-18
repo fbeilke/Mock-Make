@@ -7,6 +7,7 @@ const UPDATE_PRODUCT = "productsReducer/UPDATE_PRODUCT"
 const DELETE_PRODUCT = "productsReducer/DELETE_PRODUCT"
 const NEW_PRODUCT_IMAGE = 'productsReducer/NEW_PRODUCT_IMAGE'
 const DELETE_PRODUCT_IMAGE = 'productsReducer/DELETE_PRODUCT_IMAGE'
+const ADD_SEARCH_RESULTS = 'productsReducer/ADD_SEARCH_RESULTS'
 
 
 function allProducts(products) {
@@ -63,6 +64,11 @@ const deleteProductImage = (productId, imageId) => ({
     imageId
 });
 
+const addSearchResults = (results) => ({
+    type: ADD_SEARCH_RESULTS,
+    results
+})
+
 export const getAllProducts = () => async(dispatch) => {
     const response = await fetch('/api/products/')
     if (response.ok) {
@@ -78,7 +84,7 @@ export const getSearchProducts = (search) => async(dispatch) => {
     const response = await fetch(`/api/products/?name=${search}`)
     if (response.ok) {
         const data = await response.json()
-        dispatch(allProducts(data))
+        dispatch(addSearchResults(data))
     } else {
         const errors = await response.json()
         return errors;
@@ -174,7 +180,7 @@ export const deleteProductImageThunk = (imageId) => async dispatch => {
 }
 
 
-const initialState = { products: null };
+const initialState = { products: null, allProductsIds: [], searchResults: null };
 
 export default function productsReducer(state = initialState, action) {
     switch(action.type) {
@@ -214,6 +220,9 @@ export default function productsReducer(state = initialState, action) {
             const product = newState.products[+action.productId];
             delete product.product_images[+action.imageId];
             return newState;
+        }
+        case ADD_SEARCH_RESULTS: {
+            return { ...state, searchResults: action.results }
         }
         default:
             return state;

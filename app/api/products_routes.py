@@ -17,7 +17,7 @@ def get_all_products():
 
     if search_name != None:
         search_results = Product.query.filter(Product.name.contains(search_name.casefold())).all()
-        return {product.id: product.to_dict() for product in search_results}
+        return [product.id for product in search_results]
 
     all_products = Product.query.all()
     return {product.to_dict()["id"]: product.to_dict() for product in all_products}
