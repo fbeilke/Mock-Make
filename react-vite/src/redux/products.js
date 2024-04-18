@@ -74,6 +74,17 @@ export const getAllProducts = () => async(dispatch) => {
     }
 }
 
+export const getSearchProducts = (search) => async(dispatch) => {
+    const response = await fetch(`/api/products/?name=${search}`)
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(allProducts(data))
+    } else {
+        const errors = await response.json()
+        return errors;
+    }
+}
+
 export const getProductsByCategory = (category) => async(dispatch) => {
     const response = await fetch(`/api/products/${category}`)
     if (response.ok) {
@@ -86,7 +97,7 @@ export const getProductsByCategory = (category) => async(dispatch) => {
 }
 
 export const getSingleProduct = (productId) => async(dispatch) => {
-    const response = await fetch(`/api/products/${productId}`)
+    const response = await fetch(`/api/products/${productId}/`)
     if (response.ok) {
         const data = await response.json();
         dispatch(singleProduct(data))
@@ -97,7 +108,7 @@ export const getSingleProduct = (productId) => async(dispatch) => {
 }
 
 export const createNewProduct = (productFormData) => async (dispatch) => {
-    const response = await fetch('/api/products/', {
+    const response = await fetch('/api/products', {
         method: "POST",
         body: productFormData
     });
