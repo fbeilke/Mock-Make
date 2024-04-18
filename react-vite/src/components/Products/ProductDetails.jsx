@@ -150,7 +150,7 @@ export default function ProductDetails() {
                                     <img className='review-image' src={review?.imageUrl} alt={review?.imageUrl || "Review Image"} />
                                 }
                                <p>{review?.content}</p>
-                               {review?.userId === user.id && (
+                               {review?.userId === user?.id && (
                             <button onClick={() => openDeleteModal(review?.id)}>
                                 Delete Review
                             </button>
@@ -192,7 +192,7 @@ export default function ProductDetails() {
                     <span>·</span>
                     <ReviewStars reviewsByProductId={Object.values(reviews)} />
                 </div>
-                {user && singleProduct.vendor_id === user.id ? null :
+                {!user || singleProduct.vendor_id === user?.id ? null :
                 <p>
                     <button className='product-details-cart-button' onClick={() => addToCart(singleProduct)}>Add to cart</button>
                     <button className='product-details-wishlist-button' onClick={() => {navigate('/wishlist');dispatch(addItemToWishlist(singleProduct.id));}}>Add to wishlist</button>
