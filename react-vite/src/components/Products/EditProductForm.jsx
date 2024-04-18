@@ -18,12 +18,11 @@ export default function EditProductForm() {
     const [price, setPrice] = useState(0);
     const [validators, setValidators] = useState({})
 
-    if (!user || !products || Object.values(user).length === 0) {
-        navigate('/');
-        return null
-    }
+    let singleProduct= null
+    if (products[productId]) {
+        singleProduct = products[productId];
 
-    const singleProduct = products[productId];
+    }
 
     useEffect(() => {
         if (singleProduct) {
@@ -33,6 +32,11 @@ export default function EditProductForm() {
             setPrice(singleProduct.price);
         }
     }, [singleProduct])
+
+    if (!user || !products || Object.values(user).length === 0) {
+        navigate('/');
+        return null
+    }
 
     async function handleSubmit(e) {
         e.preventDefault();
