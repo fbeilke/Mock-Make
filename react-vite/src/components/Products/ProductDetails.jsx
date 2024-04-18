@@ -55,7 +55,6 @@ export default function ProductDetails() {
     if (!products) return null;
     if (!reviews) return null;
     if (!users) return null;
-    console.log('users' , users)
     // const renderDelete = () => {
     //     setDeleteReview(!deleteReview)
     // }
