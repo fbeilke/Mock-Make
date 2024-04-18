@@ -13,7 +13,7 @@ export default function ProductsList({ products, users, reviews, currentUser }) 
         window.scrollTo(0, 0)
     }, [])
 
-    if (!users || !products) return null;
+    if (!users || !products ) return null;
 
     const addToCart = (product) => {
         const cartProduct = {
@@ -51,7 +51,7 @@ export default function ProductsList({ products, users, reviews, currentUser }) 
                             <h3>${product.price}</h3>
                         </div>
                     </NavLink>
-                    {currentUser.id === product.vendor_id ? null :
+                    {currentUser && currentUser.id === product.vendor_id ? null :
                     <button onClick={() => addToCart(product)}>Add to cart</button>
                     }
                 </div>

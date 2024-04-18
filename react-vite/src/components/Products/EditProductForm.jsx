@@ -18,7 +18,10 @@ export default function EditProductForm() {
     const [price, setPrice] = useState(0);
     const [validators, setValidators] = useState({})
 
-    if (!user || !products) navigate('/');
+    if (!user || !products || Object.values(user).length === 0) {
+        navigate('/');
+        return null
+    }
 
     const singleProduct = products[productId];
 
@@ -41,6 +44,8 @@ export default function EditProductForm() {
         if (!description.length) errors.description = "Description of product is required"
         if (!category.length) errors.category = "Product category is required"
         if (!price) errors.price = "Price is required"
+        if (price < 0 || price > 9999.99 ) errors.price = "Price must be between $0 and $9,999.99"
+
 
 
         setValidators(errors)
@@ -111,7 +116,7 @@ export default function EditProductForm() {
                     {validators.price && <p className="product-form-errors">{validators.price}</p>}
                 </div>
                 <div>
-                    <button type='submit' disabled={true} className="edit-product-button">Update Product</button>
+                    <button type='submit' className="edit-product-button">Update Product</button>
                 </div>
             </form>
             <div className='image-edit-list'>
@@ -120,6 +125,7 @@ export default function EditProductForm() {
             { Object.entries(singleProduct.product_images).map(([id, image]) => (
                 <ProductImage key={id} image={image} edit={true} />
             ))}
+            <p>*Image must have approved file extension: webp, png, jpg, pdf, jpeg, gif</p>
             <ImageForm imageThunk={(image) => addProductImageThunk(productId, image)} />
         </div>
     )

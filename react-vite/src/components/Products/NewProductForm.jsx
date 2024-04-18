@@ -18,9 +18,11 @@ export default function NewProductForm() {
     const [file, setFile] = useState(null);
     const [imageLoading, setImageLoading] = useState(false);
 
-    // NEED TO DO PICTURES
 
-    if (!user) navigate('/');
+    if (!user || Object.values(user).length === 0) {
+        navigate('/');
+        return null
+    }
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -32,8 +34,8 @@ export default function NewProductForm() {
         if (!description.length) errors.description = "Description of product is required"
         if (!category.length) errors.category = "Product category is required"
         if (!price) errors.price = "Price is required"
-        if (price < 0 || price > 9999.99 ) "Price must be between $0 and $9,999.99"
-
+        if (price < 0 || price > 9999.99 ) errors.price = "Price must be between $0 and $9,999.99"
+        if (!file) errors.file = "Product must include an image"
 
         setValidators(errors)
 
@@ -110,6 +112,7 @@ export default function NewProductForm() {
                 <p>*Image must have approved file extension: webp, png, jpg, pdf, jpeg, gif</p>
                 <ImageInput setFile={setFile} />
                 { imageLoading && <p>Loading...</p> }
+                {validators.file && <p className="product-form-errors">{validators.file}</p>}
                 <div>
                     <button type='submit' className="create-product-button">Create Product</button>
                 </div>
