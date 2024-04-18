@@ -24,3 +24,15 @@ h2 {
     src: url('/fonts/Outfit-ExtraLight.ttf') format('truetype');
     font-weight: 200;
 }
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('/fonts/Outfit-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('/fonts/Outfit-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
