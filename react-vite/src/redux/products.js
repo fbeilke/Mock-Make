@@ -74,6 +74,17 @@ export const getAllProducts = () => async(dispatch) => {
     }
 }
 
+export const getSearchProducts = (search) => async(dispatch) => {
+    const response = await fetch(`/api/products/?name=${search}`)
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(allProducts(data))
+    } else {
+        const errors = await response.json()
+        return errors;
+    }
+}
+
 export const getProductsByCategory = (category) => async(dispatch) => {
     const response = await fetch(`/api/products/${category}`)
     if (response.ok) {

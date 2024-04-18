@@ -9,8 +9,16 @@ products_routes = Blueprint("products_routes", __name__)
 @products_routes.route('/')
 def get_all_products():
     '''
-    Return list of all product dictionaries
+    Return list of all product dictionaries, optionally filtered by search params
     '''
+
+    search_name = request.args.get('name')
+    print("SEARCH FOR:", search_name)
+
+    if search_name != None:
+        search_results = Product.query.filter(Product.name.contains(search_name.casefold())).all()
+        return {product.id: product.to_dict() for product in search_results}
+
     all_products = Product.query.all()
     return {product.to_dict()["id"]: product.to_dict() for product in all_products}
 
