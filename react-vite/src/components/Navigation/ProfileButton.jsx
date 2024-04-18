@@ -187,6 +187,9 @@ function ProfileButton() {
                       <div>
                         <NavLink to='/wishlist' className='wishlists'>Wish List</NavLink>
                       </div>
+                      <div>
+                        <NavLink to='/products/new' className='add-product'>Create new listing</NavLink>
+                      </div>
 
 
                       <li>
