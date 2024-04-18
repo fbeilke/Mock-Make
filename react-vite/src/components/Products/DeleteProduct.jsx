@@ -13,7 +13,7 @@ export default function DeleteProduct({ productId }) {
     async function handleDeleteProduct() {
         const response = await dispatch(deleteExistingProduct(productId));
 
-        if (!response) {
+        if (response) {
             alert("There was an error.")
         } else {
             closeModal()
@@ -24,7 +24,7 @@ export default function DeleteProduct({ productId }) {
 
     return (
         <div className='delete-product-modal'>
-            <h1 className='confirm-delete-text'>Are you sure you want to delete this review?</h1>
+            <h1 className='confirm-delete-text'>Are you sure you want to delete this product?</h1>
             <button className='delete-button confirm' onClick={handleDeleteProduct}>
                 Yes, Delete
             </button>

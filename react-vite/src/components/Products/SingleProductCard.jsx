@@ -23,11 +23,13 @@ export default function SingleProductCard({ product, users, reviews}) {
             <div className='single-product-info'>
                 <p className='single-product-name'>{product.name}</p>
                 <p className='single-product-category'>{product.category}</p>
-                {users[product.vendor_id].vendor_name ? <span>{users[product.vendor_id].vendor_name}</span> :
-                <span>{users[product.vendor_id].username}</span>
-                }
-                <span> · </span>
-                <ReviewStars reviewsByProductId={reviewsByProduct} />
+                <div className='single-product-vendor-review-stars'>
+                    {users[product.vendor_id].vendor_name ? <span>{users[product.vendor_id].vendor_name}</span> :
+                    <span>{users[product.vendor_id].username}</span>
+                    }
+                    <span> · </span>
+                    <ReviewStars reviewsByProductId={reviewsByProduct} />
+                </div>
                 <p className='single-product-price'>${product.price}</p>
                 <p>{product.description}</p>
 

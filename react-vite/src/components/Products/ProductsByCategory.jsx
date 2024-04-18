@@ -12,6 +12,7 @@ export default function ProductsByCategory() {
     const { products } = useSelector(state => state.products)
     const { users } = useSelector(state => state.users)
     const { reviews } = useSelector(state => state.reviews)
+    const { user } = useSelector(state => state.session)
 
     function categoryTitle() {
         switch(category) {
@@ -41,7 +42,7 @@ export default function ProductsByCategory() {
     return (
         <div className="products-page">
             <h2>{categoryName} Products</h2>
-            <ProductsList products={products} users={users} reviews={reviews}/>
+            <ProductsList products={products} users={users} reviews={reviews} currentUser={user}/>
         </div>
     )
 }
