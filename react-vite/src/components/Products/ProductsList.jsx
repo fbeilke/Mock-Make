@@ -51,7 +51,7 @@ export default function ProductsList({ products, users, reviews, currentUser }) 
                             <h3>${product.price}</h3>
                         </div>
                     </NavLink>
-                    {currentUser && currentUser.id === product.vendor_id ? null :
+                    {!currentUser || currentUser.id === product.vendor_id ? null :
                     <button onClick={() => addToCart(product)}>Add to cart</button>
                     }
                 </div>
