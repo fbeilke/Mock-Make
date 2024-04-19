@@ -13,7 +13,7 @@ function SignupFormPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const [submitAttempted, setSubmitAttempted] = useState(false);
+  const [setSubmitAttempted] = useState(false);
 
   if (sessionUser) return <Navigate to="/" replace={true} />;
 

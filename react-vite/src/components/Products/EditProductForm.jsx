@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductImageThunk, updateExistingProduct } from '../../redux/products';
@@ -19,7 +19,8 @@ export default function EditProductForm() {
     const [validators, setValidators] = useState({})
 
     let singleProduct= null
-    if (products[productId]) {
+
+    if (products && products[productId]) {
         singleProduct = products[productId];
 
     }
@@ -34,8 +35,7 @@ export default function EditProductForm() {
     }, [singleProduct])
 
     if (!user || !products || Object.values(user).length === 0) {
-        navigate('/');
-        return null
+        return <Navigate to='/' replace={true}/>
     }
 
     async function handleSubmit(e) {
