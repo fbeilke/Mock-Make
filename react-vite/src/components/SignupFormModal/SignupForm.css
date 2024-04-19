@@ -14,6 +14,8 @@
 .signup-modal h1 {
     margin-top: 0;
     margin-bottom: 30px;
+    background-color: #fff;
+    border-radius: 8px;
 }
 
 .signup-modal label {
@@ -36,6 +38,21 @@
 
     transition: border-color 0.3s;
 }
+
+.signup-modal p.error {
+    color: #ff0000; /* Updated to a standard red color for errors */
+    font-size: 14px;
+    margin-top: -15px; /* Adjusted for better spacing */
+    margin-bottom: 20px; /* Adjusted for better spacing */
+    width: 100%; /* Ensure it spans the full width of the container */
+    text-align: left; /* Align text to the left */
+}
+
+
+.signup-modal button:hover {
+    background-color: #0056b3;
+}
+
 
 .signup-modal input:hover {
     border-color: #212121;
@@ -69,4 +86,5 @@
 .signup-modal button:disabled {
     background-color: #d9d9d9;
     color: #a6a6a6;
+    cursor: default;
 }

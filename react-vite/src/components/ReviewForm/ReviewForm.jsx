@@ -35,23 +35,35 @@ function ReviewForm({ productId, buttonText, hideForm }) {
         event.preventDefault();
         const formErrors = validate();
         setErrors(formErrors);
-        hideForm();
+
 
         if (Object.keys(formErrors).length === 0) {
             setIsSubmitting(true);
+            try {
 
-            const payload = {
-                content: reviewText,
-                rating,
-                image
-            }
+                const payload = {
+                 content: reviewText,
+                    rating,
+                    image
+                }
 
-            const formData = formDataFromObject(payload);
+                const formData = formDataFromObject(payload);
 
             await dispatch(createReviewThunk(productId, formData));
+            hideForm();
+            // setIsSubmitting(false);
+        }catch (error) {
+            console.error('Failed to create review:', error);
+            // Optionally, set an error state to display to the user
+            setErrors(prevErrors => ({ ...prevErrors, submit: 'Failed to submit review. Please try again.' }));
+        } finally {
             setIsSubmitting(false);
         }
-    };
+    } else {
+        // Keep the form visible if there are errors
+        setErrors(formErrors);
+    }
+};
 
 
     if (isSubmitting) return <div>Loading...</div>;
