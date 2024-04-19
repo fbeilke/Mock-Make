@@ -59,8 +59,8 @@ function SignupFormModal() {
       })
     );
 
-  if (serverResponse && serverResponse.errors) {
-    setErrors(serverResponse.errors);
+  if (serverResponse) {
+    setErrors(serverResponse);
   } else {
     closeModal();
   }
@@ -70,9 +70,9 @@ return (
       <h1>Sign Up</h1>
       <FaXmark className="modal-close" onClick={closeModal} size={30}/>
       {errors.server && <p className='error'>{errors.server}</p>}
-      {Object.values(errors).map((error, idx) => (
+      {/* {Object.values(errors).map((error, idx) => (
         <p key={idx} className='error'>{error}</p>
-      ))}
+      ))} */}
       <form onSubmit={handleSubmit}>
         <label>
           Email
