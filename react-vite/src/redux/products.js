@@ -180,14 +180,14 @@ export const deleteProductImageThunk = (imageId) => async dispatch => {
 }
 
 
-const initialState = { products: null, allProductsIds: [], searchResults: null };
+const initialState = { products: null, allProductsIds: [], searchResults: null, categoryResults: null };
 
 export default function productsReducer(state = initialState, action) {
     switch(action.type) {
         case ALL_PRODUCTS:
             return {...state, products: action.products, allProductsIds: Object.keys(action.products) }
         case PRODUCTS_BY_CATEGORY:
-            return {...state, products: action.products, allProductsIds: Object.keys(action.products)}
+            return {...state, categoryResults: Object.keys(action.products)}
         case SINGLE_PRODUCT:{
             const newState = {...state}
             newState.products[action.product.id] = action.product

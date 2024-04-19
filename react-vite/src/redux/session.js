@@ -1,3 +1,5 @@
+import { getAllUsersThunk } from "./users";
+
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
 const SET_CART = 'session/setCart';
@@ -97,6 +99,7 @@ export const thunkSignup = (user) => async (dispatch) => {
   if(response.ok) {
     const data = await response.json();
     dispatch(setUser(data));
+    dispatch(getAllUsersThunk());
     dispatch(getCartThunk());
   } else if (response.status < 500) {
     const errorMessages = await response.json();
