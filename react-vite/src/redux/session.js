@@ -231,7 +231,7 @@ export const removeItemFromWishlist = (productId) => async (dispatch) => {
 };
 
 
-const initialState = { user: {}, cart: {}, wishlist: {}};
+const initialState = { user: null, cart: {}, wishlist: {}};
 
 function sessionReducer(state = initialState, action) {
   switch (action.type) {

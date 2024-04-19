@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewProduct } from '../../redux/products';
 import { formDataFromObject } from '../../utils/formDataUtils';
@@ -20,8 +20,7 @@ export default function NewProductForm() {
 
 
     if (!user || Object.values(user).length === 0) {
-        navigate('/');
-        return null
+        return <Navigate to='/' replace={true}/>
     }
 
     async function handleSubmit(e) {
