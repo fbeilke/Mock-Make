@@ -12,6 +12,7 @@ function CartItem({ product, quantity }){
     const image = Object.values(productImages).find(image => image.preview)
 
     const decrementItem = () => {
+        if(quantity < 2) return deleteItem();
         dispatch(putCartItemThunk({
             productId: id,
             quantity: quantity - 1
