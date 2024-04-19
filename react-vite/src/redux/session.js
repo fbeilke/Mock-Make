@@ -248,14 +248,14 @@ function sessionReducer(state = initialState, action) {
       return { ...state, cart: normalCart };
     }
     case SET_CART_PRODUCT: {
-      const newState = {user: {...state.user}, cart: {...state.cart}};
+      const newState = { ...state, cart: {...state.cart} };
       newState.cart[action.payload.productId] = action.payload;
       return newState;
     }
     case DELETE_CART_PRODUCT: {
-      const newState = {user: {...state.user}, cart: {...state.cart}};
-      if (newState.cart[action.payload]) delete newState.cart[action.payload];
-      return newState;
+      const newCart = { ...state.cart };
+      if (newCart[action.payload]) delete newCart[action.payload];
+      return { ...state, cart: newCart };
     }
     case REMOVE_CART:
       return { ...state, cart: null };
