@@ -6,7 +6,7 @@ import "./ProductsList.css"
 import ReviewStars from "../ReviewStars/ReviewStars";
 
 
-export default function ProductsList({ products, users, reviews, currentUser }) {
+export default function ProductsList({ products, users, reviews, currentUser, search = false, searchResults }) {
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -33,9 +33,11 @@ export default function ProductsList({ products, users, reviews, currentUser }) 
         }
     }
 
+    const productArr = search && searchResults ? searchResults.map(result => products[result]) : Object.values(products);
+
     return (
         <div className="products-list">
-            {!products ? null : Object.values(products).map(product => (
+            {!products ? null : productArr.map(product => (
                 <div key={product.id} className="each-product">
                     <NavLink to={`/products/${product.id}`} className="each-product-link">
                         <img className="each-product-image" src={`${Object.values(product.product_images).filter(productImage => productImage.preview)[0].url}`} alt={`${product.name}`} />
