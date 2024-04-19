@@ -10,7 +10,7 @@ function Wishlist() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const products = useSelector(state => state.products.products);
-    const { wishlist } = useSelector(state => state.session);
+    const wishlist = useSelector(state => state.session.wishlist);
 
 
     useEffect(() => {
