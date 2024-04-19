@@ -61,6 +61,7 @@
   position: absolute;
   top: 10%;
   left: 150%;
+  z-index: 3;
   transform: translateX(-50%);
 }
 
@@ -80,6 +81,14 @@
 }
 
 .search-wrapper {
+  width: 90%;
+  position: relative;
+  display: flex;
+  top:4px;
+  justify-content: space-between;
+}
+
+.search-form {
   width: 90%;
   position: relative;
   display: flex;
