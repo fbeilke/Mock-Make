@@ -35,8 +35,8 @@ function Cart(){
                                 <CartItem key={id} quantity={product.quantity} product={products?.[id]} />
                             ))}
                         </div>
-                        { Object.keys(cart).length 
-                            ? <Link to="/checkout">Checkout</Link> 
+                        { Object.keys(cart).length
+                            ? <Link to="/checkout">Checkout</Link>
                             : <p>No Items Yet...</p>
                         }
                     </>
