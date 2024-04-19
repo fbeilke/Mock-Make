@@ -16,7 +16,7 @@ def get_all_products():
     print("SEARCH FOR:", search_name)
 
     if search_name != None:
-        search_results = Product.query.filter(Product.name.contains(search_name.casefold())).all()
+        search_results = Product.query.filter(Product.name.ilike(f'%{search_name}%')).all()
         return [product.id for product in search_results]
 
     all_products = Product.query.all()
