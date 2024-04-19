@@ -33,7 +33,7 @@ export default function ProductsList({ products, users, reviews, currentUser, se
         }
     }
 
-    const productArr = search ? searchResults.map(result => products[result]) : Object.values(products);
+    const productArr = search && searchResults ? searchResults.map(result => products[result]) : Object.values(products);
 
     return (
         <div className="products-list">
