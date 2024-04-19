@@ -19,6 +19,12 @@ function Cart(){
         dispatch(getAllProducts());
     }, [dispatch]);
 
+    useEffect(() => {
+        if(!cart) return;
+        if(Object.keys(cart).length) setIsOpen(true);
+        else setIsOpen(false);
+    }, [cart, setIsOpen]);
+
     if(!sessionUser) return null; // Don't display the cart when no user is logged in
 
     return (
