@@ -4,10 +4,12 @@ import { useEffect } from "react";
 import { addCartItemThunk } from "../../redux/session"
 import "./ProductsList.css"
 import ReviewStars from "../ReviewStars/ReviewStars";
+import { useCart } from "../../context/CartProvider";
 
 
 export default function ProductsList({ products, users, reviews, currentUser, search = false, searchResults }) {
     const dispatch = useDispatch()
+    const { setIsOpen } = useCart();
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -21,6 +23,7 @@ export default function ProductsList({ products, users, reviews, currentUser, se
             quantity: 1
         }
         dispatch(addCartItemThunk(cartProduct));
+        setIsOpen(true);
     }
 
     function reviewsByProduct(productID) {
