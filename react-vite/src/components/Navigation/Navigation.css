@@ -80,6 +80,10 @@
   border-radius: 25%;
 }
 
+#nav-logo {
+  filter: invert(1);
+}
+
 .search-wrapper {
   width: 90%;
   position: relative;
