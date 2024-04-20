@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import { BiSearchAlt2 } from "react-icons/bi"
 import { BsCart } from "react-icons/bs";
-import logo from '../../../images/logo.png'
+import logo from '../../../images/logo.svg'
 import { FcHome } from "react-icons/fc";
 import { MdToys } from "react-icons/md";
 import { GiPaperBoat } from "react-icons/gi";
@@ -63,7 +63,7 @@ return (
     <ul className='nav-list'>
       <li className="logo-item">
       <NavLink to="/" className='logo-link'>
-        <img src={logo} alt="Logo" />
+        <img id="nav-logo" src={logo} alt="Logo" />
       </NavLink>
       <h1 className="MockMakeTitle">Mock Make</h1>
 
