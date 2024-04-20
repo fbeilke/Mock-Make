@@ -36,3 +36,8 @@ h2 {
     src: url('/fonts/Outfit-Bold.ttf') format('truetype');
     font-weight: bold;
 }
+
+button:hover,
+a:hover {
+    cursor: pointer;
+}
