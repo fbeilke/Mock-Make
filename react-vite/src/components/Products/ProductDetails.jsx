@@ -60,6 +60,10 @@ export default function ProductDetails() {
     // }
 
     const singleProduct = products[productId];
+
+    // If the user is not yet loaded into all users state
+    if (!users[singleProduct.vendor_id]) return null;
+
     const allProductImages = Object.values(singleProduct.product_images)
     const reviewsArr = Object.values(reviews)
 

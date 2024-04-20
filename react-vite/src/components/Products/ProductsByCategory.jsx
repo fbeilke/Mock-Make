@@ -9,7 +9,7 @@ import ProductsList from './ProductsList'
 export default function ProductsByCategory() {
     const { category } = useParams()
     const dispatch = useDispatch();
-    const { products } = useSelector(state => state.products)
+    const { products, categoryResults } = useSelector(state => state.products)
     const { users } = useSelector(state => state.users)
     const { reviews } = useSelector(state => state.reviews)
     const { user } = useSelector(state => state.session)
@@ -39,10 +39,14 @@ export default function ProductsByCategory() {
         dispatch(getAllReviews())
     }, [dispatch, categoryName])
 
+    if(!categoryResults) return null;
+
+    const categoryProducts = categoryResults.map(productId => products[productId]);
+
     return (
         <div className="products-page">
             <h2>{categoryName} Products</h2>
-            <ProductsList products={products} users={users} reviews={reviews} currentUser={user}/>
+            <ProductsList products={categoryProducts} users={users} reviews={reviews} currentUser={user}/>
         </div>
     )
 }

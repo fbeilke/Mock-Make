@@ -1,3 +1,5 @@
+import { getAllUsersThunk } from "./users";
+
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
 const SET_CART = 'session/setCart';
@@ -97,6 +99,7 @@ export const thunkSignup = (user) => async (dispatch) => {
   if(response.ok) {
     const data = await response.json();
     dispatch(setUser(data));
+    dispatch(getAllUsersThunk());
     dispatch(getCartThunk());
   } else if (response.status < 500) {
     const errorMessages = await response.json();
@@ -245,14 +248,14 @@ function sessionReducer(state = initialState, action) {
       return { ...state, cart: normalCart };
     }
     case SET_CART_PRODUCT: {
-      const newState = {user: {...state.user}, cart: {...state.cart}};
+      const newState = { ...state, cart: {...state.cart} };
       newState.cart[action.payload.productId] = action.payload;
       return newState;
     }
     case DELETE_CART_PRODUCT: {
-      const newState = {user: {...state.user}, cart: {...state.cart}};
-      if (newState.cart[action.payload]) delete newState.cart[action.payload];
-      return newState;
+      const newCart = { ...state.cart };
+      if (newCart[action.payload]) delete newCart[action.payload];
+      return { ...state, cart: newCart };
     }
     case REMOVE_CART:
       return { ...state, cart: null };
