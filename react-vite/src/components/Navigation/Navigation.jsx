@@ -4,16 +4,16 @@ import { BsCart } from "react-icons/bs";
 import { FcHome } from "react-icons/fc";
 import { GiCrafting, GiPaperBoat } from "react-icons/gi";
 import { LiaGiftsSolid } from "react-icons/lia";
+import { FaBars } from 'react-icons/fa6';
 import { MdToys } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import logo from '../../../images/logo.svg';
 import { useCart } from "../../context/CartProvider";
-import Cart from "../Cart";
 import "./Navigation.css";
 import ProfileButton from "./ProfileButton";
+import Logo from './Logo';
 
-function Navigation(isLoaded) {
+function Navigation({ isLoaded }) {
   const navigate = useNavigate();
   const user = useSelector(state => state.session.user)
   const [showCategories, setShowCategories] = useState(false);
@@ -64,16 +64,19 @@ function Navigation(isLoaded) {
 
 return (
   <div className='navbar-container'>
+    <h1 className="mock-make-title">Mock Make</h1>
     <ul className='nav-list'>
       <li className="logo-item">
       <NavLink to="/" className='logo-link'>
-        <img id="nav-logo" src={logo} alt="Logo" />
+        <Logo size={80} />
       </NavLink>
-      <h1 className="MockMakeTitle">Mock Make</h1>
 
       </li>
       <li className='dropdown'>
-        <button onClick={toggleCategories} className='dropbtn'>Categories</button>
+        <div className="category-btn-wrapper">
+          <FaBars className="menu-icon" />
+          <button onClick={toggleCategories} className='dropbtn'>Categories</button>
+        </div>
         {showCategories && (
           <div className={`dropdown-content ${showCategories ? 'show' : ''}`} ref={categoriesRef}>
           {/* ... links ... */}
@@ -108,18 +111,15 @@ return (
       </li>
       {user && (
         <li className='cart-item'>
-          <BsCart className="cart-icon" onClick={() => setIsOpen(!isOpen)}/>
+          <BsCart className="cart-icon" size={24} onClick={() => setIsOpen(!isOpen)}/>
         </li>
-
-
       )}
+      <li className="profile-wrapper">
+        {isLoaded && (
+          <ProfileButton user={currentUser} />
+        )}
+      </li>
     </ul>
-    <div className='ProfileLinkArea'>
-          {isLoaded && (
-            <ProfileButton user={currentUser} />
-          )}
-    </div>
-    {isOpen && <Cart setIsOpen={setIsOpen}/>}  {/* Conditionally rendering the Cart component based on isCartOpen */}
   </div>
 );
 }

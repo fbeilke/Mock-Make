@@ -21,7 +21,7 @@ export default function Layout() {
       <ModalProvider>
        <WishlistProvider>
         <CartProvider>
-          <Navigation />
+          <Navigation isLoaded={isLoaded} />
           <Cart />
           {isLoaded && <Outlet />}
           {isLoaded &&<Footer/>}

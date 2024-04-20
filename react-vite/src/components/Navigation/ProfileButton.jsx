@@ -1,15 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import * as sessionActions from "../../redux/session";
-// import OpenModalMenuItem from './OpenModalMenuItem';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
-import { useNavigate } from 'react-router-dom';
-import './Profilebutton.css';
 import { FaUserCircle } from 'react-icons/fa';
-import OpenModalButton from '../OpenModalButton';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { thunkLogout } from "../../redux/session";
-import { NavLink } from 'react-router-dom';
+import LoginFormModal from '../LoginFormModal';
+import OpenModalButton from '../OpenModalButton';
+import SignupFormModal from '../SignupFormModal';
+import './Profilebutton.css';
+
 function ProfileButton() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
@@ -48,10 +46,7 @@ function ProfileButton() {
 
     return (
         <div className="profile-container">
-            <button onClick={toggleMenu} className="profile-button">
-                <FaUserCircle /> {/* Using React Icons correctly */}
-
-            </button>
+            <FaUserCircle size={41} onClick={toggleMenu} className='profile-button' /> {/* Using React Icons correctly */}
             {showMenu && (
                 <ul className={ulClassName} ref={ulRef}>
                     {user ? (

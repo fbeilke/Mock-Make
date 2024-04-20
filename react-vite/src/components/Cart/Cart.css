@@ -17,17 +17,18 @@
 #cart-container > svg {
     padding: 20px 0;
     border-radius: 4px 0 0 4px;
-    background-color: rgb(181, 181, 181);
+    background-color: #eb812a;
+    color: #fff;
 }
 
 #cart-open {
-    background-color: #7d7d7d;
+    background-color: #eb812a;
 }
 
 #cart {
     height: 100%;
     overflow-y: scroll;
-    background-color: white;
+    background: linear-gradient(.55turn,#fff, #ffe6ca);
 
     transition: width .25s
 }
