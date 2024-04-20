@@ -1,27 +1,27 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import ProfileButton from "./ProfileButton";
-import "./Navigation.css";
-import { useSelector } from "react-redux";
-import { useState, useRef, useEffect } from "react";
-import { BiSearchAlt2 } from "react-icons/bi"
+import { useEffect, useRef, useState } from "react";
+import { BiSearchAlt2 } from "react-icons/bi";
 import { BsCart } from "react-icons/bs";
-import logo from '../../../images/logo.svg'
 import { FcHome } from "react-icons/fc";
-import { MdToys } from "react-icons/md";
-import { GiPaperBoat } from "react-icons/gi";
-import { GiCrafting } from "react-icons/gi";
+import { GiCrafting, GiPaperBoat } from "react-icons/gi";
 import { LiaGiftsSolid } from "react-icons/lia";
-import Cart from "../Cart";
+import { MdToys } from "react-icons/md";
+import { useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import logo from '../../../images/logo.svg';
 import { useCart } from "../../context/CartProvider";
-// import { IoHeart } from "react-icons/io5";
+import Cart from "../Cart";
+import "./Navigation.css";
+import ProfileButton from "./ProfileButton";
 
 function Navigation(isLoaded) {
   const navigate = useNavigate();
   const user = useSelector(state => state.session.user)
   const [showCategories, setShowCategories] = useState(false);
   const [search, setSearch] = useState("");
+  const [searchFocus, setSearchFocus] = useState(false);
   const { isOpen, setIsOpen } = useCart();
   const categoriesRef = useRef();
+  const searchInput = useRef();
 
 
   const toggleCategories = (e) => {
@@ -57,6 +57,10 @@ function Navigation(isLoaded) {
 
   const currentUser = useSelector((state) => state.session.user);
   
+  const focusSearch = (e) => {
+    e.preventDefault();
+    searchInput.current.focus();
+  }
 
 return (
   <div className='navbar-container'>
@@ -83,8 +87,23 @@ return (
       </li>
       <li className='search-wrapper'>
         <form className='search-form' onSubmit={handleSearch}>
-          <input type="text" placeholder="Search.." className='search-input' value={search} onChange={e => setSearch(e.target.value)} onSubmit={() => console.log(search)}/>
-          <button className='search-button'><BiSearchAlt2 /></button>
+          <input 
+            type="text" 
+            placeholder="Search.." 
+            className='search-input' 
+            onFocus={() => setSearchFocus(true)} 
+            onBlur={() => setSearchFocus(false)}
+            value={search} 
+            onChange={e => setSearch(e.target.value)} 
+            onSubmit={() => console.log(search)}
+            ref={searchInput}
+          />
+          <button 
+            className={'search-button' + (searchFocus ? '  search-focus' : '')}
+            onClick={focusSearch}
+          >
+            <BiSearchAlt2 size={18}/>
+          </button>
         </form>
       </li>
       {user && (

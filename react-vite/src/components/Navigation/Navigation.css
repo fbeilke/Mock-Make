@@ -85,11 +85,7 @@
 }
 
 .search-wrapper {
-  width: 90%;
-  position: relative;
-  display: flex;
-  top:4px;
-  justify-content: space-between;
+  width: 100%;
 }
 
 .search-form {
@@ -106,7 +102,27 @@
   align-self: center;
   flex: 1;
   border: 1px solid grey;
-  border-radius: 5px;
+  border-radius: 5px 0 0 5px;
+  padding: 2px 5px;
+}
+
+.search-input:focus {
+  /* inner border */
+  border-top: 2px solid #212121;
+  border-left: 2px solid #212121;
+  border-bottom: 2px solid #212121;
+  
+  /* outer border */
+  box-shadow: 
+    0 -1px #fff,
+    0 1px #fff,
+    -1px 0 #fff;
+
+  /* keep placeholder in same spot */
+  padding: 1px 4px;
+
+  /* remove default outline */
+  outline: none;
 }
 
 .search-button {
@@ -121,8 +137,24 @@
   border-left: none;
   border-right: 1px solid grey;
   border-radius: 0 5px 5px 0;
-  padding: 5px;
+  padding: 5px 8px;
   margin: 0;
+}
+
+.search-button.search-focus {
+  /* inner outline */
+  border-top: 2px solid #212121;
+  border-right: 2px solid #212121;
+  border-bottom: 2px solid #212121;
+
+  /* outer border */
+  box-shadow: 
+    0 -1px #fff,
+    0 1px #fff,
+    1px 0 #fff;
+
+  /* this keeps the icon in the same place */
+  padding: 4px 7px;
 }
 
 .user-info-container {
@@ -266,3 +298,5 @@
     }
 
 }
+
+
