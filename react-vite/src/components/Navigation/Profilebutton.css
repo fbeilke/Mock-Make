@@ -34,12 +34,17 @@
     display: block;
   }
 
+  .profile-button-divider {
+    border-style: solid;
+    border-color: #ffa751;
+  }
+
   .profile-dropdown li {
     list-style: none;
-    padding: 10px 20px;
-    font-family: 'Arial', sans-serif;
+    padding: 5px 20px 0px;
+    /* font-family: 'Arial', sans-serif; */
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
     color: white;
     transition: background-color 0.3s ease;
     white-space: nowrap;
@@ -52,4 +57,34 @@
     position: absolute;
     right: 16px;
     top: 16px;
+}
+
+.profile-button-links-container {
+  text-align: left;
+}
+
+.profile-button-links-container p {
+  margin: 0 0 8px 5px;
+
+}
+
+.profile-button-links {
+  font-weight: 200;
+  text-decoration: none;
+  color: #007bff;
+  transition: padding .15s, color .15s;
+}
+
+.profile-button-links:hover {
+  padding-left: 2px;
+  color: white;
+}
+
+#logout-button {
+  background-color: #eb812a;
+  border: none;
+  height: 30px;
+  width: 100px;
+  border-radius: 25px;
+  color: white;
 }
