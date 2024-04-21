@@ -110,9 +110,9 @@
   border-top: 2px solid #212121;
   border-left: 2px solid #212121;
   border-bottom: 2px solid #212121;
-  
+
   /* outer border */
-  box-shadow: 
+  box-shadow:
     0 -1px #fff,
     0 1px #fff,
     -1px 0 #fff;
@@ -147,7 +147,7 @@
   border-bottom: 2px solid #212121;
 
   /* outer border */
-  box-shadow: 
+  box-shadow:
     0 -1px #fff,
     0 1px #fff,
     1px 0 #fff;
@@ -183,8 +183,8 @@
   border-radius: 25px;
   height: 20px;
   width: 20px;
-  transition: 
-    height .3s ease, 
+  transition:
+    height .3s ease,
     width .3s ease,
     opacity .3s ease;
 }
@@ -251,8 +251,8 @@
   border-radius: 20px;
   height: 50%;
   width: 50%;
-  transition: 
-    height .2s ease, 
+  transition:
+    height .2s ease,
     width .2s ease,
     opacity .2s ease;
 }
@@ -299,15 +299,117 @@
   justify-content: center;
 }
 
- @media (max-width: 768px) {
-    .cart-item {
-        width: 40px; /* Slightly smaller size for smaller screens */
-        height: 40px;
+@media (max-width: 768px) {
+  .navbar-container {
+
+    padding: 5px 10px;
+
+    width: 100%;
+    margin: 0;
+
+    justify-content: space-between;
+
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+
+  .logo-item img {
+
+    width: 50px;
+    height: auto;
+
+
+    padding: 0;
+    margin: 0 auto;
+    display: block;
+  }
+  .search-form {
+
+    position: relative;
+    width: 100%;
+  }
+
+
+  .search-wrapper {
+
+    flex-grow: 1;
+    margin: 0 10px;
+  }
+
+  .search-input {
+
+    width: calc(100% - 40px);
+
+    padding: 5px;
+    font-size: 0.5rem;
+    margin-right: 10px;
+  }
+
+    .search-button {
+      position: absolute;
+      height: 100%;
+      right: 0;
+      background-color: transparent;
+      color: grey;
+      background-color: white;
+      border-top: 1px solid grey;
+      border-bottom: 1px solid grey;
+      border-left: none;
+      border-right: 1px solid grey;
+      border-radius: 0 5px 5px 0;
+      padding: 5px 8px;
+      margin: 0;
     }
 
-    .cart-icon {
-        font-size: 20px; /* Reduce the icon size for smaller screens */
-    }
+
+
+
+  .search-input:focus {
+
+    border-top: 2px solid #212121;
+    border-left: 2px solid #212121;
+    border-bottom: 2px solid #212121;
+    box-shadow: 0 -1px #fff, 0 1px #fff, -1px 0 #fff;
+    outline: none;
+  }
+
+  .search-icon {
+
+    font-size: 1.2em;
+    outline:none;
+  }
+
+  .cart-item,
+  .profile-wrapper {
+
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+  }
+
+  .cart-icon,
+  .profile-icon {
+
+    font-size: 1.5rem;
+  }
+  body {
+    margin: 0;
+    overflow-x: hidden;
+  }
 }
 
 
+@media (max-width: 480px) {
+
+  .search-input {
+    width: calc(100% - 30px);
+
+  }
+
+  .search-button {
+    padding: 6px;
+
+  }
+}
