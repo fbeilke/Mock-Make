@@ -39,7 +39,7 @@ export default function ProductsByCategory() {
         dispatch(getAllReviews())
     }, [dispatch, categoryName])
 
-    if(!categoryResults) return null;
+    if(!categoryResults || !products) return null;
 
     const categoryProducts = categoryResults.map(productId => products[productId]);
 
