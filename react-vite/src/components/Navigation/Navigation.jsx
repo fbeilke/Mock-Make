@@ -30,6 +30,7 @@ function Navigation({ isLoaded }) {
   };
 
   const handleSearch = (e) => {
+    console.log(search)
     e.preventDefault();
     const query = search.split(' ').join('+');
     navigate(`/products/?name=${query}`);
@@ -97,10 +98,11 @@ return (
             onFocus={() => setSearchFocus(true)} 
             onBlur={() => setSearchFocus(false)}
             value={search} 
-            onChange={e => setSearch(e.target.value)} 
-            onSubmit={() => console.log(search)}
+            onChange={e => setSearch(e.target.value)}
             ref={searchInput}
           />
+          {/* Keep this input display none for search on [enter/return] button press */}
+          <input type="submit" style={{display:"none"}}/>
           <button 
             className={'search-button' + (searchFocus ? '  search-focus' : '')}
             onClick={focusSearch}
