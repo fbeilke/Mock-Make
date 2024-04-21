@@ -30,7 +30,6 @@ function Navigation({ isLoaded }) {
   };
 
   const handleSearch = (e) => {
-    console.log(search)
     e.preventDefault();
     const query = search.split(' ').join('+');
     navigate(`/products/?name=${query}`);
