@@ -73,3 +73,126 @@
     border-radius: 25px;
     color: white;
 }
+
+@media (max-width: 768px) {
+    .landing-page-title {
+      font-size: 30px;
+    }
+
+    .landing-categories-container,
+    .landing-if-logged-in {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    .landing-if-logged-in button,
+    .all-products-button {
+      width: 100px;
+    }
+
+    .landing-categories-card,
+    .random-product-card {
+      width: 100%;
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .landing-categories-image,
+    .single-product-image {
+      width: 100%;
+      height: 150px;
+    }
+
+    .landing-categories-title {
+      text-align: center;
+      padding-top: 10px;
+    }
+
+    .landing-if-logged-in {
+      gap: 0;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+    }
+
+    .landing-if-logged-in button {
+      margin: 10px;
+      flex-grow: 1;
+      max-width: 180px;
+    }
+
+    .single-product-link {
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .single-product-image-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .single-product-info,
+    .product-info {
+      text-align: center;
+      padding: 10px;
+      width: 100%;
+    }
+}
+
+
+
+  @media (max-width: 480px) {
+    .landing-page-title {
+      font-size: 24px;
+    }
+
+    .single-product-card,
+    .product-image,
+    .product-button,
+    .button-container,
+    .landing-all-products-button-container
+    {
+      width: 70%;
+    }
+
+    .single-product-card {
+      margin: 10px auto;
+      box-sizing: border-box;
+    }
+
+    .product-image {
+      height: auto;
+      object-fit: cover;
+    }
+
+    .product-button {
+      display: block;
+      width: auto;
+      margin: 10px auto;
+      padding: 10px 0;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+    }
+
+    .landing-all-products-button-container {
+      justify-content: center;
+      padding: 0 10px;
+      margin-top: 20px;
+    }
+
+    .all-products-button {
+      margin-top:10px;
+
+
+    }
+  }

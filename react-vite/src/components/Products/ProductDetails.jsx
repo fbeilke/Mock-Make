@@ -16,6 +16,7 @@ import DeleteProduct from './DeleteProduct';
 import { useModal } from "../../context/Modal";
 import "./ProductDetails.css"
 import ReviewStars from '../ReviewStars/ReviewStars';
+import { useCart } from '../../context/CartProvider';
 
 
 function formatDateV2(date) {
@@ -43,6 +44,7 @@ export default function ProductDetails() {
     const [displayImageURL, setDisplayImageURL] = useState(null)
     const [showReviewForm, setShowReviewForm] = useState(false);
     const { setModalContent } = useModal();
+    const { setIsOpen } = useCart();
 
 
     useEffect(() => {
@@ -60,6 +62,10 @@ export default function ProductDetails() {
     // }
 
     const singleProduct = products[productId];
+
+    // If the user is not yet loaded into all users state
+    if (!users[singleProduct.vendor_id]) return null;
+
     const allProductImages = Object.values(singleProduct.product_images)
     const reviewsArr = Object.values(reviews)
 
@@ -83,6 +89,7 @@ export default function ProductDetails() {
             quantity: 1
         }
         dispatch(addCartItemThunk(cartProduct));
+        setIsOpen(true);
     }
 
 
