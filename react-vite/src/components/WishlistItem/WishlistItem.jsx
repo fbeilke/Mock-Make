@@ -3,9 +3,11 @@ import { useDispatch } from 'react-redux';
 import { removeItemFromWishlist } from '../../redux/session';
 import { addCartItemThunk } from '../../redux/session';
 import './WishlistItem.css';
+import { useCart } from '../../context/CartProvider';
 
 function WishlistItem({ product, quantity }){
     const dispatch = useDispatch();
+    const { setIsOpen } = useCart();
     if(!product) return null;
 
     const { id, name, price, product_images: productImages } = product;
@@ -19,6 +21,7 @@ function WishlistItem({ product, quantity }){
             quantity: 1
         }
         dispatch(addCartItemThunk(cartProduct));
+        setIsOpen(true);
     }
 
     const handleRemoveFromWishlist = () => {
