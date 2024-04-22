@@ -268,9 +268,9 @@ function sessionReducer(state = initialState, action) {
       return newState
     }
     case REMOVE_FROM_WISHLIST: {
-      const newState = {...state}
-      delete newState.wishlist[action.payload]
-      return newState
+      const newWishlist = {...state.wishlist}
+      delete newWishlist[action.payload]
+      return {...state, wishlist: newWishlist}
     }
     default:
       return state;
