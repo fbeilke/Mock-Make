@@ -3,6 +3,10 @@
     overflow-y: scroll;
 }
 
+#modal {
+    z-index: 3;
+}
+
 .signup-modal {
     display: flex;
     flex-direction: column;

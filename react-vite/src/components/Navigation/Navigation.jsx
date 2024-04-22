@@ -1,27 +1,27 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import ProfileButton from "./ProfileButton";
-import "./Navigation.css";
-import { useSelector } from "react-redux";
-import { useState, useRef, useEffect } from "react";
-import { BiSearchAlt2 } from "react-icons/bi"
+import { useEffect, useRef, useState } from "react";
+import { BiSearchAlt2 } from "react-icons/bi";
 import { BsCart } from "react-icons/bs";
-import logo from '../../../images/logo.svg'
 import { FcHome } from "react-icons/fc";
-import { MdToys } from "react-icons/md";
-import { GiPaperBoat } from "react-icons/gi";
-import { GiCrafting } from "react-icons/gi";
+import { GiCrafting, GiPaperBoat } from "react-icons/gi";
 import { LiaGiftsSolid } from "react-icons/lia";
-import Cart from "../Cart";
+import { FaBars } from 'react-icons/fa6';
+import { MdToys } from "react-icons/md";
+import { useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartProvider";
-// import { IoHeart } from "react-icons/io5";
+import "./Navigation.css";
+import ProfileButton from "./ProfileButton";
+import Logo from './Logo';
 
-function Navigation(isLoaded) {
+function Navigation({ isLoaded }) {
   const navigate = useNavigate();
   const user = useSelector(state => state.session.user)
   const [showCategories, setShowCategories] = useState(false);
   const [search, setSearch] = useState("");
+  const [searchFocus, setSearchFocus] = useState(false);
   const { isOpen, setIsOpen } = useCart();
   const categoriesRef = useRef();
+  const searchInput = useRef();
 
 
   const toggleCategories = (e) => {
@@ -57,19 +57,26 @@ function Navigation(isLoaded) {
 
   const currentUser = useSelector((state) => state.session.user);
   
+  const focusSearch = (e) => {
+    e.preventDefault();
+    searchInput.current.focus();
+  }
 
 return (
   <div className='navbar-container'>
+    <h1 className="mock-make-title">Mock Make</h1>
     <ul className='nav-list'>
       <li className="logo-item">
       <NavLink to="/" className='logo-link'>
-        <img id="nav-logo" src={logo} alt="Logo" />
+        <Logo size={80} />
       </NavLink>
-      <h1 className="MockMakeTitle">Mock Make</h1>
 
       </li>
       <li className='dropdown'>
-        <button onClick={toggleCategories} className='dropbtn'>Categories</button>
+        <div className="category-btn-wrapper">
+          <FaBars className="menu-icon" />
+          <button onClick={toggleCategories} className='dropbtn'>Categories</button>
+        </div>
         {showCategories && (
           <div className={`dropdown-content ${showCategories ? 'show' : ''}`} ref={categoriesRef}>
           {/* ... links ... */}
@@ -83,24 +90,37 @@ return (
       </li>
       <li className='search-wrapper'>
         <form className='search-form' onSubmit={handleSearch}>
-          <input type="text" placeholder="Search.." className='search-input' value={search} onChange={e => setSearch(e.target.value)} onSubmit={() => console.log(search)}/>
-          <button className='search-button'><BiSearchAlt2 /></button>
+          <input 
+            type="text" 
+            placeholder="Search.." 
+            className='search-input' 
+            onFocus={() => setSearchFocus(true)} 
+            onBlur={() => setSearchFocus(false)}
+            value={search} 
+            onChange={e => setSearch(e.target.value)}
+            ref={searchInput}
+          />
+          {/* Keep this input display none for search on [enter/return] button press */}
+          <input type="submit" style={{display:"none"}}/>
+          <button 
+            className={'search-button' + (searchFocus ? '  search-focus' : '')}
+            onClick={focusSearch}
+          >
+            <BiSearchAlt2 size={18}/>
+          </button>
         </form>
       </li>
       {user && (
         <li className='cart-item'>
-          <BsCart className="cart-icon" onClick={() => setIsOpen(!isOpen)}/>
+          <BsCart className="cart-icon" size={24} onClick={() => setIsOpen(!isOpen)}/>
         </li>
-
-
       )}
+      <li className="profile-wrapper">
+        {isLoaded && (
+          <ProfileButton user={currentUser} />
+        )}
+      </li>
     </ul>
-    <div className='ProfileLinkArea'>
-          {isLoaded && (
-            <ProfileButton user={currentUser} />
-          )}
-    </div>
-    {isOpen && <Cart setIsOpen={setIsOpen}/>}  {/* Conditionally rendering the Cart component based on isCartOpen */}
   </div>
 );
 }
