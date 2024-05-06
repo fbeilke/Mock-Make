@@ -43,3 +43,21 @@
     align-items: center;
     gap: 5px;
 }
+
+@media (max-width: 1024px) {
+    .products-list {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .products-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 500px) {
+    .products-list {
+        grid-template-columns: 1fr;
+    }
+}
