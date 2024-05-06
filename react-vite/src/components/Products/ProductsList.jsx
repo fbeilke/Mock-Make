@@ -40,7 +40,7 @@ export default function ProductsList({ products, users, reviews, currentUser, se
 
     return (
         <div className="products-list">
-            {!products ? null : productArr.map(product => (
+            {!products ? null : !productArr.length ? 'No products found' : productArr.map(product => (
                 <div key={product.id} className="each-product">
                     <NavLink to={`/products/${product.id}`} className="each-product-link">
                         <img className="each-product-image" src={`${Object.values(product.product_images).filter(productImage => productImage.preview)[0].url}`} alt={`${product.name}`} />
