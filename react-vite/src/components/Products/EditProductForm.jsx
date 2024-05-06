@@ -84,6 +84,7 @@ export default function EditProductForm() {
                         type="text"
                         value={name}
                         onChange={e => setName(e.target.value)}
+                        className='edit-product-input name-input'
                     />
                     {validators.name && <p className="product-form-errors">{validators.name}</p>}
                 </div>
@@ -93,12 +94,13 @@ export default function EditProductForm() {
                         placeholder="Description"
                         value={description}
                         onChange={e => setDescription(e.target.value)}
+                        className='edit-product-input description-input'
                     />
                     {validators.description && <p className="product-form-errors">{validators.description}</p>}
                 </div>
                 <div>
                     <p>Choose the best category that your product fits into.</p>
-                    <select name='category' onChange={e => setCategory(e.target.value)} value={category}>
+                    <select name='category' onChange={e => setCategory(e.target.value)} value={category} className='edit-product-input category-input'>
                         <option value='' disabled={true}>(select one)</option>
                         <option value="Home Goods">Home Goods</option>
                         <option value="Toys & Games">Toys & Games</option>
@@ -110,12 +112,13 @@ export default function EditProductForm() {
                 </div>
                 <div>
                     <p>Set a price for your item.</p>
-                    <span>$</span>
+                    <span className='price-input-dollar-sign'>$</span>
                     <input
                         placeholder ="0.00"
                         type='text'
                         value={price}
                         onChange={e => setPrice(e.target.value)}
+                        className='edit-product-input price-input'
                     />
                     {validators.price && <p className="product-form-errors">{validators.price}</p>}
                 </div>
@@ -126,11 +129,20 @@ export default function EditProductForm() {
             <div className='image-edit-list'>
 
             </div>
-            { Object.entries(singleProduct.product_images).map(([id, image]) => (
-                <ProductImage key={id} image={image} edit={true} />
-            ))}
-            <p>*Image must have approved file extension: webp, png, jpg, pdf, jpeg, gif</p>
-            <ImageForm imageThunk={(image) => addProductImageThunk(productId, image)} />
+            <p>Maximum of 5 product images</p>
+            <div className='edit-form-existing-images'>
+                { Object.entries(singleProduct.product_images).map(([id, image]) => (
+                    <div key={id} className='edit-form-each-existing-image'>
+                        <ProductImage key={id} image={image} edit={true} />
+                    </div>
+                ))}
+            </div>
+            {Object.keys(singleProduct.product_images).length >= 5 ? null :
+                <div>
+                    <p>*Image must have approved file extension: webp, png, jpg, pdf, jpeg, gif</p>
+                    <ImageForm imageThunk={(image) => addProductImageThunk(productId, image)} />
+                </div>
+            }
         </div>
     )
 }
