@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { BsCart } from "react-icons/bs";
-import { FcHome } from "react-icons/fc";
+import { FaHome } from "react-icons/fa";
 import { GiCrafting, GiPaperBoat } from "react-icons/gi";
 import { LiaGiftsSolid } from "react-icons/lia";
 import { FaBars } from 'react-icons/fa6';
@@ -56,7 +56,7 @@ function Navigation({ isLoaded }) {
   }, [showCategories])
 
   const currentUser = useSelector((state) => state.session.user);
-  
+
   const focusSearch = (e) => {
     e.preventDefault();
     searchInput.current.focus();
@@ -80,7 +80,7 @@ return (
         {showCategories && (
           <div className={`dropdown-content ${showCategories ? 'show' : ''}`} ref={categoriesRef}>
           {/* ... links ... */}
-            <NavLink to='/products/categories/HomeGoods'><FcHome className='home-icons'/>Home Goods</NavLink>
+            <NavLink to='/products/categories/HomeGoods'><FaHome className='home-icons'/>Home Goods</NavLink>
             <NavLink to='/products/categories/ToysGames'><MdToys className='toy-icons'/>Toys & Games</NavLink>
             <NavLink to='/products/categories/ArtCollectibles'><GiPaperBoat className='art-icons'/>Art & Collectibles</NavLink>
             <NavLink to='/products/categories/CraftSuppliesTools'><GiCrafting className='craft-icons'/>Craft Supplies & Tools</NavLink>
@@ -90,19 +90,19 @@ return (
       </li>
       <li className='search-wrapper'>
         <form className='search-form' onSubmit={handleSearch}>
-          <input 
-            type="text" 
-            placeholder="Search.." 
-            className='search-input' 
-            onFocus={() => setSearchFocus(true)} 
+          <input
+            type="text"
+            placeholder="Search.."
+            className='search-input'
+            onFocus={() => setSearchFocus(true)}
             onBlur={() => setSearchFocus(false)}
-            value={search} 
+            value={search}
             onChange={e => setSearch(e.target.value)}
             ref={searchInput}
           />
           {/* Keep this input display none for search on [enter/return] button press */}
           <input type="submit" style={{display:"none"}}/>
-          <button 
+          <button
             className={'search-button' + (searchFocus ? '  search-focus' : '')}
             onClick={focusSearch}
           >

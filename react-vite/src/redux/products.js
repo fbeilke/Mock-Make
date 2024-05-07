@@ -1,6 +1,7 @@
 
 const ALL_PRODUCTS = "productsReducer/ALL_PRODUCTS"
 const PRODUCTS_BY_CATEGORY = "productsReducer/PRODUCTS_BY_CATEGORY"
+const RESET_CATEGORY = 'productsReducer/RESET_CATEGORY'
 const SINGLE_PRODUCT = "productsReducer/SINGLE_PRODUCT"
 const NEW_PRODUCT = "productsReducer/NEW_PRODUCT"
 const UPDATE_PRODUCT = "productsReducer/UPDATE_PRODUCT"
@@ -21,6 +22,12 @@ function productsByCategory(products) {
     return {
         type: PRODUCTS_BY_CATEGORY,
         products
+    }
+}
+
+function resetCategory() {
+    return {
+        type: RESET_CATEGORY
     }
 }
 
@@ -151,6 +158,7 @@ export const deleteExistingProduct = (productId) => async(dispatch) => {
     })
     if (response.ok) {
         dispatch(deleteProduct(productId))
+        dispatch(resetCategory())
     } else {
         const errors = await response.json();
         return errors;
@@ -188,6 +196,8 @@ export default function productsReducer(state = initialState, action) {
             return {...state, products: action.products, allProductsIds: Object.keys(action.products) }
         case PRODUCTS_BY_CATEGORY:
             return {...state, categoryResults: Object.keys(action.products)}
+        case RESET_CATEGORY:
+            return {...state, categoryResults: null}
         case SINGLE_PRODUCT:{
             const newState = {...state}
             newState.products[action.product.id] = action.product

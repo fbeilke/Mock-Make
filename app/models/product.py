@@ -27,6 +27,7 @@ class Product(db.Model):
                 "url": image.url,
                 "preview": image.preview
             }
+
         return {
             "id": self.id,
             "vendor_id": self.vendor_id,
@@ -34,5 +35,5 @@ class Product(db.Model):
             "description": self.description,
             "category": self.category,
             "price": self.price,
-            "product_images": product_images
+            "product_images": product_images if len(product_images) > 0 else {"0": {"id": 0, "url": "https://mock-make-image-bucket.s3.us-east-2.amazonaws.com/marioQBlock.webp", "preview": True}}
         }

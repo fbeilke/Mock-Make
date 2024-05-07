@@ -263,7 +263,7 @@ function sessionReducer(state = initialState, action) {
     case SET_WISHLIST:
       return {...state, wishlist: action.payload}
     case ADD_TO_WISHLIST: {
-      const newState = {...state}
+      const newState = { ...state, wishlist: {...state.wishlist} }
       newState.wishlist[action.payload.productId] = action.payload
       return newState
     }
