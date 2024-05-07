@@ -14,3 +14,16 @@
 .product-image > img {
     width: 100px;
 }
+
+@media screen and (max-width: 480px) {
+    .product-image {
+        width: 70%;
+        height: 70%;
+        overflow: hidden;
+    }
+
+    .product-image > img {
+        width: 100%;
+        overflow: hidden;
+    }
+}

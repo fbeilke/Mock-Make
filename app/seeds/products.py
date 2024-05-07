@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 def seed_products():
     product1 = Product(
-        
+
         vendor_id=1,
         name="Decorative Ceramic Vase",
         description="Elegant ceramic vase perfect for centerpieces or corner decor.",
@@ -15,7 +15,7 @@ def seed_products():
     )
 
     product2 = Product(
-        
+
         vendor_id=1,
         name="Luxury Throw Pillow",
         description="Plush and stylish throw pillow to enhance your home comfort.",
@@ -26,7 +26,7 @@ def seed_products():
     )
 
     product3 = Product(
-        
+
         vendor_id=1,
         name="Handwoven Area Rug",
         description="Add a touch of tradition with our handwoven area rugs.",
@@ -37,7 +37,7 @@ def seed_products():
     )
 
     product4 = Product(
-        
+
         vendor_id=1,
         name="Wall Mounted Art Decor",
         description="Transform any room with our modern art decor pieces.",
@@ -48,7 +48,7 @@ def seed_products():
     )
 
     product5 = Product(
-        
+
         vendor_id=1,
         name="Minimalist Wooden Clock",
         description="Stay timely with this sleek minimalist wooden clock.",
@@ -59,7 +59,7 @@ def seed_products():
     )
 
     product6 = Product(
-        
+
         vendor_id=1,
         name="Antique Brass Lamp",
         description="Brighten up your space with our antique brass lamp.",
@@ -70,7 +70,7 @@ def seed_products():
     )
 
     product7 = Product(
-        
+
         vendor_id=1,
         name="Ornate Mirror Frame",
         description="Ornate mirror frame for a touch of elegance in your dressing room.",
@@ -81,7 +81,7 @@ def seed_products():
     )
 
     product8 = Product(
-        
+
         vendor_id=1,
         name="Modern Bookshelf",
         description="Organize your books in style with our modern bookshelf.",
@@ -92,7 +92,7 @@ def seed_products():
     )
 
     product9 = Product(
-        
+
         vendor_id=2,
         name="Strategy Board Game",
         description="Challenge the mind with our engaging strategy board game.",
@@ -103,7 +103,7 @@ def seed_products():
     )
 
     product10 = Product(
-        
+
         vendor_id=2,
         name="RC Car",
         description="High-speed remote control car for outdoor excitement.",
@@ -114,7 +114,7 @@ def seed_products():
     )
 
     product11 = Product(
-        
+
         vendor_id=2,
         name="Puzzle Set",
         description="High-quality, challenging puzzle set for hours of fun.",
@@ -125,7 +125,7 @@ def seed_products():
     )
 
     product12 = Product(
-        
+
         vendor_id=2,
         name="Educational Game",
         description="Creative and educational game for learning and fun.",
@@ -136,7 +136,7 @@ def seed_products():
     )
 
     product13 = Product(
-        
+
         vendor_id=2,
         name="Dollhouse",
         description="Detailed and vibrant dollhouse to spark children's imaginations.",
@@ -147,7 +147,7 @@ def seed_products():
     )
 
     product14 = Product(
-        
+
         vendor_id=2,
         name="Action Figure Set",
         description="Dynamic action figure set for adventurous playtime.",
@@ -158,7 +158,7 @@ def seed_products():
     )
 
     product15 = Product(
-        
+
         vendor_id=2,
         name="Building Blocks",
         description="Colorful building blocks to enhance creativity and motor skills.",
@@ -169,7 +169,7 @@ def seed_products():
     )
 
     product16 = Product(
-        
+
         vendor_id=2,
         name="Chess Set",
         description="Classic wooden chess set for both beginners and experts.",
@@ -180,7 +180,7 @@ def seed_products():
     )
 
     product17 = Product(
-        
+
         vendor_id=3,
         name="Abstract Canvas Art",
         description="Expressive abstract canvas to add a modern touch to any space.",
@@ -191,7 +191,7 @@ def seed_products():
     )
 
     product18 = Product(
-        
+
         vendor_id=3,
         name="Vintage Sculpture",
         description="Intricately designed vintage sculpture, a timeless piece.",
@@ -202,7 +202,7 @@ def seed_products():
     )
 
     product19 = Product(
-        
+
         vendor_id=3,
         name="Renaissance Art Print",
         description="High-quality print of a renowned Renaissance painting.",
@@ -213,7 +213,7 @@ def seed_products():
     )
 
     product20 = Product(
-        
+
         vendor_id=3,
         name="Antique Vase",
         description="Genuine antique vase from the early 20th century.",
@@ -224,7 +224,7 @@ def seed_products():
     )
 
     product21 = Product(
-        
+
         vendor_id=3,
         name="Handcrafted Metal Bookmark",
         description="Elegant handcrafted bookmark, perfect for book lovers.",
@@ -235,7 +235,7 @@ def seed_products():
     )
 
     product22 = Product(
-        
+
         vendor_id=3,
         name="Collector's Edition Comic Book",
         description="Rare collector's edition comic book, mint condition.",
@@ -246,7 +246,7 @@ def seed_products():
     )
 
     product23 = Product(
-        
+
         vendor_id=3,
         name="Custom Engraved Chess Set",
         description="Beautifully engraved chess set, customizable per order.",
@@ -257,7 +257,7 @@ def seed_products():
     )
 
     product24 = Product(
-        
+
         vendor_id=3,
         name="Decorative Stained Glass",
         description="Colorful stained glass for adding vibrancy to your windows.",
@@ -268,7 +268,7 @@ def seed_products():
     )
 
     product25 = Product(
-        
+
         vendor_id=4,
         name="Calligraphy Starter Kit",
         description="Complete kit for beginners to learn the art of calligraphy.",
@@ -279,7 +279,7 @@ def seed_products():
     )
 
     product26 = Product(
-        
+
         vendor_id=4,
         name="Watercolor Paint Set",
         description="Vibrant set of watercolor paints for artists of all levels.",
@@ -290,7 +290,7 @@ def seed_products():
     )
 
     product27 = Product(
-        
+
         vendor_id=4,
         name="Knitting Kit",
         description="Everything you need to start knitting beautiful scarves and hats.",
@@ -301,7 +301,7 @@ def seed_products():
     )
 
     product28 = Product(
-        
+
         vendor_id=4,
         name="Embroidery Hoop Set",
         description="Assortment of embroidery hoops in various sizes for your stitching projects.",
@@ -312,7 +312,7 @@ def seed_products():
     )
 
     product29 = Product(
-        
+
         vendor_id=4,
         name="DIY Candle Making Kit",
         description="Create your own scented candles with this easy-to-use kit.",
@@ -323,7 +323,7 @@ def seed_products():
     )
 
     product30 = Product(
-        
+
         vendor_id=4,
         name="Wood Burning Kit",
         description="Explore pyrography with this wood burning toolset for creating intricate designs.",
@@ -334,7 +334,7 @@ def seed_products():
     )
 
     product31 = Product(
-        
+
         vendor_id=4,
         name="Pottery Wheel",
         description="High-quality pottery wheel for throwing and sculpting clay.",
@@ -345,7 +345,7 @@ def seed_products():
     )
 
     product32 = Product(
-        
+
         vendor_id=4,
         name="Artists' Canvas Set",
         description="Assortment of canvases for acrylic and oil painting projects.",
@@ -356,7 +356,7 @@ def seed_products():
     )
 
     product33 = Product(
-        
+
         vendor_id=5,
         name="Plush Throw Blanket",
         description="Soft and cozy throw blanket for chilly nights.",
@@ -367,7 +367,7 @@ def seed_products():
     )
 
     product34 = Product(
-        
+
         vendor_id=5,
         name="Indoor Plant Set",
         description="Assortment of indoor plants to add greenery to your living space.",
@@ -378,7 +378,7 @@ def seed_products():
     )
 
     product35 = Product(
-        
+
         vendor_id=5,
         name="Cozy Knit Throw Pillow",
         description="Knit throw pillow for adding warmth and texture to your decor.",
@@ -389,7 +389,7 @@ def seed_products():
     )
 
     product36 = Product(
-        
+
         vendor_id=5,
         name="Crystal Wine Glasses",
         description="Elegant crystal wine glasses for special occasions.",
@@ -400,7 +400,7 @@ def seed_products():
     )
 
     product37 = Product(
-        
+
         vendor_id=5,
         name="Marble Cheese Board",
         description="Stylish marble cheese board for serving appetizers with sophistication.",
@@ -411,7 +411,7 @@ def seed_products():
     )
 
     product38 = Product(
-        
+
         vendor_id=5,
         name="Stainless Steel Cookware Set",
         description="Durable stainless steel cookware set for versatile cooking.",
@@ -422,7 +422,7 @@ def seed_products():
     )
 
     product39 = Product(
-        
+
         vendor_id=5,
         name="Electric Kettle",
         description="Quick and efficient electric kettle for boiling water.",
@@ -433,7 +433,7 @@ def seed_products():
     )
 
     product40 = Product(
-        
+
         vendor_id=5,
         name="Nonstick Bake-ware Set",
         description="Complete nonstick bakeware set for effortless baking.",

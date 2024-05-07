@@ -12,6 +12,45 @@
     margin: 15px 10px;
 }
 
+.create-product-input {
+    width: 500px;
+    margin-left: 25px;
+}
+
+.name-input {
+    padding: 2px;
+}
+
+.description-input {
+    padding: 3px;
+    height: 100px;
+}
+
+.category-input {
+    width: 508px;
+    padding: 4px;
+}
+
+.price-input-dollar-sign {
+    margin-left: 17px;
+    padding: 2px;
+}
+
+.price-input {
+    margin-left: 0px;
+    padding: 2px;
+}
+
 .product-form-errors {
     color: red;
+}
+
+@media screen and (max-width: 650px) {
+    .create-product-input {
+        width: 80%
+    }
+
+    .category-input {
+        width: 82%
+    }
 }

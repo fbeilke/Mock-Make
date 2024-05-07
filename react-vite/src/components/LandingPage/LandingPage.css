@@ -142,6 +142,18 @@
       padding: 10px;
       width: 100%;
     }
+
+    .landing-random-products-links {
+      margin-top: 100px;
+    }
+
+    .landing-random-products-title {
+      margin-bottom: 0;
+    }
+
+    .landing-if-logged-in > button, .landing-all-products-button-container > button {
+      width: 75%;
+    }
 }
 
 

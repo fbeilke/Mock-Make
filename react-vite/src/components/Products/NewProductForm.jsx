@@ -72,6 +72,7 @@ export default function NewProductForm() {
                         type="text"
                         value={name}
                         onChange={e => setName(e.target.value)}
+                        className='create-product-input name-input'
                     />
                     {validators.name && <p className="product-form-errors">{validators.name}</p>}
                 </div>
@@ -81,12 +82,13 @@ export default function NewProductForm() {
                         placeholder="Description"
                         value={description}
                         onChange={e => setDescription(e.target.value)}
+                        className='create-product-input description-input'
                     />
                     {validators.description && <p className="product-form-errors">{validators.description}</p>}
                 </div>
                 <div>
                     <p>Choose the best category that your product fits into.</p>
-                    <select name='category' onChange={e => setCategory(e.target.value)} value={category}>
+                    <select name='category' onChange={e => setCategory(e.target.value)} value={category} className='create-product-input category-input'>
                         <option value='' disabled={true}>(select one)</option>
                         <option value="Home Goods">Home Goods</option>
                         <option value="Toys & Games">Toys & Games</option>
@@ -98,12 +100,13 @@ export default function NewProductForm() {
                 </div>
                 <div>
                     <p>Set a price for your item.</p>
-                    <span>$</span>
+                    <span className='price-input-dollar-sign'>$</span>
                     <input
                         placeholder ="0.00"
                         type='text'
                         value={price}
                         onChange={e => setPrice(e.target.value)}
+                        className='create-product-input price-input'
                     />
                     {validators.price && <p className="product-form-errors">{validators.price}</p>}
                 </div>
