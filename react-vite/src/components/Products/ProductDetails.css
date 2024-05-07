@@ -38,7 +38,7 @@ body {
     display: flex;
     height: 600px;
 }
-product-reviews {
+.product-reviews {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -201,6 +201,7 @@ product-reviews {
     .product-detail-left-side {
         display: flex;
         flex-direction: column;
+        padding: 10px 10px 0 10px;
     }
     .thumbnail-image {
         width: 80px;
@@ -215,6 +216,13 @@ product-reviews {
         display: flex;
         flex-direction: column;
     }
+    .product-detail-images {
+        height: 500px;
+
+    }
+    .detail-display-image {
+        height: 500px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -223,7 +231,9 @@ product-reviews {
         gap: 0;
     }
     .product-detail-left-side {
-        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        padding: 10px 10px 0 10px;
     }
     .thumbnail-image {
         width: 65px;
@@ -231,6 +241,16 @@ product-reviews {
     }
     .product-reviews {
         margin-top: 0;
+    }
+    .detail-all-images {
+        height: 800px;
+        overflow-x: scroll;
+        display: flex;
+        flex-direction: column;
+    }
+    .product-detail-images {
+        height: 400px;
+
     }
     .new-rev-btn,
     .review button {
@@ -245,17 +265,21 @@ product-reviews {
         border-radius: 20px;
     }
     .detail-all-images {
-        height: 400px;
+        height: 300px;
         overflow-x: scroll;
         display: flex;
         flex-direction: column;
     }
+    .detail-display-image {
+        height: 300px;
+    }
+
 }
 
 @media (max-width: 400px) {
     .thumbnail-image {
-        width: 50px;
-        height: 50px;
+        width: 65px;
+        height: 65px;
     }
     .detail-display-image {
         max-height: 300px;
@@ -272,12 +296,20 @@ product-reviews {
         border-radius: 18px;
     }
     .detail-all-images {
-        height: 300px;
+        height: 200px;
         overflow-x: scroll;
         display: flex;
         flex-direction: column;
     }
     .product-reviews {
         margin-top: 0;
+    }
+    .detail-display-image {
+        height: auto;
+    }
+    .product-detail-left-side {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 10px 0 10px;
     }
 }
