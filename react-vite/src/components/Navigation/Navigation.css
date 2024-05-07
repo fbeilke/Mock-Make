@@ -398,14 +398,26 @@
 
 
 @media (max-width: 480px) {
+  .navbar-container {
+    height: 80px;
+  }
+
+  .mock-make-title {
+    font-size: 20px;
+  }
 
   .search-input {
     width: calc(100% - 30px);
+    margin: 0;
 
   }
 
   .search-button {
     padding: 6px;
 
+  }
+
+  .logo-item {
+    display: none;
   }
 }
